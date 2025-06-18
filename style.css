@@ -609,9 +609,8 @@ section {
 
 .cta-final-conteudo h2 {
     font-size: clamp(1.5rem, 4vw, 1.8rem);
-    font-weight: 700;
+    font-weight: 500;
     color: #15385d;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     margin: 15px auto 40px auto;
     max-width: 800px; /* Limita a largura do H2 */
 }
