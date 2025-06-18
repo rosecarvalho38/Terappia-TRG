@@ -483,7 +483,7 @@ section {
     /* ESTILOS DO TEXTO CONFORME SOLICITADO */
     color: #f0e8dd;
     font-family: 'Comfortaa', sans-serif;
-    font-size: clamp(0.8rem, 2.5vw, 1.2rem); /* Um pouco maior para destaque */
+    font-size: clamp(1rem, 2.5vw, 1.4rem); /* Um pouco maior para destaque */
     font-weight: 300;
     text-align: center;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Melhora a legibilidade */
