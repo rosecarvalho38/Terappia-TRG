@@ -174,12 +174,12 @@ section {
 
 .divisor-seta {
     display: block;
-    width: 30px;
+    width: 80px;
     margin: 0 auto;
-    /* Puxa a seta para cima, sobrepondo a divisa dos blocos */
     margin-top: -40px; 
-    position: relative; /* Garante que fique acima dos outros elementos */
+    position: relative;
     z-index: 5;
+    animation: bounce-arrow 2s ease-in-out infinite;
 }
 
 .citacao-container {
