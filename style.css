@@ -18,14 +18,14 @@ body {
 /* --- DEFINIÇÃO DAS FONTES --- */
 @font-face {
     font-family: 'Bachelors Display';
-    src: url('../fonts/BachelorsDisplay-Regular.otf') format('opentype'); /* Adapte o caminho e formato */
+    src: url('fonts/BachelorsDisplay-Regular.otf') format('opentype'); /* Adapte o caminho e formato */
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Comfortaa';
-    src: url('../fonts/Comfortaa-VariableFont_wght.ttf') format('truetype'); /* Adapte o caminho e formato */
+    src: url('fonts/Comfortaa-VariableFont_wght.ttf') format('truetype'); /* Adapte o caminho e formato */
 }
 
 /* --- VARIÁVEIS DE FONTE E ESTILOS DE TEXTO --- */
@@ -87,7 +87,7 @@ section {
     justify-content: center;
     align-items: flex-end; /* Alinha o conteúdo na parte de baixo */
     padding: 80px 20px;
-    background-image: url('../img/Primeira sessao back.png');
+    background-image: url('img/Primeira sessao back.png');
     background-size: cover;
     background-position: center;
     overflow: hidden; /* Esconde a parte da barra que está fora da tela */
@@ -166,7 +166,7 @@ section {
 /* Nova regra para o bloco com fundo BG2 */
 .parte-superior-s2 {
     width: 100%;
-    background-image: url('../img/BG2.png');
+    background-image: url('img/BG2.png');
     background-size: cover;
     background-position: center;
     padding: 80px 0; /* Espaçamento interno para o conteúdo */
@@ -174,12 +174,12 @@ section {
 
 .divisor-seta {
     display: block;
-    width: 30px;
+    width: 80px;
     margin: 0 auto;
-    /* Puxa a seta para cima, sobrepondo a divisa dos blocos */
     margin-top: -40px; 
-    position: relative; /* Garante que fique acima dos outros elementos */
+    position: relative;
     z-index: 5;
+    animation: bounce-arrow 2s ease-in-out infinite;
 }
 
 .citacao-container {
@@ -187,7 +187,7 @@ section {
     max-width: 700px;
     margin-top:250px;
     padding: 50px;
-    background-image: url('../img/caixa citação.png');
+    background-image: url('img/caixa citação.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -208,7 +208,7 @@ section {
 
     /* Estilo do Fundo e Conteúdo */
     padding: 50px 5%; /* Padding vertical generoso e um padding lateral em % para o texto não colar nas bordas */
-    background-image: url('../img/caixa citação.png');
+    background-image: url('img/caixa citação.png');
     background-size: cover; /* Faz a imagem cobrir todo o container, ideal para full-width */
     background-position: center;
     display: flex;
@@ -297,20 +297,7 @@ section {
     align-items: flex-end; /* <<< ESSA LINHA ALINHA AS IMAGENS À DIREITA */
 }
 
-.pilares-numeros img {
-    max-width: 350px;
-    opacity: 0; /* Estado inicial para a animação */
-    animation: slideFadeInLeft 0.8s ease-out forwards;
-}
 
-/* Atraso para cada imagem aparecer em sequência */
-.pilares-numeros img:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.pilares-numeros img:nth-child(3) {
-    animation-delay: 0.4s;
-}
 
 
 /* --- Barras de Rolagem Infinita --- */
@@ -341,28 +328,48 @@ section {
     padding: 0 5%; /* Adiciona padding lateral para não colar nas bordas */
 }
 
+/* Animação de Entrada (Pilares 1, 2, 3) */
+.pilares-numeros img {
+    max-width: 350px;
+    opacity: 0; /* Estado inicial: invisível */
+    transform: translateX(-40px); /* Estado inicial: movido para a esquerda */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transição suave */
+}
+
+/* Quando o elemento se torna visível, a animação acontece */
+.pilares-numeros img.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Atraso para cada imagem aparecer em sequência */
+.pilares-numeros img:nth-child(2) { transition-delay: 0.2s; }
+.pilares-numeros img:nth-child(3) { transition-delay: 0.4s; }
+
+
+/* Animação de Entrada dos Ícones */
 .pilares-icones img {
     max-width: 220px;
     height: auto;
-    opacity: 0; /* Estado inicial */
-    animation: scaleFadeIn 0.7s ease-out forwards;
-    transition: transform 0.3s ease; /* Efeito suave no hover */
+    opacity: 0; /* Estado inicial: invisível */
+    transform: scale(0.8); /* Estado inicial: um pouco menor */
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out; /* Transição suave */
 }
 
 .pilares-icones img:hover {
-    transform: scale(1.08); /* Aumenta um pouco no hover */
+    transform: scale(1.08);
+}
+
+/* Quando o elemento se torna visível, a animação acontece */
+.pilares-icones img.is-visible {
+    opacity: 1;
+    transform: scale(1);
 }
 
 /* Atraso para cada ícone aparecer em sequência */
-.pilares-icones img:nth-child(2) {
-    animation-delay: 0.2s;
-}
-.pilares-icones img:nth-child(3) {
-    animation-delay: 0.4s;
-}
-.pilares-icones img:nth-child(4) {
-    animation-delay: 0.6s;
-}
+.pilares-icones img:nth-child(2) { transition-delay: 0.2s; }
+.pilares-icones img:nth-child(3) { transition-delay: 0.4s; }
+.pilares-icones img:nth-child(4) { transition-delay: 0.6s; }
 
 
 /* --- KEYFRAMES (Definições das Animações) --- */
@@ -476,7 +483,7 @@ section {
     /* ESTILOS DO TEXTO CONFORME SOLICITADO */
     color: #f0e8dd;
     font-family: 'Comfortaa', sans-serif;
-    font-size: clamp(0.8rem, 2.5vw, 1.2rem); /* Um pouco maior para destaque */
+    font-size: clamp(1rem, 2.5vw, 1.4rem); /* Um pouco maior para destaque */
     font-weight: 300;
     text-align: center;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Melhora a legibilidade */
@@ -547,20 +554,20 @@ section {
 
 /* Animação de entrada para os cards */
 .depoimentos-cards img {
-    max-width: 45%;
-    min-width: 300px;
-    height: auto;
+    /* ...outras regras... */
+    opacity: 0; /* Estado inicial: invisível */
+    transform: translateY(30px); /* Estado inicial: movido para baixo */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transição suave */
+}
 
-    
-    /* Animação */
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeSlideUp 0.8s ease-out forwards;
+.depoimentos-cards img.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Atraso para o segundo card aparecer depois do primeiro */
 .depoimentos-cards img:nth-child(2) {
-    animation-delay: 0.2s;
+    transition-delay: 0.2s;
 }
 
 /* --- KEYFRAME (Definição da Animação) --- */
@@ -584,7 +591,7 @@ section {
     overflow: hidden; /* Esconde a parte da barra que está fora da tela */
     
     /* Adiciona o fundo solicitado */
-    background-image: url('../img/BG6.png');
+    background-image: url('img/BG6.png');
     background-size: cover;
     background-position: center;
 }
@@ -602,9 +609,8 @@ section {
 
 .cta-final-conteudo h2 {
     font-size: clamp(1.5rem, 4vw, 1.8rem);
-    font-weight: 700;
+    font-weight: 500;
     color: #15385d;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     margin: 15px auto 40px auto;
     max-width: 800px; /* Limita a largura do H2 */
 }
