@@ -25,7 +25,7 @@ body {
 
 @font-face {
     font-family: 'Comfortaa';
-    src: url('../fonts/Comfortaa-VariableFont_wght.ttf') format('truetype'); /* Adapte o caminho e formato */
+    src: url('fonts/Comfortaa-VariableFont_wght.ttf') format('truetype'); /* Adapte o caminho e formato */
 }
 
 /* --- VARIÁVEIS DE FONTE E ESTILOS DE TEXTO --- */
@@ -584,7 +584,7 @@ section {
     overflow: hidden; /* Esconde a parte da barra que está fora da tela */
     
     /* Adiciona o fundo solicitado */
-    background-image: url('../img/BG6.png');
+    background-image: url('img/BG6.png');
     background-size: cover;
     background-position: center;
 }
