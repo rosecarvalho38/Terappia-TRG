@@ -174,9 +174,9 @@ section {
 
 .divisor-seta {
     display: block;
-    width: 80px;
+    width: 30px;
     margin: 0 auto;
-    margin-top: -40px; 
+    margin-top: -60px; 
     position: relative;
     z-index: 5;
     animation: bounce-arrow 2s ease-in-out infinite;
