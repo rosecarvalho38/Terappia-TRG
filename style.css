@@ -1,766 +1,196 @@
-/* --- RESET BÁSICO E CONFIGURAÇÕES GLOBAIS --- */
-* {
-    margin: 0px;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background-color: #15385b; /* Fundo de fallback caso a imagem não carregue */
-    overflow-x: hidden; /* Previne scroll horizontal */
-    font-family: 'Comfortaa', sans-serif; /* Fonte padrão */
-}
-
-/* --- DEFINIÇÃO DAS FONTES --- */
-@font-face {
-    font-family: 'Bachelors Display';
-    src: url('fonts/BachelorsDisplay-Regular.otf') format('opentype'); /* Adapte o caminho e formato */
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Comfortaa';
-    src: url('fonts/Comfortaa-VariableFont_wght.ttf') format('truetype'); /* Adapte o caminho e formato */
-}
-
-/* --- VARIÁVEIS DE FONTE E ESTILOS DE TEXTO --- */
+/* --- CONFIGURAÇÕES GLOBAIS E FONTES --- */
 :root {
-    --font-headline: 'Bachelors Display', serif;
-    --font-body: 'Comfortaa', sans-serif;
+    --bg-color: #15385b;
+    --text-color: #f0e8dd;
+    --accent-color-1: #3570a1;
+    --accent-color-2: #94b7af;
+    --font-primary: 'Roboto', sans-serif;
+    --font-headline: 'Playfair Display', serif;
 }
 
-h1 {
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body.rose-body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-primary);
+    line-height: 1.7;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.container { width: 90%; max-width: 900px; margin: 0 auto; }
+.secao { padding: 80px 0; }
+.section-title {
     font-family: var(--font-headline);
-    font-size: clamp(1.6rem, 5vw, 2.5rem); /* Tamanho de fonte responsivo */
-    font-weight: normal;
-    color: #f0e8dd;
+    font-size: clamp(2rem, 5vw, 3rem);
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.3;
 }
+.highlight { color: var(--accent-color-2); font-weight: bold; }
+.hidden { display: none; }
 
-h2 {
-    font-family: var(--font-body);
-    font-size: clamp(0.8rem, 2.5vw, 1rem);
-    font-weight: 700; /* Comfortaa pode ter pesos */
-    color: #f0e8dd;
-    margin-top: 10px;
-}
+/* --- ESTILOS DAS SEÇÕES --- */
 
-p.subhead {
-    font-family: var(--font-body);
-    font-size: clamp(0,5rem, 2vw, 0.7rem);
-    color: #f0e8dd;
-    margin-top: 15px;
-    max-width: 600px;
-}
-
-p {
-    font-family: var(--font-body);
-    line-height: 1.6;
-}
-
-/* --- ESTRUTURA E CONTAINERS --- */
-.container {
-    width: 60%;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-}
-
-section {
-    position: relative;
-    padding: 80px 0;
-    overflow: hidden;
-}
-
-/* --- ESTILOS DAS SESSÕES --- */
-
-/* SESSÃO 1: HERO (Layout com Barra Infinita) */
-.sessao-1 {
-    position: relative;
+/* SEÇÃO INTRO */
+.secao-intro {
     min-height: 100vh;
-    display: flex; /* Usamos flex para facilitar o alinhamento */
-    justify-content: center;
-    align-items: flex-end; /* Alinha o conteúdo na parte de baixo */
-    padding: 80px 20px;
-    background-image: url('img/Primeira sessao back.png');
-    background-size: cover;
-    background-position: center;
-    overflow: hidden; /* Esconde a parte da barra que está fora da tela */
-}
-
-.hero-text {
-    /* Não precisa mais de position: absolute */
-    text-align: center;
-    color: #f0e8dd;
-    z-index: 2; /* Garante que o texto fique na frente da barra */
-    margin-bottom: -40px; /* Espaço entre o texto e a parte de baixo/barra */
-    width: 100%;
-    max-width: 800px; /* Limita a largura do texto em telas grandes */
-}
-
-.hero-text h1, .hero-text h2, .hero-text .subhead {
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); 
-}
-
-.cta-image {
-    margin-top: 25px;
-    max-width: 250px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
-    animation: pulse 2s infinite; /* APLICA A ANIMAÇÃO DE PULSE */
-}
-
-.cta-image-final:hover {
-    transform: scale(1.05);
-    animation-play-state: paused; /* Pausa a animação no hover */
-}
-
-/* --- ESTILOS DA ANIMAÇÃO DA BARRA --- */
-
-/* 1. O Container da Barra */
-.barra-infinita-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 20%;
-    display: flex; /* Coloca as duas imagens lado a lado */
-    z-index: 1;
-}
-
-/* 2. As Imagens dentro do Container */
-.barra-infinita-img {
-    min-width: 100%;
-    height: 30px; /* Define uma altura fixa para a barra */
-    object-fit: cover; /* Garante que a imagem preencha o espaço sem distorcer */
-    flex-shrink: 0;
-    animation: scroll-horizontal 30s linear infinite;
-}
-
-/* 3. A Animação (Keyframes) */
-@keyframes scroll-horizontal {
-    from {
-        transform: translateX(0%);
-    }
-    to {
-        /* Move a imagem 100% da sua própria largura para a esquerda */
-        transform: translateX(-100%);
-    }
-}
-
-/* SESSÃO 2: CITAÇÃO E MÉTODO */
-.sessao-2 {
-    position: relative;
-    margin-top: -60px; /* Mantém a sobreposição com a Seção 1 */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    /* O fundo e o padding foram removidos daqui */
-}
-
-/* Nova regra para o bloco com fundo BG2 */
-.parte-superior-s2 {
-    width: 100%;
-    background-image: url('img/BG2.png');
-    background-size: cover;
-    background-position: center;
-    padding: 80px 0; /* Espaçamento interno para o conteúdo */
-}
-
-.divisor-seta {
-    display: block;
-    width: 30px;
-    margin: 0 auto;
-    margin-top: -60px; 
-    position: relative;
-    z-index: 5;
-    animation: bounce-arrow 2s ease-in-out infinite;
-}
-
-.citacao-container {
-    width: 100%;
-    max-width: 700px;
-    margin-top:250px;
-    padding: 50px;
-    background-image: url('img/caixa citação.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-height: 400px;
-    position: relative;
-    z-index: 10;
 }
+.main-headline { font-family: var(--font-headline); font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 20px; }
+.main-subheadline { font-size: 1.2rem; max-width: 700px; opacity: 0.9; }
 
-.citacao-container {
-    /* Ajustes para Largura Total */
-    width: 100%;       /* Ocupa 100% da largura da tela */
-    max-width: none;    /* Remove o limite máximo de largura */
-    margin: 0;          /* Remove as margens laterais */
-
-    /* Estilo do Fundo e Conteúdo */
-    padding: 50px 5%; /* Padding vertical generoso e um padding lateral em % para o texto não colar nas bordas */
-    background-image: url('img/caixa citação.png');
-    background-size: cover; /* Faz a imagem cobrir todo o container, ideal para full-width */
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 200px;
-    position: relative;
-    z-index: 2;
+.sintomas-box {
+    margin-top: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid var(--accent-color-1);
+    max-width: 800px;
 }
-.citacao-container p {
-    font-size: 0.8rem;
-    font-weight: 300;
-    color: #f0e8dd; /* COR DEFINIDA AQUI */
-    max-width: 80%;
-}
-
-.metodo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-}
-
-.metodo-texto {
-    flex-basis: 45%;
-    text-align: right;
-}
-
-.metodo-texto .subhead {
-    margin-left: auto;
-}
-
-.divisor-linha-desktop {
-    flex-shrink: 0;
-}
-
-.metodo-imagem {
-    flex-basis: 45%;
-}
-
-.metodo-imagem img {
-    max-width: 100%;
-}
-
-/* SESSÃO 3: PILARES (Layout Full-Width e Animado) */
-.sessao-3 {
-    padding: 80px 0; /* Adiciona espaçamento vertical, mas não horizontal */
-    overflow: hidden; /* Essencial para conter as barras infinitas */
-    background-color: #15385d; /* Fundo branco para esta seção */
-    color: #f0e8dd; /* Cor de texto escura para contraste */
-    margin-top:-60px;
-}
-
-
-.pilares-intro {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 30px;
-    flex-direction: row-reverse; /* <<< ESSA LINHA INVERTE OS LADOS */
-}
-
-.pilares-texto {
-    flex-basis: 50%;
-    text-align: right;     /* Alinha o texto à direita */
-    padding-right: 5%;     /* Move o espaçamento para a direita */
-    padding-left: 0;       /* Remove o espaçamento antigo da esquerda */
-}
-
-.pilares-imagem-rose {
-    flex-basis: 50%;
-    text-align: left; /* Alinha a imagem à esquerda */
-}
-
-.pilares-imagem-rose img {
-    max-width: 100%;
-}
-
-/* --- Animação de Entrada (Pilares 1, 2, 3) --- */
-.pilares-numeros {
-    display: flex;
-    flex-direction: column;
+.sintomas-box h4 { margin: 20px 0; font-family: var(--font-headline); font-size: 1.3rem; }
+.sintomas-checklist {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 15px;
-    margin-top: 30px;
-    align-items: flex-end; /* <<< ESSA LINHA ALINHA AS IMAGENS À DIREITA */
+    text-align: left;
 }
-
-
-
-
-/* --- Barras de Rolagem Infinita --- */
-.barra-infinita-container-s3 {
-    width: 100%;
+.sintoma-item {
     display: flex;
-    overflow: hidden;
-    margin: 80px 0; /* Espaçamento vertical para as barras */
-}
-
-.barra-infinita-img-s3 {
-    min-width: 100%;
-    height: 5px; /* Altura controlada para a barra */
-    object-fit: cover;
-    flex-shrink: 0;
-    /* Reutiliza a mesma animação da Seção 1 */
-    animation: scroll-horizontal 40s linear infinite;
-}
-
-
-/* --- Animação de Entrada dos Ícones --- */
-.pilares-icones {
-    display: flex;
-    justify-content: center; /* Centraliza os ícones */
     align-items: center;
-    flex-wrap: wrap;
-    gap: 30px;
-    padding: 0 5%; /* Adiciona padding lateral para não colar nas bordas */
-}
-
-/* Animação de Entrada (Pilares 1, 2, 3) */
-.pilares-numeros img {
-    max-width: 350px;
-    opacity: 0; /* Estado inicial: invisível */
-    transform: translateX(-40px); /* Estado inicial: movido para a esquerda */
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transição suave */
-}
-
-/* Quando o elemento se torna visível, a animação acontece */
-.pilares-numeros img.is-visible {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-/* Atraso para cada imagem aparecer em sequência */
-.pilares-numeros img:nth-child(2) { transition-delay: 0.2s; }
-.pilares-numeros img:nth-child(3) { transition-delay: 0.4s; }
-
-
-/* Animação de Entrada dos Ícones */
-.pilares-icones img {
-    max-width: 220px;
-    height: auto;
-    opacity: 0; /* Estado inicial: invisível */
-    transform: scale(0.8); /* Estado inicial: um pouco menor */
-    transition: opacity 0.7s ease-out, transform 0.7s ease-out; /* Transição suave */
-}
-
-.pilares-icones img:hover {
-    transform: scale(1.08);
-}
-
-/* Quando o elemento se torna visível, a animação acontece */
-.pilares-icones img.is-visible {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Atraso para cada ícone aparecer em sequência */
-.pilares-icones img:nth-child(2) { transition-delay: 0.2s; }
-.pilares-icones img:nth-child(3) { transition-delay: 0.4s; }
-.pilares-icones img:nth-child(4) { transition-delay: 0.6s; }
-
-
-/* --- KEYFRAMES (Definições das Animações) --- */
-/* Adicione isso ao final do seu arquivo CSS, se ainda não tiver */
-
-@keyframes slideFadeInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-40px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes scaleFadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* A animação scroll-horizontal da Seção 1 é reutilizada aqui.
-   Se ela não estiver no seu CSS, adicione-a: */
-@keyframes scroll-horizontal {
-    from {
-        transform: translateX(0%);
-    }
-    to {
-        transform: translateX(-100%);
-    }
-}
-
-/* SESSÃO 4: SOBRE MIM (Layout Simétrico e Animado) */
-.sessao-4 {
-    /* Define um espaçamento interno e a margem superior solicitada */
-    padding: 80px 0;
-    margin-top: -120px;
-    overflow: hidden; /* Importante para conter animações */
-}
-
-/* Este é o novo container que limita a largura do conteúdo principal */
-.sobre-mim-conteudo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Alinha verticalmente texto e imagem */
-    gap: 40px;
-    max-width: 1200px;   /* Limita a largura máxima */
-    margin: 0 auto;      /* Centraliza na tela */
-    padding: 0 5%;       /* Adiciona um respiro nas laterais */
-}
-
-.sobre-mim-texto {
-    flex-basis: 50%; /* Ocupa metade do espaço */
-    text-align: left;
-}
-
-/* Corrigindo a cor do texto para fundo claro */
-.sessao-4 h1, .sessao-4 h2, .sessao-4 .subhead {
-    color: #f0e8dd;
-    text-shadow: none; /* Remove a sombra desnecessária em fundo claro */
-}
-
-.sobre-mim-imagem {
-    flex-basis: 50%; /* Ocupa a outra metade para criar simetria */
-    text-align: right;
-}
-
-.sobre-mim-imagem img {
-    max-width: 110%; /* AUMENTADO: Faz a imagem um pouco maior que seu container */
-    
-    /* ANIMAÇÃO: Fade in suave com um pequeno atraso */
-    opacity: 0; 
-    transform: translateY(20px);
-    animation: fadeIn 1s ease-out forwards 0.3s;
-}
-
-/* Keyframe para a animação da imagem */
-@keyframes fadeIn {
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
-    }
-}
-
-/* Container da citação agora em largura total */
-.citacao-sobre-container {
-    width: 100%; /* Ocupa toda a largura da tela */
-    position: relative;
-    margin-top: 80px; /* Adiciona um bom espaço após o conteúdo acima */
-}
-
-.citacao-sobre-container img {
-    width: 100%;
-    height: 200px;
-    display: block; /* Remove espaços extras */
-}
-
-.citacao-sobre-container p {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    
-    /* ESTILOS DO TEXTO CONFORME SOLICITADO */
-    color: #f0e8dd;
-    font-family: 'Comfortaa', sans-serif;
-    font-size: clamp(1rem, 2.5vw, 1.4rem); /* Um pouco maior para destaque */
-    font-weight: 300;
-    text-align: center;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Melhora a legibilidade */
-}
-
-/* --- Ajustes para Mobile --- */
-@media (max-width: 768px) {
-    .sobre-mim-conteudo {
-        flex-direction: column; /* Empilha os itens */
-    }
-    .sobre-mim-texto {
-        text-align: center; /* Centraliza o texto no mobile */
-        margin-bottom: 40px;
-    }
-    .sobre-mim-imagem img {
-        max-width: 100%; /* Garante que a imagem não vaze no mobile */
-    }
-}
-
-/* SESSÃO 5: DEPOIMENTOS (Layout Full-Width e Animado) */
-.sessao-5 {
-    position: relative;
-    padding: 120px 0 80px 0;
-    margin-top: -60px; /* Reduz a distância da seção anterior */
-    z-index: 5; /* Garante que fique por cima da seção anterior */
-}
-
-/* Container do título, agora com controle de largura interno */
-.depoimentos-titulo {
-    display: flex;
-    flex-direction: column; /* ADICIONE: Empilha os itens verticalmente */
-    align-items: flex-start; /* ALTERE: Alinha os itens à esquerda */
-    gap: 20px;               /* Reduz um pouco o espaço para o layout vertical */
-    margin-bottom: 60px;
-    MARGIN-TOP:-60PX;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 5%; 
-}
-
-/* Ícone de depoimentos maior */
-.depoimentos-titulo img {
-    max-width: 150px; /* Aumenta o tamanho do ícone */
-    flex-shrink: 0;
-}
-
-/* Alinhamento do H1 e subhead */
-.sessao-5 h1 {
-    text-align: left;
-}
-.sessao-5 .subhead {
-    text-align: left;
-}
-
-/* Container dos cards */
-.depoimentos-cards {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    
-    /* Limita a largura e centraliza */
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 5%;
-}
-
-/* Animação de entrada para os cards */
-.depoimentos-cards img {
-    /* ...outras regras... */
-    opacity: 0; /* Estado inicial: invisível */
-    transform: translateY(30px); /* Estado inicial: movido para baixo */
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Transição suave */
-}
-
-.depoimentos-cards img.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Atraso para o segundo card aparecer depois do primeiro */
-.depoimentos-cards img:nth-child(2) {
-    transition-delay: 0.2s;
-}
-
-/* --- KEYFRAME (Definição da Animação) --- */
-/* Adicione isso ao final do seu CSS, se ainda não tiver uma animação com este nome */
-@keyframes fadeSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* SESSÃO 6: CTA FINAL (Full-Width e Animado) */
-.sessao-6 {
-    position: relative; /* Essencial para posicionar a barra */
-    text-align: center;
-    padding: 180px 5% 120px 5%; /* Aumenta o padding superior para dar espaço para a barra */
-    overflow: hidden; /* Esconde a parte da barra que está fora da tela */
-    
-    /* Adiciona o fundo solicitado */
-    background-image: url('img/BG6.png');
-    background-size: cover;
-    background-position: center;
-}
-
-/* O conteúdo principal */
-.cta-final-conteudo {
-    position: relative;
-    z-index: 2; /* Garante que o conteúdo fique na frente da barra */
-}
-
-.cta-final-conteudo p {
-    font-size: 1.4rem;
-    color: #f0e8dd;
-}
-
-.cta-final-conteudo h2 {
-    font-size: clamp(1.5rem, 4vw, 1.8rem);
-    font-weight: 500;
-    color: #15385d;
-    margin: 15px auto 40px auto;
-    max-width: 800px; /* Limita a largura do H2 */
-}
-
-/* Animação de Pulse no botão final de CTA */
-.cta-image-final {
-    max-width: 250px;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: transform 0.3s ease;
-    animation: pulse 2s infinite; /* APLICA A ANIMAÇÃO DE PULSE */
+    transition: background-color 0.2s;
 }
+.sintoma-item:hover { background-color: rgba(255, 255, 255, 0.1); }
+.sintoma-item input[type="checkbox"] { accent-color: var(--accent-color-2); width: 18px; height: 18px; }
 
-.cta-image-final:hover {
-    transform: scale(1.05);
-    animation-play-state: paused; /* Pausa a animação no hover */
+.cta-button {
+    margin-top: 30px;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--bg-color);
+    background-color: var(--accent-color-2);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
 }
+.cta-button:disabled { background-color: #555; color: #999; cursor: not-allowed; }
+.cta-button:not(:disabled):hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(148, 183, 175, 0.4); }
 
-/* --- Barra de Rolagem Infinita para a Seção 6 --- */
-.barra-infinita-container-s6 {
+/* SEÇÃO DESPROGRAMAÇÃO */
+.passos-trg {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+.passo-card {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid var(--accent-color-1);
+    border-radius: 8px;
+}
+.passo-card span {
+    display: inline-block;
+    width: 40px; height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    background: var(--accent-color-2);
+    color: var(--bg-color);
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+.passo-card h4 { font-family: var(--font-headline); font-size: 1.4rem; }
+
+/* SEÇÃO PLANOS */
+.planos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 50px;
+}
+.plano-card {
+    border: 3px solid var(--accent-color-1);
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+.plano-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent-color-2);
+}
+.plano-card.selected {
+    border-color: var(--accent-color-2);
+    background: var(--accent-color-1);
+    box-shadow: 0 0 20px rgba(148, 183, 175, 0.3);
+}
+.plano-tag {
     position: absolute;
-    top: 0; /* Posiciona a barra no topo da seção */
-    left: 0;
-    width: 100%;
-    display: flex;
-    z-index: 1;
-}
-
-.barra-infinita-img-s6 {
-    min-width: 100%;
-    height: 40px; /* Altura controlada */
-    object-fit: cover;
-    flex-shrink: 0;
-    animation: scroll-horizontal 30s linear infinite;
-}
-
-/* Lembre-se que os @keyframes pulse e scroll-horizontal já devem estar no seu CSS.
-   Se não estiverem, adicione-os ao final do arquivo: */
-
-@keyframes pulse {
-    0% {
-        transform: scale(0.98);
-        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
-    }
-    70% {
-        transform: scale(1.02);
-        filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8));
-    }
-    100% {
-        transform: scale(0.98);
-        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
-    }
-}
-
-/* RODAPÉ */
-.rodape {
-    padding: 40px 20px;
-    text-align: center;
-    background-color: #15385d;
-}
-.rodape-logo {
-    max-width: 180px;
-    margin: -50px;
-}
-.rodape p {
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent-color-2);
+    color: var(--bg-color);
+    padding: 5px 15px;
+    border-radius: 20px;
     font-size: 0.9rem;
-    color: #f0e8dd;
+    font-weight: bold;
 }
+.plano-card h3 { font-family: var(--font-headline); font-size: 1.8rem; }
+.plano-desc { font-weight: bold; margin: 10px 0; }
+.plano-sessoes { margin-top: 20px; display: block; font-style: italic; opacity: 0.8; }
 
-/* --- MEDIA QUERIES PARA RESPONSIVIDADE (MOBILE) --- */
-@media (max-width: 768px) {
-    section {
-        padding: 60px 0;
-    }
-
-    /* SESSÃO 1 */
-    /* DENTRO DE @media (max-width: 768px) */
-.hero-container {
-    flex-direction: column; /* Imagem fica ACIMA do texto */
+.offer-box-hidden {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.6s ease-in-out;
+}
+.offer-box-visible {
+    margin-top: 50px;
+    padding: 30px;
+    border: 1px solid var(--accent-color-2);
+    border-radius: 10px;
     text-align: center;
+    max-height: 500px; /* Altura suficiente para o conteúdo */
 }
-    .hero-text {
-        text-align: center;
-    }
-    .hero-text h1, .hero-text h2, .hero-text .subhead {
-        margin-right: auto;
-        margin-left: auto;
-    }
-    .divisor-barra-topo {
-        display: none; /* Esconder para não atrapalhar layout mobile */
-    }
-
-    /* SESSÃO 2 */
-    .metodo-container {
-        flex-direction: column;
-    }
-    .metodo-texto {
-        text-align: center;
-    }
-    .metodo-texto .subhead { margin-right: auto; }
-    .divisor-linha-desktop {
-        display: none; /* Esconder a linha no mobile, como pedido */
-    }
-    .citacao-container {
-        min-height: 150px;
-        padding: 20px;
-    }
-    .citacao-container p {
-        font-size: 1.2rem;
-    }
+.offer-box-visible h4 { font-family: var(--font-headline); font-size: 1.5rem; }
+#offer-details .plano-selecionado { font-size: 1.5rem; font-weight: bold; color: var(--accent-color-2); margin: 10px 0; }
+#offer-details .plano-investimento { font-size: 1.1rem; }
+#offer-details .plano-disponibilidade { margin: 20px 0; font-weight: bold; }
+#offer-details .progress-bar { width: 80%; max-width: 300px; height: 10px; background: #333; margin: 10px auto; border-radius: 5px; }
+#offer-details .progress-bar-inner { height: 100%; background: var(--accent-color-2); border-radius: 5px; }
 
 
-   /* Dentro de @media (max-width: 768px) { ... } */
-
-/* SESSÃO 3 */
-.pilares-intro {
-    /* Esta regra já deve existir, ela empilha os itens */
-    flex-direction: column-reverse; 
-    align-items: center;
-    text-align: center;
+/* SEÇÃO FAQ */
+/* ...as regras do acordeão da outra página podem ser reutilizadas aqui... */
+.accordion { max-width: 900px; margin: 50px auto 0 auto; }
+.accordion-item { border-bottom: 1px solid rgba(148, 183, 175, 0.3); }
+.accordion-header {
+    width: 100%; background: none; border: none; padding: 20px 0;
+    font-family: var(--font-primary); font-weight: bold; font-size: 1.2rem;
+    color: var(--text-color); text-align: left; cursor: pointer; position: relative;
 }
-
-/* ADICIONE ESTAS DUAS NOVAS REGRAS ABAIXO */
-.pilares-texto {
-    text-align: left; /* Alinha o texto à esquerda no mobile */
-    padding-left: 5%; /* Garante um espaçamento da borda */
-    padding-right: 5%;
+.accordion-header::after {
+    content: '+'; position: absolute; right: 10px;
+    font-size: 2rem; color: var(--accent-color-2); transition: transform 0.3s;
 }
-
-.pilares-numeros {
-    align-items: center; /* Alinha as imagens à esquerda no mobile */
+.accordion-header.active::after { transform: rotate(45deg); }
+.accordion-content {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.5s ease-out;
 }
-
-/* O resto das regras do media query continua... */
-
-    /* SESSÃO 4 */
-    .sobre-mim-conteudo {
-        flex-direction: column-reverse; /* Imagem acima do texto */
-        text-align: center;
-    }
-    .citacao-sobre-container img {
-        margin-bottom: 0;
-    }
-
-    /* SESSÃO 5 */
-    .depoimentos-titulo {
-        flex-direction: column;
-        text-align: center;
-    }
-    .depoimentos-cards img {
-        max-width: 90%;
-    }
-
-}
+.accordion-content p { padding-bottom: 20px; color: #ccc; }
