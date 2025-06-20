@@ -157,3 +157,24 @@ main#conteudo-principal.is-visible {
     .main-headline { font-size: 2.5rem; }
     #offer-details .cta-button { width: 100%; }
 }
+
+/* Dentro de @media (max-width: 768px) { ... } */
+
+    /* AJUSTE 1: Botão de CTA Responsivo */
+    .cta-button {
+        padding: 15px 25px; /* Reduz o espaçamento interno */
+        font-size: 1rem;    /* Diminui um pouco a fonte */
+        width: 100%;        /* Faz o botão ocupar a largura do container */
+        max-width: 400px;
+    }
+    
+    /* AJUSTE 2: Notificações no Topo para Mobile */
+    .comment-notification {
+        top: 15px;
+        bottom: auto; /* Remove o posicionamento inferior */
+        left: 15px;
+        right: 15px;
+        width: auto;
+        /* Altera a animação para deslizar de cima */
+        transform: translateY(-150%);
+    }
