@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const commentDiv = document.createElement('div');
             commentDiv.className = 'comment-item';
             commentDiv.innerHTML = `
-                <div class="comment-avatar"><img src="/static/img/${comment.avatar}" alt="avatar"></div>
+                <div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div>
                 <div class="comment-body">
                     <p><strong>${comment.name}</strong> ${comment.text}</p>
                     <div class="comment-actions">Curtir • Responder • ${generateRandomTimeAgo()}</div>
