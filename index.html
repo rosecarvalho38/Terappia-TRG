@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K3J9JHL8');</script>
+  <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rose Carvalho - Terapeuta TRG | Resgate Sua Leveza</title>
+    <title>Rose Carvalho - Terapeuta TRG | A Jornada de Resgate</title>
     <meta name="description" content="Terapia de Reprocessamento Generativo para ansiedade, dores crônicas e o peso emocional. Encontre a raiz da sua dor e liberte-se para uma vida com mais paz e clareza.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Comfortaa:wght@300;400;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="Favicon.png" type="image/x-icon">
@@ -16,115 +23,97 @@
 <body class="rose-body">
 
     <section class="secao secao-intro" id="inicio">
+        <div class="aurora-background"></div>
         <div class="container">
-            <h1 class="main-headline anim-on-scroll">Você chora no banho para ninguém ouvir?</h1>
-            <p class="main-subheadline anim-on-scroll">Existe uma exaustão que o sono não cura. Um peso que exame nenhum detecta. E um sorriso que se tornou a sua armadura mais pesada. Se a sua alma se reconhece nestas palavras, vamos descobrir juntas o porquê.</p>
+            <h1 id="main-headline" class="main-headline">Você chora no banho para ninguém ouvir?</h1>
+            <p class="main-subheadline">Existe uma exaustão que o sono não cura. Um peso que exame nenhum detecta. E um sorriso que se tornou a sua armadura mais pesada.</p>
             
-            <div class="sintomas-box anim-on-scroll">
-                <p><strong>Cara leitora,</strong><br>Seu corpo é um mapa que revela uma guerra silenciosa. Muitas vezes, os sintomas que você sente são o grito de socorro de uma emoção que não foi ouvida.</p>
-                <p>Por favor, reserve um momento para se conectar consigo mesma. Marque abaixo tudo aquilo que tem pesado sobre você.</p>
+            <div class="sintomas-box">
+                <p><strong>Cara leitora,</strong> seu corpo é um mapa. Marque abaixo tudo aquilo que tem pesado sobre você. Seja honesta. Ninguém está vendo além de você.</p>
                 <h4>Isso soa como você?</h4>
                 <div class="sintomas-checklist">
                     <label class="sintoma-item"><input type="checkbox" name="sintoma"> Um aperto constante no peito ou coração acelerado.</label>
                     <label class="sintoma-item"><input type="checkbox" name="sintoma"> Dores de cabeça tensionais ou enxaquecas.</label>
-                    <label class="sintoma-item"><input type="checkbox" name="sintoma"> Problemas de estômago (azia, queimação) em momentos de estresse.</label>
-                    <label class="sintoma-item"><input type="checkbox" name="sintoma"> Uma fadiga crônica, como se acordasse com a bateria no fim.</label>
+                    <label class="sintoma-item"><input type="checkbox" name="sintoma"> Problemas de estômago (azia, queimação).</label>
+                    <label class="sintoma-item"><input type="checkbox" name="sintoma"> Uma fadiga crônica e inexplicável.</label>
                     <label class="sintoma-item"><input type="checkbox" name="sintoma"> Tensão nos ombros, pescoço ou mandíbula.</label>
-                    <label class="sintoma-item"><input type="checkbox" name="sintoma"> Sensação de "névoa mental", dificuldade de se concentrar.</label>
-                    <label class="sintoma-item"><input type="checkbox" name="sintoma"> Um sentimento de culpa paralisante por não "dar conta de tudo".</label>
-                    <label class="sintoma-item"><input type="checkbox" name="sintoma"> Medo difuso e constante sobre o futuro.</label>
-                    <label class="sintoma-item"><input type="checkbox" name="sintoma"> Explosões de irritabilidade seguidas por profundo remorso.</label>
+                    <label class="sintoma-item"><input type="checkbox" name="sintoma"> Sensação de "névoa mental" e dificuldade de se concentrar.</label>
+                    <label class="sintoma-item"><input type="checkbox" name="sintoma"> Culpa paralisante por não "dar conta de tudo".</label>
+                    <label class="sintoma-item"><input type="checkbox" name="sintoma"> Medo constante sobre o futuro.</label>
+                    <label class="sintoma-item"><input type="checkbox" name="sintoma"> Explosões de irritabilidade seguidas por remorso.</label>
                 </div>
                 <button id="show-solution-btn" class="cta-button" disabled>SIM, EU SINTO ISSO. ME MOSTRE A SOLUÇÃO.</button>
             </div>
         </div>
     </section>
 
-    <div id="conteudo-principal" class="hidden">
+    <main id="conteudo-principal" class="hidden">
         
-        <section class="secao secao-transicao">
-            <div class="container">
+        <section class="secao secao-transicao" id="solucao">
+            <div class="container anim-on-scroll">
                 <h2 class="section-title">Obrigada por compartilhar. O padrão está claro.</h2>
-                <p>Se você marcou 3 ou mais desses itens, o que você está sentindo não é aleatório. É um padrão claro de sobrecarga do sistema nervoso. Seu corpo e sua mente estão presos em um ciclo de alerta constante, rodando "programas" do passado que consomem toda a sua energia no presente.</p>
-                <p class="highlight">Mas eu tenho uma boa notícia: um padrão, uma vez identificado, pode ser quebrado.</p>
+                <p>Se você marcou 3 ou mais desses itens, o que você está sentindo não é aleatório. É um padrão claro de sobrecarga do sistema nervoso. Seu corpo e sua mente estão presos em um ciclo de alerta constante. Mas um padrão, uma vez identificado, <span class="highlight">pode ser quebrado.</span></p>
             </div>
         </section>
 
-        <section class="secao secao-armadura">
+        <section class="secao secao-armadura anim-on-scroll">
             <div class="container">
                 <h2 class="section-title">Você foi ensinada a ser a "Supermulher".</h2>
-                <p>A profissional multitarefa, a mãe impecável, a parceira perfeita, a amiga que resolve tudo. Uma estátua de força e competência. Mas ninguém te avisou que, por dentro, a estátua era oca. E que o preço de sustentar essa armadura para o mundo seria a sua própria paz interior.</p>
+                <p>A profissional multitarefa, a mãe impecável, a parceira perfeita. Mas ninguém te avisou que o preço de sustentar essa armadura para o mundo seria a sua própria paz interior.</p>
+                <p class="highlight">Você não precisa de um conselho. Você precisa de uma ferramenta de desprogramação.</p>
             </div>
         </section>
         
         <section class="secao secao-desprogramacao">
             <div class="container">
-                <h2 class="section-title">Você não precisa de um conselho.<br>Você precisa de uma <span class="highlight">ferramenta de desprogramação.</span></h2>
-                <div class="apresentacao-rose">
-                    <div class="rose-texto">
-                        <h3>Acesso ao Código-Fonte da Sua Dor: Como a TRG Liberta Você</h3>
-                        <p>Meu nome é Rose Carvalho, e eu não sou uma terapeuta convencional. Eu sou uma especialista em desprogramação emocional.</p>
-                        <p>A Terapia de Reprocessamento Generativo (TRG) é uma abordagem focada e profunda, desenhada para ir na raiz do problema e resolvê-lo, não apenas falar sobre ele.</p>
-                    </div>
-                </div>
-                <h3 class="como-funciona-title">Como funciona o processo de resgate?</h3>
+                <h2 class="section-title anim-on-scroll">Acesso ao Código-Fonte da Sua Dor:<br>Como a TRG Liberta Você</h2>
+                <p class="anim-on-scroll" style="text-align: center; max-width: 700px; margin: 0 auto 50px auto;">Meu nome é Rose Carvalho, e sou uma especialista em desprogramação emocional. A Terapia de Reprocessamento Generativo (TRG) é uma abordagem focada, desenhada para ir na raiz do problema e resolvê-lo.</p>
                 <div class="passos-trg">
-                    <div class="passo-card"><span>1</span><h4>O Mapeamento</h4><p>Juntas, vamos identificar as raízes emocionais dos seus sintomas atuais.</p></div>
-                    <div class="passo-card"><span>2</span><h4>A Dessensibilização</h4><p>Vamos acessar a memória ou sentimento de forma segura e "diminuir o volume" da carga emocional.</p></div>
-                    <div class="passo-card"><span>3</span><h4>O Reprocessamento</h4><p>Damos um novo significado à memória. O evento não muda, mas a forma como seu corpo reage a ele é transformada.</p></div>
+                    <div class="passo-card anim-on-scroll"><span>1</span><h4>O Mapeamento</h4><p>Juntas, vamos identificar as raízes emocionais dos seus sintomas atuais.</p></div>
+                    <div class="passo-card anim-on-scroll"><span>2</span><h4>A Dessensibilização</h4><p>Vamos acessar a memória ou sentimento de forma segura e "diminuir o volume" da carga emocional.</p></div>
+                    <div class="passo-card anim-on-scroll"><span>3</span><h4>O Reprocessamento</h4><p>Damos um novo significado à memória. O evento não muda, mas a forma como seu corpo reage a ele é transformada.</p></div>
                 </div>
             </div>
         </section>
 
+        <section class="secao secao-social-proof">
+            <div class="container">
+                <h2 class="section-title anim-on-scroll">O Que Mulheres Reais Estão Dizendo...</h2>
+                <div class="instagram-comments-widget anim-on-scroll">
+                    <div class="comments-list" id="comments-list">
+                        </div>
+                </div>
+            </div>
+        </section>
+        
         <section class="secao secao-planos" id="planos">
              <div class="container">
-                <h2 class="section-title">Sua Jornada de Volta Para Si Mesma Começa Agora</h2>
-                <p>Essa transformação profunda requer compromisso. Por isso, estruturei três caminhos para sua jornada. Minha agenda é limitada para garantir entrega total. <span class="highlight">Neste momento, restam apenas 10 vagas no total.</span></p>
+                <h2 class="section-title anim-on-scroll">Sua Jornada de Volta Para Si Mesma Começa Agora</h2>
+                <p class="anim-on-scroll" style="text-align: center;">Minha agenda é, por natureza, limitada. Neste momento, <span class="highlight">restam apenas 10 vagas no total</span> para o próximo ciclo. Selecione o plano que mais ressoa com você.</p>
                 
                 <div class="planos-container">
-                    <div class="plano-card" data-plano="plus">
-                        <h3>PLANO PLUS</h3>
-                        <p class="plano-desc">O Ponto de Partida Para a Sua Cura</p>
-                        <p>Ideal para quem deseja iniciar sua jornada e tratar questões pontuais com consistência.</p>
-                        <span class="plano-sessoes">10 Sessões | 1x por semana</span>
-                    </div>
-                    <div class="plano-card" data-plano="premium">
-                        <span class="plano-tag">Mais Procurado</span>
-                        <h3>PLANO PREMIUM</h3>
-                        <p class="plano-desc">A Transformação Profunda e Acelerada</p>
-                        <p>A frequência de dois encontros semanais acelera o processo, gerando resultados mais rápidos.</p>
-                        <span class="plano-sessoes">16 Sessões | 2x por semana</span>
-                    </div>
-                    <div class="plano-card" data-plano="master">
-                        <h3>PLANO MASTER</h3>
-                        <p class="plano-desc">A Imersão Completa Para a Reconstrução</p>
-                        <p>Para a mulher que decidiu ir até a raiz mais profunda e reconstruir sua base emocional de forma definitiva.</p>
-                        <span class="plano-sessoes">24 Sessões | 2x por semana</span>
-                    </div>
+                    <div class="plano-card anim-on-scroll" data-plano="plus"><span class="plano-tag">Ponto de Partida</span><h3>PLANO PLUS</h3><p>Para quem deseja iniciar sua jornada e tratar questões pontuais com consistência.</p><span class="plano-sessoes">10 Sessões | 1x por semana</span></div>
+                    <div class="plano-card anim-on-scroll" data-plano="premium"><span class="plano-tag-premium">Mais Procurado</span><h3>PLANO PREMIUM</h3><p>Acelera o processo de reprocessamento, gerando resultados mais rápidos e sustentáveis.</p><span class="plano-sessoes">16 Sessões | 2x por semana</span></div>
+                    <div class="plano-card anim-on-scroll" data-plano="master"><span class="plano-tag">Imersão Completa</span><h3>PLANO MASTER</h3><p>Para quem decidiu ir até a raiz mais profunda e reconstruir sua base emocional de forma definitiva.</p><span class="plano-sessoes">24 Sessões | 2x por semana</span></div>
                 </div>
 
                 <div id="offer-box" class="offer-box-hidden">
                     <h4>Sua Jornada Escolhida</h4>
-                    <div id="offer-details">
-                        <p>Selecione um dos planos acima para iniciar sua inscrição e ver os detalhes.</p>
-                    </div>
+                    <div id="offer-details"><p>Selecione um dos planos acima para iniciar sua inscrição e ver os detalhes.</p></div>
                 </div>
              </div>
         </section>
         
         <section class="secao secao-faq">
             <div class="container">
-                <h2 class="section-title">Dúvidas que Podem Estar te Impedindo de Sentir Paz</h2>
-                <div class="accordion">
-                    <div class="accordion-item"><button class="accordion-header">+ Uma terapia online funciona tão bem quanto a presencial?</button><div class="accordion-content"><p>Sim, e em muitos casos, até melhor. A TRG online permite que você esteja no conforto e segurança do seu próprio lar, o que facilita o relaxamento e o acesso às emoções. A eficácia é exatamente a mesma.</p></div></div>
-                    <div class="accordion-item"><button class="accordion-header">+ Qual a diferença da TRG para a terapia convencional?</button><div class="accordion-content"><p>A terapia convencional foca muito na fala e na compreensão racional. A TRG é uma terapia breve e focada que vai além: ela atua diretamente na carga emocional que ficou "congelada" no seu sistema nervoso para cicatrizá-la na raiz.</p></div></div>
-                    <div class="accordion-item"><button class="accordion-header">+ Preciso ter um diagnóstico psiquiátrico para fazer a terapia?</button><div class="accordion-content"><p>Absolutamente não. A TRG é para qualquer pessoa que sente que suas emoções e padrões estão limitando sua vida. Se você sente a dor descrita nesta página, você é a pessoa certa para este processo.</p></div></div>
-                    <div class="accordion-item"><button class="accordion-header">+ E se eu não gostar? Tenho alguma garantia?</button><div class="accordion-content"><p>Sua confiança é minha prioridade. Ofereço uma Garantia de Primeira Sessão. Se, ao final do nosso primeiro encontro, você sentir que meu método não é o que você procurava, eu reembolso 100% do seu investimento. O risco é todo meu.</p></div></div>
-                </div>
+                <h2 class="section-title anim-on-scroll">Dúvidas que Podem Estar te Impedindo de Sentir Paz</h2>
+                <div class="accordion anim-on-scroll">
+                    </div>
             </div>
         </section>
-        
-    </div>
+    </main>
+
+    <div id="new-comment-notification" class="comment-notification"></div>
 
     <script src="script.js"></script>
 </body>
