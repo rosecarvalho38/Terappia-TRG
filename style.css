@@ -25,22 +25,20 @@ body {
 .section-intro-text { text-align: center; max-width: 700px; margin: 0 auto 50px auto; }
 .highlight { color: var(--accent-color-2); font-weight: 500; }
 
-/* --- LÓGICA DE REVELAÇÃO DO CONTEÚDO PRINCIPAL --- */
+/* --- LÓGICA DE REVELAÇÃO DO CONTEÚDO PRINCIPAL (VERSÃO MELHORADA) --- */
 main#conteudo-principal {
-    /* Estado inicial: escondido e levemente para baixo */
+    /* Estado inicial: escondido, sem altura e transparente */
+    max-height: 0;
     opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    pointer-events: none; /* Impede cliques no conteúdo escondido */
+    overflow: hidden;
+    /* Animação suave para a aparição */
+    transition: max-height 0.8s ease-in-out, opacity 0.6s ease-in-out 0.2s;
 }
 
 main#conteudo-principal.is-visible {
-    /* Estado final: visível e na posição correta */
+    /* Estado final: visível, com altura e opaco */
+    max-height: 10000px; /* Um valor alto para garantir que todo o conteúdo caiba */
     opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    pointer-events: auto;
 }
 
 /* Você pode remover a regra .hidden { ... } se ela não for mais usada em outro lugar */
