@@ -187,7 +187,6 @@ main#conteudo-principal.is-visible {
     .sintomas-checklist { grid-template-columns: 1fr; }
     .comment-notification.show { transform: translateY(0); }
     .main-headline { font-size: 2.5rem; }
-    #offer-details .cta-button { width: 100%; }
 }
 
 /* Dentro de @media (max-width: 768px) { ... } */
