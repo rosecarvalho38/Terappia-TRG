@@ -6,12 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const text = headline.textContent.trim();
         const words = text.split(' ');
         headline.innerHTML = '';
-        words.forEach((word, i) => {
-            const span = document.createElement('span');
-            span.textContent = word + ' ';
-            span.style.transitionDelay = `${i * 0.1}s`;
-            headline.appendChild(span);
-        });
+        // Trecho Corrigido
+words.forEach((word, i) => {
+    const span = document.createElement('span');
+    span.textContent = word; // Adiciona apenas a palavra ao span
+    span.style.transitionDelay = `${i * 0.1}s`;
+    headline.appendChild(span);
+
+    // Adiciona um nó de texto contendo um espaço APÓS cada palavra
+    headline.appendChild(document.createTextNode(' '));
+});
         setTimeout(() => {
             headline.classList.add('is-visible');
         }, 100);
