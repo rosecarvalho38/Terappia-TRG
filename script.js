@@ -133,36 +133,79 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Função da Seleção de Planos de Terapia
-     */
-    function initPlanSelection() {
-        const planos = document.querySelectorAll('.plano-card');
-        const offerBox = document.getElementById('offer-box');
-        const offerDetails = document.getElementById('offer-details');
-        if (planos.length > 0 && offerBox) {
-            const planosInfo = {
-                plus: { nome: 'PLANO PLUS', desc: 'O Ponto de Partida Para a Sua Cura', investimento: '10 Sessões | 1x por semana', linkCompra: '#' },
-                premium: { nome: 'PLANO PREMIUM', desc: 'A Transformação Profunda e Acelerada', investimento: '16 Sessões | 2x por semana', linkCompra: '#' },
-                master: { nome: 'PLANO MASTER', desc: 'A Imersão Completa Para a Reconstrução', investimento: '24 Sessões | 2x por semana', linkCompra: '#' }
-            };
-            planos.forEach(plano => {
-                plano.addEventListener('click', () => {
-                    planos.forEach(p => p.classList.remove('selected'));
-                    plano.classList.add('selected');
-                    const planoSelecionado = plano.dataset.plano;
-                    const info = planosInfo[planoSelecionado];
-                    offerDetails.innerHTML = `
-                        <p class="plano-selecionado">${info.nome}</p>
-                        <p class="plano-desc">${info.desc}</p>
-                        <p class="plano-investimento">${info.investimento}</p>
-                        <a href="${info.linkCompra}" class="cta-button">QUERO INICIAR MINHA JORNADA</a>`;
-                    offerBox.classList.remove('offer-box-hidden');
-                    offerBox.classList.add('offer-box-visible');
-                    offerBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
+ * Função da Seleção de Planos de Terapia (VERSÃO COM PREÇO OTIMIZADO)
+ */
+function initPlanSelection() {
+    const planos = document.querySelectorAll('.plano-card');
+    const offerBox = document.getElementById('offer-box');
+    const offerDetails = document.getElementById('offer-details');
+
+    if (planos.length > 0 && offerBox) {
+        // Objeto de dados com preço detalhado
+        const planosInfo = {
+            plus: { 
+                nome: 'PLANO PLUS', 
+                valorVista: 'R$ 480,00', 
+                parcelas: '5x de', 
+                valorParcela: 'R$ 96,00', 
+                vagasTotal: 4, 
+                vagasDisponiveis: 3, 
+                linkCompra: '#' 
+            },
+            premium: { 
+                nome: 'PLANO PREMIUM', 
+                valorVista: 'R$ 840,00', 
+                parcelas: '8x de', 
+                valorParcela: 'R$ 105,00', 
+                vagasTotal: 4, 
+                vagasDisponiveis: 2, 
+                linkCompra: '#' 
+            },
+            master: { 
+                nome: 'PLANO MASTER', 
+                valorVista: 'R$ 1.200,00', 
+                parcelas: '12x de', 
+                valorParcela: 'R$ 100,00', 
+                vagasTotal: 2, 
+                vagasDisponiveis: 1, 
+                linkCompra: '#' 
+            }
+        };
+        
+        planos.forEach(plano => {
+            plano.addEventListener('click', () => {
+                planos.forEach(p => p.classList.remove('selected'));
+                plano.classList.add('selected');
+                const planoSelecionado = plano.dataset.plano;
+                const info = planosInfo[planoSelecionado];
+                const vagasPreenchidas = info.vagasTotal - info.vagasDisponiveis;
+                const percentualPreenchido = (vagasPreenchidas / info.vagasTotal) * 100;
+
+                // Nova estrutura HTML para o preço
+                offerDetails.innerHTML = `
+                    <p class="plano-selecionado">${info.nome}</p>
+                    <div class="price-section-rose">
+                        <p class="price-prefix">Faça sua jornada acontecer por apenas:</p>
+                        <div class="price-main">
+                            <span class="price-installments">${info.parcelas}</span>
+                            <span class="price-value">${info.valorParcela}</span>
+                        </div>
+                        <p class="price-descriptor">ou ${info.valorVista} à vista</p>
+                    </div>
+                    <div class="plano-disponibilidade">
+                        URGENTE: Restam apenas ${info.vagasDisponiveis} de ${info.vagasTotal} vagas para este plano.
+                        <div class="progress-bar"><div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div></div>
+                    </div>
+                    <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>
+                `;
+                
+                offerBox.classList.remove('offer-box-hidden');
+                offerBox.classList.add('offer-box-visible');
+                offerBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
-        }
+        });
     }
+}
 
     /**
      * Função do Acordeão (FAQ)
