@@ -127,3 +127,11 @@ main#conteudo-principal { opacity: 0; transition: opacity 1s 0.5s ease-in-out; }
     .sintomas-checklist { grid-template-columns: 1fr; }
     .comment-notification { left: 10px; right: 10px; bottom: 10px; width: auto; }
 }
+/* Dentro de @media (max-width: 768px) { ... } */
+
+/* Reposiciona a notificação de novo comentário para o topo em telas menores */
+.comment-notification {
+    top: 20px;
+    bottom: auto; /* Remove o posicionamento inferior do desktop */
+    transform: translateY(-150%); /* Faz a animação começar de cima da tela */
+}
