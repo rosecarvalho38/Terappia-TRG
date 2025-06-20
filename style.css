@@ -55,8 +55,15 @@ main#conteudo-principal.is-visible {
 /* --- ANIMAÇÃO E ESTILO DA HEADLINE --- */
 .main-headline { font-family: var(--font-headline); font-size: clamp(2.8rem, 7vw, 4.5rem); margin-bottom: 20px; font-weight: 700; }
 .main-headline span { display: inline-block; opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
-.main-headline.is-visible span { opacity: 1; transform: translateY(0); }
+.main-headline.is-visible span {
+    opacity: 1;
+    transform: translateY(0);
+}
 .main-subheadline { font-size: 1.2rem; max-width: 700px; opacity: 0.9; }
+
+.container p {
+    text-align: center;
+}
 
 /* --- CHECKLIST --- */
 .sintomas-box { margin-top: 50px; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 1px solid rgba(148, 183, 175, 0.3); max-width: 800px; }
@@ -169,4 +176,74 @@ main#conteudo-principal.is-visible {
 /* Ajuste específico para o botão dentro da oferta, se necessário */
 #offer-details .cta-button {
     margin-top: 30px; /* Garante o espaço superior */
+}
+
+@media (min-width: 992px) {
+    .passos-trg {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .planos-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Alinha o texto dos comentários à esquerda */
+.comment-body {
+    text-align: left;
+}
+
+/* Novo estilo para o bloco de preço, com melhor contraste */
+.price-section-rose {
+    margin-bottom: 25px;
+}
+.price-section-rose .price-prefix {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+.price-section-rose .price-main {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 10px;
+    color: var(--text-color);
+}
+.price-section-rose .price-installments {
+    font-size: 2.5rem;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    color: var(--accent-color-2);
+}
+.price-section-rose .price-value {
+    font-size: 5rem;
+    font-family: var(--font-headline);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--accent-color-2);
+}
+.price-section-rose .price-descriptor {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Garante espaçamento no botão da oferta */
+#offer-details .cta-button {
+    margin-top: 30px;
+}
+
+/* --- OTIMIZAÇÃO MOBILE FINAL --- */
+@media (max-width: 768px) {
+    /* ... suas outras regras mobile ... */
+
+    /* Centraliza o texto dos cards de planos no mobile */
+    .plano-card p {
+        text-align: center;
+    }
+
+    /* Ajusta o tamanho das fontes de preço para mobile */
+    .price-section-rose .price-installments {
+        font-size: 1.8rem;
+    }
+    .price-section-rose .price-value {
+        font-size: 3.5rem;
+    }
 }
