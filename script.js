@@ -32,17 +32,20 @@ words.forEach((word, i) => {
         };
         sintomasCheckboxes.forEach(checkbox => checkbox.addEventListener('change', checkCheckboxState));
         showSolutionBtn.addEventListener('click', () => {
-            if (!showSolutionBtn.disabled) {
-                conteudoPrincipal.style.display = 'block';
-                setTimeout(() => {
-                    conteudoPrincipal.style.opacity = '1';
-                    const solucaoSection = document.getElementById('solucao');
-                    if (solucaoSection) {
-                        solucaoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }, 10);
-            }
-        });
+    if (!showSolutionBtn.disabled) {
+        // Apenas adiciona a classe .is-visible ao conteúdo principal
+        conteudoPrincipal.classList.add('is-visible');
+        
+        // Rola suavemente para a próxima seção
+        const solucaoSection = document.getElementById('solucao');
+        if (solucaoSection) {
+            // Pequeno delay para a animação de aparição começar
+            setTimeout(() => {
+                solucaoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 200);
+        }
+    }
+});
     }
 
     // --- LÓGICA DA PROVA SOCIAL (COMENTÁRIOS INSTAGRAM) ---
