@@ -120,10 +120,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const offerDetails = document.getElementById('offer-details');
     if (planos.length > 0 && offerBox) {
         const planosInfo = {
-             plus: { nome: 'PLANO PLUS', desc: 'O Ponto de Partida Para a Sua Cura', investimento: 'R$ 480,00 à vista ou 5x de R$ 96,00', vagasTotal: 4, vagasDisponiveis: 3, linkCompra: '#' },
-             premium: { nome: 'PLANO PREMIUM', desc: 'A Transformação Profunda e Acelerada', investimento: 'R$ 840,00 à vista ou 8x de R$ 105,00', vagasTotal: 4, vagasDisponiveis: 2, linkCompra: '#' },
-             master: { nome: 'PLANO MASTER', desc: 'A Imersão Completa Para a Reconstrução', investimento: 'R$ 1.200,00 à vista ou 12x de R$ 100,00', vagasTotal: 2, vagasDisponiveis: 1, linkCompra: '#' }
-        };
+    plus: { nome: 'PLANO PLUS', valorVista: 'R$ 480,00', parcelas: '5x', valorParcela: '96,00', vagasTotal: 4, vagasDisponiveis: 3, linkCompra: '#' },
+    premium: { nome: 'PLANO PREMIUM', valorVista: 'R$ 840,00', parcelas: '8x', valorParcela: '105,00', vagasTotal: 4, vagasDisponiveis: 2, linkCompra: '#' },
+    master: { nome: 'PLANO MASTER', valorVista: 'R$ 1.200,00', parcelas: '12x', valorParcela: '100,00', vagasTotal: 2, vagasDisponiveis: 1, linkCompra: '#' }
+};
         planos.forEach(plano => {
             plano.addEventListener('click', () => {
                 planos.forEach(p => p.classList.remove('selected'));
@@ -134,13 +134,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 const percentualPreenchido = (vagasPreenchidas / info.vagasTotal) * 100;
 
                 offerDetails.innerHTML = `
-                    <p class="plano-selecionado">${info.nome}</p>
-                    <p class="plano-investimento"><strong>Investimento:</strong> ${info.investimento}</p>
-                    <div class="plano-disponibilidade">
-                        URGENTE: Restam apenas ${info.vagasDisponiveis} de ${info.vagasTotal} vagas para este plano.
-                        <div class="progress-bar"><div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div></div>
-                    </div>
-                    <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>`;
+    <div class="price-section-rose">
+        <p class="plano-selecionado">${info.nome}</p>
+        <p class="price-prefix">Investimento para sua transformação:</p>
+        <div class="price-main">
+            <span class="price-installments">${info.parcelas}</span>
+            <span class="price-value">R$ ${info.valorParcela}</span>
+        </div>
+        <p class="price-descriptor">ou ${info.valorVista} à vista</p>
+    </div>
+    <div class="plano-disponibilidade">
+        URGENTE: Restam apenas ${info.vagasDisponiveis} de ${info.vagasTotal} vagas.
+        <div class="progress-bar"><div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div></div>
+    </div>
+    <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>
+`;
                 
                 offerBox.classList.remove('offer-box-hidden');
                 offerBox.classList.add('offer-box-visible');
