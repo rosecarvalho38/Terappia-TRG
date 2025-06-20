@@ -136,37 +136,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- LÓGICA DO ACORDEÃO (FAQ) ---
-    const accordionHeaders = document.querySelectorAll('.accordion-header');
-    if (accordionHeaders.length > 0) {
-        accordionHeaders.forEach(header => {
-            header.addEventListener('click', () => {
-                const content = header.nextElementSibling;
-                header.classList.toggle('active');
-                if (header.classList.contains('active')) {
-                    content.style.maxHeight = content.scrollHeight + 'px';
-                } else {
-                    content.style.maxHeight = null;
-                }
-            });
-        });
-    }
-
-    // --- ANIMAÇÃO DE ENTRADA AO ROLAR ---
-    const animatedElements = document.querySelectorAll('.anim-on-scroll');
-    if (animatedElements.length > 0) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        animatedElements.forEach(element => {
-            observer.observe(element);
-        });// ... outras lógicas como FAQ (acordeão) podem ser adicionadas aqui
+    // ... outras lógicas como FAQ (acordeão) podem ser adicionadas aqui
 });
-
-
-    
