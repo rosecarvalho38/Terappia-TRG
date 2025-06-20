@@ -191,13 +191,13 @@ main#conteudo-principal.is-visible {
 
 /* Dentro de @media (max-width: 768px) { ... } */
 
-    /* AJUSTE 1: Botão de CTA Responsivo */
-    .cta-button {
-        padding: 15px 25px; /* Reduz o espaçamento interno */
-        font-size: 1rem;    /* Diminui um pouco a fonte */
-        width: 100%;        /* Faz o botão ocupar a largura do container */
-        max-width: 400px;
-    }
+/* --- Ajuste Responsivo para Botões de CTA --- */
+.cta-button {
+    padding: 18px 30px; /* Reduz o espaçamento interno */
+    font-size: 1rem;    /* Diminui um pouco a fonte para caber melhor */
+    width: 100%;        /* Faz o botão ocupar a largura do container */
+    max-width: 400px;
+}
     
 /* Dentro de @media (max-width: 768px) { ... } */
 
