@@ -135,3 +135,21 @@ main#conteudo-principal { opacity: 0; transition: opacity 1s 0.5s ease-in-out; }
     bottom: auto; /* Remove o posicionamento inferior do desktop */
     transform: translateY(-150%); /* Faz a animação começar de cima da tela */
 }
+
+/* Dentro de @media (max-width: 768px) { ... } */
+
+/* --- Ajuste Responsivo para Botões de CTA --- */
+.cta-button {
+    padding: 15px 25px; /* Reduz o espaçamento interno */
+    font-size: 1rem;    /* Diminui um pouco a fonte */
+    width: 95%;         /* Faz o botão ocupar quase toda a largura */
+    max-width: 400px;   /* Define uma largura máxima */
+    display: block;     /* Necessário para o margin:auto funcionar */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Ajuste específico para o botão dentro da oferta, se necessário */
+#offer-details .cta-button {
+    margin-top: 30px; /* Garante o espaço superior */
+}
