@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         commentsToShow.slice(0, 5).forEach(c => addCommentToUI(c));
 
         function scheduleNextEvent() {
-            const randomDelay = Math.random() * (35000 - 15000) + 15000;
+            const randomDelay = Math.random() * (20000 - 10000) + 10000;
             setTimeout(() => {
                 // Decide aleatoriamente se mostra um novo comentário ou uma nova compra
                 if (Math.random() > 0.5 && nextCommentIndex < commentsToShow.length) {
