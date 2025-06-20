@@ -125,18 +125,17 @@ main#conteudo-principal { opacity: 0; transition: opacity 1s 0.5s ease-in-out; }
     .secao { padding: 60px 0; }
     .passos-trg, .planos-container { grid-template-columns: 1fr; }
     .sintomas-checklist { grid-template-columns: 1fr; }
-    .comment-notification { left: 10px; right: 10px; bottom: 10px; width: auto; }
-}
-/* Dentro de @media (max-width: 768px) { ... } */
-
-/* Reposiciona a notificação de novo comentário para o topo em telas menores */
+    
 .comment-notification {
-    top: 20px;
-    bottom: auto; /* Remove o posicionamento inferior do desktop */
-    transform: translateY(-150%); /* Faz a animação começar de cima da tela */
-}
+    top: 20px;          /* Posiciona a 20px do topo */
+    bottom: auto;       /* Remove o posicionamento inferior */
+    left: 20px;         /* Mantém um espaçamento lateral */
+    right: 20px;        /* Mantém um espaçamento lateral */
+    width: auto;          /* Permite que a largura se ajuste */
 
-/* Dentro de @media (max-width: 768px) { ... } */
+    /* Altera a animação para que ela deslize de cima para baixo */
+    transform: translateY(-150%); 
+}
 
 /* --- Ajuste Responsivo para Botões de CTA --- */
 .cta-button {
