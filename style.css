@@ -7,7 +7,6 @@
     --font-primary: 'Comfortaa', sans-serif;
     --font-headline: 'Cinzel', serif;
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
@@ -18,30 +17,23 @@ body {
     font-size: 18px;
     font-weight: 300;
 }
-
 .container { width: 90%; max-width: 900px; margin: 0 auto; }
 .secao { padding: 100px 0; position: relative; }
 .section-title { font-family: var(--font-headline); font-size: clamp(2.2rem, 5vw, 3.2rem); text-align: center; margin-bottom: 40px; line-height: 1.3; font-weight: 600; }
-.section-intro-text { text-align: center; max-width: 700px; margin: 0 auto 50px auto; }
+.section-intro-text { text-align: center; max-width: 700px; margin: 0 auto 50px auto; opacity: 0.9; }
 .highlight { color: var(--accent-color-2); font-weight: 500; }
 
-/* --- LÓGICA DE REVELAÇÃO DO CONTEÚDO PRINCIPAL (VERSÃO MELHORADA) --- */
+/* --- LÓGICA DE REVELAÇÃO DO CONTEÚDO PRINCIPAL --- */
 main#conteudo-principal {
-    /* Estado inicial: escondido, sem altura e transparente */
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    /* Animação suave para a aparição */
-    transition: max-height 0.8s ease-in-out, opacity 0.6s ease-in-out 0.2s;
+    transition: max-height 1s ease-in-out, opacity 1s ease-in-out 0.3s;
 }
-
 main#conteudo-principal.is-visible {
-    /* Estado final: visível, com altura e opaco */
     max-height: 10000px; /* Um valor alto para garantir que todo o conteúdo caiba */
     opacity: 1;
 }
-
-/* Você pode remover a regra .hidden { ... } se ela não for mais usada em outro lugar */
 
 /* --- FUNDO ANIMADO "AURORA" --- */
 @keyframes move-aurora {
@@ -52,16 +44,11 @@ main#conteudo-principal.is-visible {
 
 /* --- ANIMAÇÃO E ESTILO DA HEADLINE --- */
 .main-headline { font-family: var(--font-headline); font-size: clamp(2.8rem, 7vw, 4.5rem); margin-bottom: 20px; font-weight: 700; }
+/* Oculta os spans por padrão */
 .main-headline span { display: inline-block; opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
-.main-headline.is-visible span {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* A classe .is-visible no H1 torna os spans visíveis */
+.main-headline.is-visible span { opacity: 1; transform: translateY(0); }
 .main-subheadline { font-size: 1.2rem; max-width: 700px; opacity: 0.9; }
-
-.container p {
-    text-align: center;
-}
 
 /* --- CHECKLIST --- */
 .sintomas-box { margin-top: 50px; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 1px solid rgba(148, 183, 175, 0.3); max-width: 800px; }
@@ -71,37 +58,47 @@ main#conteudo-principal.is-visible {
 .sintoma-item:hover { background-color: rgba(255, 255, 255, 0.05); }
 .sintoma-item input[type="checkbox"] { accent-color: var(--accent-color-2); width: 20px; height: 20px; flex-shrink: 0; }
 .sintoma-item input:checked + span { color: var(--accent-color-2); font-weight: 500; }
-.cta-button { margin-top: 30px; padding: 15px 40px; font-size: 1.1rem; font-weight: bold; color: var(--bg-color); background-color: var(--accent-color-2); border: none; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; }
+
+.cta-button { margin-top: 30px; padding: 15px 40px; font-size: 1.1rem; font-weight: bold; color: var(--bg-color); background-color: var(--accent-color-2); border: none; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
 .cta-button:disabled { background-color: #555; color: #999; cursor: not-allowed; opacity: 0.5; }
 .cta-button:not(:disabled):hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(148, 183, 175, 0.5); }
 
 /* --- SEÇÕES DE CONTEÚDO --- */
 .secao-transicao, .secao-armadura { text-align: center; }
-.secao-transicao p, .secao-armadura p { max-width: 700px; margin: 0 auto; }
-.passos-trg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; }
+.secao-transicao p, .secao-armadura p { max-width: 700px; margin: 20px auto; }
+.manifesto { font-family: var(--font-headline); font-size: 1.5rem; font-style: italic; margin: 40px auto; border-left: 3px solid var(--accent-color-2); padding-left: 20px; }
+.como-funciona-title { font-family: var(--font-headline); font-size: 1.8rem; text-align: center; color: var(--accent-color-2); }
+.passos-trg { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 40px; }
 .passo-card { text-align: center; padding: 30px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--accent-color-1); border-radius: 10px; }
 .passo-card span { display: inline-block; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; background: var(--accent-color-2); color: var(--bg-color); font-weight: bold; font-family: var(--font-headline); font-size: 2rem; margin-bottom: 20px; }
 .passo-card h4 { font-family: var(--font-headline); font-size: 1.5rem; margin-bottom: 10px; }
 
+/* SEÇÃO IMAGINE A VIDA */
+.secao-imagine { background-color: #111e2e; }
+.imagine-list { list-style: none; padding-left: 0; max-width: 600px; margin: 30px auto; text-align: left; }
+.imagine-list li { padding-left: 2em; position: relative; margin-bottom: 15px; font-size: 1.1rem; }
+.imagine-list li::before { content: '✓'; color: var(--accent-color-2); position: absolute; left: 0; font-weight: bold; font-size: 1.2em; }
+
 /* --- PROVA SOCIAL (INSTAGRAM) --- */
-.secao-social-proof { background-color: #111e2e; padding: 100px 0; }
-.instagram-comments-widget { background: #fff; color: #111; border-radius: 15px; padding: 20px; max-width: 600px; margin: 0 auto; height: 400px; overflow-y: auto; }
+.secao-social-proof { padding: 100px 0; }
+.instagram-comments-widget { background: #fff; color: #111; border-radius: 15px; padding: 20px; max-width: 600px; margin: 0 auto; height: 400px; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 .instagram-comments-widget::-webkit-scrollbar { width: 8px; }
-.instagram-comments-widget::-webkit-scrollbar-track { background: #f1f1f1; }
+.instagram-comments-widget::-webkit-scrollbar-track { background: #e9e9e9; }
 .instagram-comments-widget::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
 .comment-item { display: flex; gap: 15px; margin-bottom: 20px; animation: slideIn 0.5s ease-out; text-align: left; }
 @keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 .comment-avatar { width: 40px; height: 40px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
 .comment-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.comment-body p { margin: 0; line-height: 1.5; font-size: 0.95rem; }
+.comment-body p { margin: 0; line-height: 1.5; font-size: 0.95rem; text-align: left; }
 .comment-body p strong { font-weight: 700; margin-right: 5px; }
-.comment-actions { font-size: 0.8rem; color: #8e8e8e; margin-top: 5px; }
+.comment-actions { font-size: 0.8rem; color: #8e8e8e; margin-top: 5px; text-align: left; }
 
 .comment-notification { position: fixed; bottom: 20px; left: 20px; background-color: #fff; color: #111; padding: 15px 20px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-size: 0.9rem; z-index: 1001; opacity: 0; transform: translateY(20px); visibility: hidden; transition: all 0.4s ease-in-out; }
 .comment-notification.show { opacity: 1; transform: translateY(0); visibility: visible; }
 
 /* --- PLANOS --- */
-.planos-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
+.secao-planos { background-color: #111e2e; }
+.planos-container { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 50px; }
 .plano-card { border: 3px solid var(--accent-color-1); border-radius: 15px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; }
 .plano-card:hover { transform: translateY(-10px); }
 .plano-card.selected { border-color: var(--accent-color-2); background: rgba(53, 112, 161, 0.3); box-shadow: 0 0 30px rgba(148, 183, 175, 0.4); transform: translateY(-10px) scale(1.03); }
@@ -120,17 +117,18 @@ main#conteudo-principal.is-visible {
 #offer-details .plano-disponibilidade { margin: 20px 0; font-weight: bold; }
 #offer-details .progress-bar { width: 80%; max-width: 300px; height: 10px; background: rgba(0,0,0,0.3); margin: 10px auto; border-radius: 5px; }
 #offer-details .progress-bar-inner { height: 100%; background: var(--accent-color-2); border-radius: 5px; transition: width 0.5s ease-out; }
-#offer-details .cta-button { margin-top: 25px; } /* Espaçamento corrigido */
+#offer-details .cta-button { margin-top: 25px; }
 
 /* --- FAQ E RODAPÉ --- */
-.secao-faq { background-color: #111e2e; }
+.secao-pos-compra, .secao-final-chamada { background-color: #111e2e; }
+.secao-faq { background-color: var(--bg-color); }
 .accordion { max-width: 900px; margin: 50px auto 0 auto; }
 .accordion-item { border-bottom: 1px solid rgba(148, 183, 175, 0.3); }
 .accordion-header { width: 100%; background: none; border: none; padding: 20px 0; font-family: var(--font-primary); font-weight: bold; font-size: 1.2rem; color: var(--text-color); text-align: left; cursor: pointer; position: relative; }
 .accordion-header::after { content: '+'; position: absolute; right: 10px; font-size: 2rem; color: var(--accent-color-2); transition: transform 0.3s; }
 .accordion-header.active::after { transform: rotate(45deg); }
 .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
-.accordion-content p { padding: 0 10px 20px 0; color: #ccc; }
+.accordion-content p { padding: 0 10px 20px 0; color: #ccc; text-align: left; }
 
 .footer { background-color: #0d141f; color: #aaa; padding: 50px 0; text-align: center; font-size: 0.9rem; border-top: 1px solid var(--accent-color-1); }
 .footer p { margin: 5px 0; }
@@ -139,109 +137,23 @@ main#conteudo-principal.is-visible {
 /* --- ANIMAÇÕES GERAIS --- */
 .anim-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
 .anim-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
-.anim-on-scroll:nth-child(2) { transition-delay: 0.1s; }
-.anim-on-scroll:nth-child(3) { transition-delay: 0.2s; }
+/* Delay para animações sequenciais */
+.passo-card.anim-on-scroll:nth-child(2) { transition-delay: 0.2s; }
+.passo-card.anim-on-scroll:nth-child(3) { transition-delay: 0.4s; }
 
 /* --- RESPONSIVIDADE --- */
+@media (min-width: 769px) {
+    .passos-trg { grid-template-columns: repeat(3, 1fr); }
+    .planos-container { grid-template-columns: repeat(3, 1fr); }
+}
+
 @media (max-width: 768px) {
     body { font-size: 16px; }
     .secao { padding: 60px 0; }
     .passos-trg, .planos-container { grid-template-columns: 1fr; }
     .sintomas-checklist { grid-template-columns: 1fr; }
-    
-.comment-notification {
-    top: 20px;          /* Posiciona a 20px do topo */
-    bottom: auto;       /* Remove o posicionamento inferior */
-    left: 20px;         /* Mantém um espaçamento lateral */
-    right: 20px;        /* Mantém um espaçamento lateral */
-    width: auto;          /* Permite que a largura se ajuste */
-
-    /* Altera a animação para que ela deslize de cima para baixo */
-    transform: translateY(-150%); 
-}
-
-/* --- Ajuste Responsivo para Botões de CTA --- */
-.cta-button {
-    padding: 15px 25px; /* Reduz o espaçamento interno */
-    font-size: 1rem;    /* Diminui um pouco a fonte */
-    width: 95%;         /* Faz o botão ocupar quase toda a largura */
-    max-width: 400px;   /* Define uma largura máxima */
-    display: block;     /* Necessário para o margin:auto funcionar */
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Ajuste específico para o botão dentro da oferta, se necessário */
-#offer-details .cta-button {
-    margin-top: 30px; /* Garante o espaço superior */
-}
-
-@media (min-width: 992px) {
-    .passos-trg {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    .planos-container {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-/* Alinha o texto dos comentários à esquerda */
-.comment-body {
-    text-align: left;
-}
-
-/* Novo estilo para o bloco de preço, com melhor contraste */
-.price-section-rose {
-    margin-bottom: 25px;
-}
-.price-section-rose .price-prefix {
-    font-size: 1rem;
-    opacity: 0.8;
-}
-.price-section-rose .price-main {
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    gap: 10px;
-    color: var(--text-color);
-}
-.price-section-rose .price-installments {
-    font-size: 2.5rem;
-    font-family: var(--font-primary);
-    font-weight: 700;
-    color: var(--accent-color-2);
-}
-.price-section-rose .price-value {
-    font-size: 5rem;
-    font-family: var(--font-headline);
-    font-weight: 700;
-    line-height: 1;
-    color: var(--accent-color-2);
-}
-.price-section-rose .price-descriptor {
-    font-size: 0.9rem;
-    opacity: 0.7;
-}
-
-/* Garante espaçamento no botão da oferta */
-#offer-details .cta-button {
-    margin-top: 30px;
-}
-
-/* --- OTIMIZAÇÃO MOBILE FINAL --- */
-@media (max-width: 768px) {
-    /* ... suas outras regras mobile ... */
-
-    /* Centraliza o texto dos cards de planos no mobile */
-    .plano-card p {
-        text-align: center;
-    }
-
-    /* Ajusta o tamanho das fontes de preço para mobile */
-    .price-section-rose .price-installments {
-        font-size: 1.8rem;
-    }
-    .price-section-rose .price-value {
-        font-size: 3.5rem;
-    }
+    .comment-notification { left: 10px; right: 10px; bottom: 10px; width: auto; transform: translateY(150%); }
+    .comment-notification.show { transform: translateY(0); }
+    .main-headline { font-size: 2.5rem; }
+    #offer-details .cta-button { width: 100%; }
 }
