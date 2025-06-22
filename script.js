@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div>
                 <div class="comment-body">
                     <p><strong>${comment.name}</strong> ${comment.text}</p>
-                    <div class="comment-actions">Curtir • Responder • ${generateRandomTimeAgo()}</div>
+                    <div class="comment-actions">Curtir • Responder • há poucos segundos</div>
                 </div>`;
             commentsList.prepend(commentDiv);
         }
@@ -102,14 +102,14 @@ document.addEventListener('DOMContentLoaded', () => {
         function showGenericNotification(message) {
             notificationElement.innerHTML = message;
             notificationElement.classList.add('show');
-            setTimeout(() => notificationElement.classList.remove('show'), 6000);
+            setTimeout(() => notificationElement.classList.remove('show'), 15000);
         }
 
         // Popula os comentários iniciais
         commentsToShow.slice(0, 5).forEach(c => addCommentToUI(c));
 
         function scheduleNextEvent() {
-            const randomDelay = Math.random() * (20000 - 10000) + 10000;
+            const randomDelay = Math.random() * (30000 - 20000) + 20000;
             setTimeout(() => {
                 // Decide aleatoriamente se mostra um novo comentário ou uma nova compra
                 if (Math.random() > 0.5 && nextCommentIndex < commentsToShow.length) {
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Inicia o ciclo de eventos
-        setTimeout(scheduleNextEvent, 12000);
+        setTimeout(scheduleNextEvent, 20000);
     }
 
     /**
