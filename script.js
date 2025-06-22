@@ -1,4 +1,4 @@
-// static/js/script.js (VERSÃO FINAL COM NOTIFICAÇÕES REFINADAS)
+// static/js/script.js (VERSÃO FINAL COM TODAS AS NOTIFICAÇÕES)More actions
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -7,10 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function initHeadlineAnimation() {
         const headline = document.getElementById('main-headline');
         if (headline) {
-            // A classe 'is-visible' é adicionada ao H1, e o CSS cuida da animação.
-            setTimeout(() => {
-                headline.classList.add('is-visible');
-            }, 100);
+            const text = headline.textContent.trim();
+            const words = text.split(' ');
+            headline.innerHTML = '';
+            words.forEach((word, i) => {
+                const span = document.createElement('span');
+                span.textContent = word;
+                headline.appendChild(span);
+                headline.appendChild(document.createTextNode(' '));
+                span.style.transitionDelay = `${i * 0.08}s`;
+            });
+            setTimeout(() => headline.classList.add('is-visible'), 100);
         }
     }
 
@@ -123,30 +130,118 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(scheduleNextEvent, 20000); // Começa após 20 segundos
     }
 
-    /**
-     * Função da Seleção de Planos de Terapia
-     */
-    function initPlanSelection() {
-        const planos = document.querySelectorAll('.plano-card');
-        const offerBox = document.getElementById('offer-box');
-        const offerDetails = document.getElementById('offer-details');
-        if (planos.length > 0 && offerBox) {
-            // Lógica de seleção de planos
-        }
+        // Inicia o ciclo de eventos
+        setTimeout(scheduleNextEvent, 12000);
+        setTimeout(scheduleNextEvent, 20000);
     }
+
+    /**
+ * Função da Seleção de Planos de Terapia (VERSÃO COM PREÇO OTIMIZADO)
+ */
+function initPlanSelection() {
+    const planos = document.querySelectorAll('.plano-card');
+    const offerBox = document.getElementById('offer-box');
+    const offerDetails = document.getElementById('offer-details');
+
+    if (planos.length > 0 && offerBox) {
+        // Objeto de dados com preço detalhado
+        const planosInfo = {
+            plus: { 
+                nome: 'PLANO PLUS', 
+                valorVista: 'R$ 480,00', 
+                parcelas: '5x de', 
+                valorParcela: 'R$ 96,00', 
+                vagasTotal: 4, 
+                vagasDisponiveis: 3, 
+                linkCompra: '#' 
+            },
+            premium: { 
+                nome: 'PLANO PREMIUM', 
+                valorVista: 'R$ 840,00', 
+                parcelas: '8x de', 
+                valorParcela: 'R$ 105,00', 
+                vagasTotal: 4, 
+                vagasDisponiveis: 2, 
+                linkCompra: '#' 
+            },
+            master: { 
+                nome: 'PLANO MASTER', 
+                valorVista: 'R$ 1.200,00', 
+                parcelas: '12x de', 
+                valorParcela: 'R$ 100,00', 
+                vagasTotal: 2, 
+                vagasDisponiveis: 1, 
+                linkCompra: '#' 
+            }
+        };
+
+        planos.forEach(plano => {
+            plano.addEventListener('click', () => {
+                planos.forEach(p => p.classList.remove('selected'));
+                plano.classList.add('selected');
+                const planoSelecionado = plano.dataset.plano;
+                const info = planosInfo[planoSelecionado];
+                const vagasPreenchidas = info.vagasTotal - info.vagasDisponiveis;
+                const percentualPreenchido = (vagasPreenchidas / info.vagasTotal) * 100;
+
+                // Nova estrutura HTML para o preço
+                offerDetails.innerHTML = `
+                    <p class="plano-selecionado">${info.nome}</p>
+                    <div class="price-section-rose">
+                        <p class="price-prefix">Faça sua jornada acontecer por apenas:</p>
+                        <div class="price-main">
+                            <span class="price-installments">${info.parcelas}</span>
+                            <span class="price-value">${info.valorParcela}</span>
+                        </div>
+                        <p class="price-descriptor">ou ${info.valorVista} à vista</p>
+                    </div>
+                    <div class="plano-disponibilidade">
+                        URGENTE: Restam apenas ${info.vagasDisponiveis} de ${info.vagasTotal} vagas para este plano.
+                        <div class="progress-bar"><div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div></div>
+                    </div>
+                    <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>
+                `;
+
+                offerBox.classList.remove('offer-box-hidden');
+                offerBox.classList.add('offer-box-visible');
+                offerBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        });
+    }
+}
 
     /**
      * Função do Acordeão (FAQ)
      */
     function initFaqAccordion() {
-        // Lógica do acordeão
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+        if (accordionHeaders.length > 0) {
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    header.classList.toggle('active');
+                    content.style.maxHeight = header.classList.contains('active') ? content.scrollHeight + 'px' : null;
+                });
+            });
+        }
     }
 
     /**
      * Função Geral para Animações de Entrada ao Rolar
      */
     function initScrollAnimations() {
-        // Lógica do IntersectionObserver
+        const animatedElements = document.querySelectorAll('.anim-on-scroll');
+        if (animatedElements.length > 0) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(element => observer.observe(element));
+        }
     }
 
     // --- EXECUTA TODAS AS FUNÇÕES DE INICIALIZAÇÃO ---
