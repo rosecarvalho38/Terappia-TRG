@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {More actions
 
     // --- FUNÇÕES DE INICIALIZAÇÃO DE CADA MÓDULO DA PÁGINA ---
 
-    function initHeadlineAnimation() {More actions
+    function initHeadlineAnimation() {
         const headline = document.getElementById('main-headline');
         if (headline) {
             const text = headline.textContent.trim();
@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div>
                 <div class="comment-body">
                     <p><strong>${comment.name}</strong> ${comment.text}</p>
+                    <div class="comment-actions">Curtir • Responder • ${generateRandomTimeAgo()}</div>
                     <div class="comment-actions">Curtir • Responder • há poucos segundos</div>
                 </div>`;
             commentsList.prepend(commentDiv);
@@ -100,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
         function showGenericNotification(message) {
             notificationElement.innerHTML = message;
             notificationElement.classList.add('show');
-            setTimeout(() => notificationElement.classList.remove('show'), 6000);
             setTimeout(() => notificationElement.classList.remove('show'), 15000);
         }
 
@@ -108,27 +108,14 @@ document.addEventListener('DOMContentLoaded', () => {
         commentsToShow.slice(0, 5).forEach(c => addCommentToUI(c));
 
         function scheduleNextEvent() {
-            const randomDelay = Math.random() * (40000 - 20000) + 20000;
+            const randomDelay = Math.random() * (30000 - 20000) + 20000;
             setTimeout(() => {
                 // Decide aleatoriamente se mostra um novo comentário ou uma nova compra
                 if (Math.random() > 0.5 && nextCommentIndex < commentsToShow.length) {
-                    // MOSTRA NOVO COMENTÁRIO
-                    const newComment = commentsToShow[nextCommentIndex];
-                    addCommentToUI(newComment);
-                    showGenericNotification(`💬 ${newComment.name} acabou de deixar um novo comentário`);
-                    nextCommentIndex++;
-                } else {
-                    // MOSTRA NOVA COMPRA
-                    const randomName = fakeComments[Math.floor(Math.random() * fakeComments.length)].name;
-                    showGenericNotification(`✨ ${randomName} acaba de iniciar sua Jornada de Resgate.`);
-                    // Aqui, a lógica de decrementar vagas pode ser re-adicionada se desejado
-                }
-                scheduleNextEvent(); // Agenda o próximo evento
-            }, randomDelay);
+@@ -129,123 +129,123 @@
         }
 
         // Inicia o ciclo de eventos
-        setTimeout(scheduleNextEvent, 12000);
         setTimeout(scheduleNextEvent, 20000);
     }
 
