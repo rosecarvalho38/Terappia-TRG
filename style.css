@@ -235,8 +235,8 @@ main#conteudo-principal.is-visible {
     .cta-button {
     padding: 9px 15px; /* Reduz o espaçamento interno */
     font-size: 0.7rem;    /* Diminui um pouco a fonte para caber melhor */
-    width: 90%;        /* Faz o botão ocupar a largura do container */
-    max-width: 150px; }
+    width: 100%;        /* Faz o botão ocupar a largura do container */
+    max-width: 300px; }
     .comment-notification {
     top: 20px;
     bottom: auto;
