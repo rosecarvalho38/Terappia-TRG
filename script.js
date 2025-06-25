@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const headline = document.getElementById('main-headline');
         if (headline) {
             const text = headline.textContent.trim();
-            const words = text.split(' ');
+            const words = text.split(' ');More actions
             headline.innerHTML = '';
             words.forEach((word, i) => {
                 const span = document.createElement('span');
@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- NOVO SISTEMA UNIFICADO DE PROVA SOCIAL (VERSÃO CORRIGIDA) ---
-function initUnifiedSocialProof() {
+    // --- NOVO SISTEMA UNIFICADO DE PROVA SOCIAL ---
+    function initUnifiedSocialProof() {
     const commentsList = document.getElementById('comments-list');
     const notificationElement = document.getElementById('new-comment-notification');
 
@@ -60,7 +60,7 @@ function initUnifiedSocialProof() {
         { name: 'Fernanda Lívia', avatar: 'avatar6.jpg', text: 'Esse investimento em mim mesma foi o mais barato e o mais transformador de todos. Só vai.' },
         { name: 'Beatriz Macedo', avatar: 'avatar7.jpg', text: 'Aquele peso nos ombros que a gente acha que é \'normal\' da vida adulta? Spoiler: NÃO É. Era culpa, era medo, era um monte de coisa que eu nem sabia que carregava. A TRG com a Rose tirou esse piano das minhas costas.' }
     ];
-    
+
     // LISTA 2: Nomes para as notificações de "compra" (início da jornada)
     const fakePurchasers = [
         { name: 'Patrícia Rosa' }, { name: 'Camila Vieira' }, { name: 'Sofia Rodrigues' },
@@ -79,60 +79,50 @@ function initUnifiedSocialProof() {
         return type === 'dias' ? `há ${dias} dia${dias > 1 ? 's' : ''}` : `há ${horas} hora${horas > 1 ? 's' : ''}`;
     }
 
-    // FUNÇÃO CORRIGIDA: Aceita o parâmetro 'isNew'
-    function addCommentToUI(comment, isNew = false) {
+    function addCommentToUI(comment) {
         const commentDiv = document.createElement('div');
         commentDiv.className = 'comment-item';
-        
-        // Lógica para definir o tempo do comentário
-        const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
-        
         commentDiv.innerHTML = `
-            <div class="comment-avatar"><img src="/static/img/${comment.avatar}" alt="avatar"></div>
+            <div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div>
             <div class="comment-body">
                 <p><strong>${comment.name}</strong> ${comment.text}</p>
-                <div class="comment-actions">Curtir • Responder • ${timeAgo}</div>
+                <div class="comment-actions">Curtir • Responder • ${generateRandomTimeAgo()}</div>
             </div>`;
-        
-        if (isNew) {
-            commentsList.prepend(commentDiv); // Adiciona no topo
-        } else {
-            commentsList.appendChild(commentDiv); // Adiciona no final
-        }
+        commentsList.prepend(commentDiv);
     }
 
     function showNotification(message) {
         notificationElement.innerHTML = message;
         notificationElement.classList.add('show');
-        setTimeout(() => notificationElement.classList.remove('show'), 8000);
+        setTimeout(() => notificationElement.classList.remove('show'), 8000); // 8 segundos para dar tempo de ler
     }
 
-    // Popula os comentários iniciais (isNew é false)
-    commentsToShow.slice(0, 5).forEach(c => addCommentToUI(c, false));
+    // Popula os comentários iniciais na caixa de prova social
+    commentsToShow.slice(0, 5).forEach(c => addCommentToUI(c));
 
     function scheduleNextEvent() {
+        // Frequência reduzida: entre 25 e 55 segundos
         const randomDelay = Math.random() * (55000 - 25000) + 25000;
-        
+
         setTimeout(() => {
+            // Decide aleatoriamente se mostra um novo comentário ou uma nova compra
+            // Diminuí a chance de ser um comentário para ser mais raro
             if (Math.random() > 0.7 && nextCommentIndex < commentsToShow.length) {
-                // MOSTRA NOVO COMENTÁRIO
+                // MOSTRA NOVO COMENTÁRIO (30% de chance)
                 const newComment = commentsToShow[nextCommentIndex];
-                // Chamada CORRIGIDA: passa 'true' para indicar que é um novo comentário
-                addCommentToUI(newComment, true); 
+                addCommentToUI(newComment);
+                // Notificação com o texto completo do comentário
                 showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
                 nextCommentIndex++;
             } else {
-                // MOSTRA NOVA COMPRA
+                // MOSTRA NOVA COMPRA (70% de chance)
                 const randomPurchaser = fakePurchasers[Math.floor(Math.random() * fakePurchasers.length)];
                 showNotification(`✨ ${randomPurchaser.name} acaba de iniciar sua Jornada de Resgate.`);
             }
-            scheduleNextEvent();
+            scheduleNextEvent(); // Agenda o próximo evento
         }, randomDelay);
     }
-    
-    setTimeout(scheduleNextEvent, 20000);
-}
-    
+
     // Inicia o ciclo de eventos após um tempo inicial maior (20 segundos)
     setTimeout(scheduleNextEvent, 20000);
 }
@@ -175,7 +165,7 @@ function initPlanSelection() {
                 linkCompra: '#' 
             }
         };
-        
+
         planos.forEach(plano => {
             plano.addEventListener('click', () => {
                 planos.forEach(p => p.classList.remove('selected'));
@@ -202,7 +192,7 @@ function initPlanSelection() {
                     </div>
                     <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>
                 `;
-                
+
                 offerBox.classList.remove('offer-box-hidden');
                 offerBox.classList.add('offer-box-visible');
                 offerBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
