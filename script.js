@@ -1,8 +1,18 @@
-// static/js/script.js (VERSÃO FINAL, COMPLETA E CORRIGIDA)
+// static/js/script.js (VERSÃO FINAL COM ESCASSEZ SINCRONIZADA)
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- FUNÇÃO DE INICIALIZAÇÃO PARA A HEADLINE ---
+    // Objeto central que guarda o estado das vagas.
+    // É declarado aqui no topo para ser acessível por múltiplas funções.
+    const planosInfo = {
+        plus: { nome: 'PLANO PLUS', valorVista: 'R$ 480,00', parcelas: '5x de', valorParcela: 'R$ 96,00', vagasTotal: 4, vagasDisponiveis: 3, linkCompra: '#' },
+        premium: { nome: 'PLANO PREMIUM', valorVista: 'R$ 840,00', parcelas: '8x de', valorParcela: 'R$ 105,00', vagasTotal: 4, vagasDisponiveis: 2, linkCompra: '#' },
+        master: { nome: 'PLANO MASTER', valorVista: 'R$ 1.200,00', parcelas: '12x de', valorParcela: 'R$ 100,00', vagasTotal: 2, vagasDisponiveis: 1, linkCompra: '#' }
+    };
+
+    /**
+     * Função de Animação da Headline Principal
+     */
     function initHeadlineAnimation() {
         const headline = document.getElementById('main-headline');
         if (headline) {
@@ -21,19 +31,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- FUNÇÃO DE INICIALIZAÇÃO PARA O CHECKLIST DE SINTOMAS ---
+    /**
+     * Função do Checklist de Sintomas
+     */
     function initSymptomChecklist() {
         const sintomasCheckboxes = document.querySelectorAll('.sintoma-item input[type="checkbox"]');
         const showSolutionBtn = document.getElementById('show-solution-btn');
         const conteudoPrincipal = document.getElementById('conteudo-principal');
-
         if (sintomasCheckboxes.length > 0 && showSolutionBtn && conteudoPrincipal) {
             const checkCheckboxState = () => {
                 const isAnyChecked = Array.from(sintomasCheckboxes).some(cb => cb.checked);
                 showSolutionBtn.disabled = !isAnyChecked;
             };
             sintomasCheckboxes.forEach(checkbox => checkbox.addEventListener('change', checkCheckboxState));
-            
             showSolutionBtn.addEventListener('click', () => {
                 if (!showSolutionBtn.disabled) {
                     conteudoPrincipal.classList.add('is-visible');
@@ -48,30 +58,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- FUNÇÃO DE INICIALIZAÇÃO PARA PROVA SOCIAL (COMENTÁRIOS E COMPRAS) ---
-    function initSocialProof() {
+    /**
+     * Função de Prova Social (Comentários e Compras Sincronizadas)
+     */
+    function initSocialProofAndPurchaseNotifications() {
         const commentsList = document.getElementById('comments-list');
         const notificationElement = document.getElementById('new-comment-notification');
 
         if (!commentsList || !notificationElement) return;
 
         const fakeComments = [
-            { name: 'Juliana Pinho', avatar: 'avatar1.jpg', text: 'Gente, sério. Minha enxaqueca era diária. Na segunda sessão com a Rose, eu entendi a CAUSA da dor. Hoje faz um mês que não sei o que é tomar um remédio. Parece mágica.' },
-            { name: 'Amanda Guedes', avatar: 'avatar2.jpg', text: 'Eu era a pessoa mais cética com terapia online. Paguei pra ver e quebrei a cara (graças a Deus!). O acolhimento e a profundidade que a Rose alcança pela tela é algo que eu nunca tive no presencial. Não troco por nada.' },
-            { name: 'Letícia Bueloni', avatar: 'avatar3.jpg', text: 'A síndrome da \'mulher boazinha\'... isso me consumia. A TRG com a Rose me DEVOLVEU a minha voz. Hoje, minha paz não é negociável. Obrigada.' },
-            { name: 'Carla Santos', avatar: 'avatar4.jpg', text: 'Pra quem sofre com ansiedade de verdade, aquela que aperta o peito e dá vontade de sumir... só digo uma coisa: comecem. Eu tava no fundo do poço há 3 semanas. Hoje eu consigo respirar fundo de novo.' },
-            { name: 'Mariana Franco', avatar: 'avatar5.jpg', text: 'O mais surreal é que a gente não fica repassando o trauma mil vezes. É diferente de tudo. A Rose te guia pra olhar pra dor de um lugar seguro, sem sofrimento. E de repente, aquilo que te assombrava vira só uma lembrança distante. É libertador.' },
-            { name: 'Fernanda Lívia', avatar: 'avatar6.jpg', text: 'Esse investimento em mim mesma foi o mais barato e o mais transformador de todos. Só vai.' },
-            { name: 'Beatriz Macedo', avatar: 'avatar7.jpg', text: 'Aquele peso nos ombros que a gente acha que é \'normal\' da vida adulta? Spoiler: NÃO É. Era culpa, era medo, era um monte de coisa que eu nem sabia que carregava. A TRG com a Rose tirou esse piano das minhas costas.' }
+            { name: 'Juliana Pinho', avatar: 'avatar1.jpg', text: 'Gente, sério. Minha enxaqueca era diária...' },
+            { name: 'Amanda Guedes', avatar: 'avatar2.jpg', text: 'Eu era a pessoa mais cética com terapia online...' },
+            { name: 'Letícia Bueloni', avatar: 'avatar3.jpg', text: 'A síndrome da \'mulher boazinha\'... isso me consumia...' },
+            { name: 'Carla Santos', avatar: 'avatar4.jpg', text: 'Pra quem sofre com ansiedade de verdade, aquela que aperta o peito...' },
+            { name: 'Mariana Franco', avatar: 'avatar5.jpg', text: 'O mais surreal é que a gente não fica repassando o trauma mil vezes...' },
+            { name: 'Fernanda Lívia', avatar: 'avatar6.jpg', text: 'Esse investimento em mim mesma foi o mais barato e o mais transformador...' },
+            { name: 'Beatriz Macedo', avatar: 'avatar7.jpg', text: 'Aquele peso nos ombros que a gente acha que é \'normal\'? Spoiler: NÃO É...' }
         ];
-
-        const fakePurchasers = [
-            { name: 'Patrícia Rosa' }, { name: 'Camila Vieira' }, { name: 'Sofia Rodrigues' },
-            { name: 'Gabriela Moura' }, { name: 'Laura Cristina' }, { name: 'Isabela Nunes' },
-            { name: 'Clara Boaventura' }, { name: 'Vanessa Tuani' }, { name: 'Daniela Almeida' },
-            { name: 'Renata Porto' }, { name: 'Thais Oliveira' }, { name: 'Alice Flávia' }, { name: 'Luísa Montes' }
-        ];
-
+        
         let nextCommentIndex = 5;
 
         function generateRandomTimeAgo() {
@@ -105,16 +110,28 @@ document.addEventListener('DOMContentLoaded', () => {
         initialComments.forEach(c => addCommentToUI(c, false));
 
         function scheduleNextEvent() {
-            const randomDelay = Math.random() * (55000 - 25000) + 25000;
+            const randomDelay = Math.random() * (45000 - 25000) + 25000;
             setTimeout(() => {
-                if (Math.random() > 0.65 && nextCommentIndex < fakeComments.length) {
+                const eventType = Math.random();
+                if (eventType > 0.65 && nextCommentIndex < fakeComments.length) {
+                    // MOSTRA NOVO COMENTÁRIO
                     const newComment = fakeComments[nextCommentIndex];
                     addCommentToUI(newComment, true);
                     showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
                     nextCommentIndex++;
                 } else {
-                    const randomPurchaser = fakePurchasers[Math.floor(Math.random() * fakePurchasers.length)];
-                    showNotification(`✨ ${randomPurchaser.name} acaba de iniciar sua Jornada de Resgate.`);
+                    // MOSTRA NOVA COMPRA
+                    const planosDisponiveis = Object.keys(planosInfo).filter(p => planosInfo[p].vagasDisponiveis > 0);
+                    if (planosDisponiveis.length > 0) {
+                        const planoCompradoId = planosDisponiveis[Math.floor(Math.random() * planosDisponiveis.length)];
+                        planosInfo[planoCompradoId].vagasDisponiveis--;
+                        const comprador = fakeComments[Math.floor(Math.random() * fakeComments.length)];
+                        showNotification(`✨ ${comprador.name} garantiu uma das últimas vagas no <strong>${planosInfo[planoCompradoId].nome}</strong>!`);
+                        const planoSelecionadoCard = document.querySelector('.plano-card.selected');
+                        if (planoSelecionadoCard && planoSelecionadoCard.dataset.plano === planoCompradoId) {
+                            updateOfferBoxUI(planoCompradoId);
+                        }
+                    }
                 }
                 scheduleNextEvent();
             }, randomDelay);
@@ -123,44 +140,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Função da Seleção de Planos de Terapia
+     * Função da Seleção de Planos de Terapia (agora usando a função de update)
      */
     function initPlanSelection() {
         const planos = document.querySelectorAll('.plano-card');
         const offerBox = document.getElementById('offer-box');
-        const offerDetails = document.getElementById('offer-details');
+        
         if (planos.length > 0 && offerBox) {
-            const planosInfo = {
-                plus: { nome: 'PLANO PLUS', valorVista: 'R$ 480,00', parcelas: '5x de', valorParcela: 'R$ 96,00', vagasTotal: 4, vagasDisponiveis: 3, linkCompra: '#' },
-                premium: { nome: 'PLANO PREMIUM', valorVista: 'R$ 840,00', parcelas: '8x de', valorParcela: 'R$ 105,00', vagasTotal: 4, vagasDisponiveis: 2, linkCompra: '#' },
-                master: { nome: 'PLANO MASTER', valorVista: 'R$ 1.200,00', parcelas: '12x de', valorParcela: 'R$ 100,00', vagasTotal: 2, vagasDisponiveis: 1, linkCompra: '#' }
-            };
-
             planos.forEach(plano => {
                 plano.addEventListener('click', () => {
                     planos.forEach(p => p.classList.remove('selected'));
                     plano.classList.add('selected');
                     const planoSelecionado = plano.dataset.plano;
-                    const info = planosInfo[planoSelecionado];
-                    const vagasPreenchidas = info.vagasTotal - info.vagasDisponiveis;
-                    const percentualPreenchido = (vagasPreenchidas / info.vagasTotal) * 100;
-                    
-                    offerDetails.innerHTML = `
-                        <div class="price-section-rose">
-                            <p class="plano-selecionado">${info.nome}</p>
-                            <p class="price-prefix">Faça sua jornada acontecer por apenas:</p>
-                            <div class="price-main">
-                                <span class="price-installments">${info.parcelas}</span>
-                                <span class="price-value">${info.valorParcela}</span>
-                            </div>
-                            <p class="price-descriptor">ou ${info.valorVista} à vista</p>
-                        </div>
-                        <div class="plano-disponibilidade">
-                            URGENTE: Restam apenas ${info.vagasDisponiveis} de ${info.vagasTotal} vagas para este plano.
-                            <div class="progress-bar"><div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div></div>
-                        </div>
-                        <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>`;
-
+                    updateOfferBoxUI(planoSelecionado);
                     offerBox.classList.remove('offer-box-hidden');
                     offerBox.classList.add('offer-box-visible');
                     offerBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -206,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- EXECUTA TODAS AS FUNÇÕES DE INICIALIZAÇÃO ---
     initHeadlineAnimation();
     initSymptomChecklist();
-    initSocialProof();
+    initSocialProofAndPurchaseNotifications();
     initPlanSelection();
     initFaqAccordion();
     initScrollAnimations();
