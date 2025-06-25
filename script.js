@@ -4,11 +4,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Objeto central que guarda o estado das vagas.
     // É declarado aqui no topo para ser acessível por múltiplas funções.
-    const planosInfo = {
-        plus: { nome: 'PLANO PLUS', valorVista: 'R$ 480,00', parcelas: '5x de', valorParcela: 'R$ 96,00', vagasTotal: 4, vagasDisponiveis: 3, linkCompra: '#' },
-        premium: { nome: 'PLANO PREMIUM', valorVista: 'R$ 840,00', parcelas: '8x de', valorParcela: 'R$ 105,00', vagasTotal: 4, vagasDisponiveis: 2, linkCompra: '#' },
-        master: { nome: 'PLANO MASTER', valorVista: 'R$ 1.200,00', parcelas: '12x de', valorParcela: 'R$ 100,00', vagasTotal: 2, vagasDisponiveis: 1, linkCompra: '#' }
-    };
+    /**
+ * Função da Seleção de Planos de Terapia
+ */
+function initPlanSelection() {
+    const planos = document.querySelectorAll('.plano-card');
+    const offerBox = document.getElementById('offer-box');
+    const offerDetails = document.getElementById('offer-details');
+
+    if (planos.length > 0 && offerBox) {
+        // ... (o objeto planosInfo continua o mesmo)
+        const planosInfo = {
+            plus: { nome: 'PLANO PLUS', valorVista: 'R$ 480,00', parcelas: '5x de', valorParcela: 'R$ 96,00', vagasTotal: 4, vagasDisponiveis: 3, linkCompra: '#' },
+            premium: { nome: 'PLANO PREMIUM', valorVista: 'R$ 840,00', parcelas: '8x de', valorParcela: 'R$ 105,00', vagasTotal: 4, vagasDisponiveis: 2, linkCompra: '#' },
+            master: { nome: 'PLANO MASTER', valorVista: 'R$ 1.200,00', parcelas: '12x de', valorParcela: 'R$ 100,00', vagasTotal: 2, vagasDisponiveis: 1, linkCompra: '#' }
+        };
+
+        planos.forEach(plano => {
+            plano.addEventListener('click', () => {
+                planos.forEach(p => p.classList.remove('selected'));
+                plano.classList.add('selected');
+                const planoSelecionado = plano.dataset.plano;
+                const info = planosInfo[planoSelecionado];
+                const vagasPreenchidas = info.vagasTotal - info.vagasDisponiveis;
+                const percentualPreenchido = (vagasPreenchidas / info.vagasTotal) * 100;
+
+                offerDetails.innerHTML = `
+                    <div class="price-section-rose">
+                        <p class="plano-selecionado">${info.nome}</p>
+                        <p class="price-prefix">Faça sua jornada acontecer por apenas:</p>
+                        <div class="price-main">
+                            <span class="price-installments">${info.parcelas}</span>
+                            <span class="price-value">${info.valorParcela}</span>
+                        </div>
+                        <p class="price-descriptor">ou ${info.valorVista} à vista</p>
+                    </div>
+                    <div class="plano-disponibilidade">
+                        URGENTE: Restam apenas ${info.vagasDisponiveis} de ${info.vagasTotal} vagas para este plano.
+                        <div class="progress-bar"><div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div></div>
+                    </div>
+                    <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>`;
+                
+                offerBox.classList.remove('offer-box-hidden');
+                offerBox.classList.add('offer-box-visible');
+
+                // COMANDO DE ROLAGEM DENTRO DO SETTIMEOUT
+                setTimeout(() => {
+                    offerBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100); 
+            });
+        });
+    }
+}
 
     /**
      * Função de Animação da Headline Principal
@@ -159,27 +206,6 @@ function initSocialProof() {
     }
     setTimeout(scheduleNextEvent, 20000);
 }
-    /**
-     * Função da Seleção de Planos de Terapia (agora usando a função de update)
-     */
-    function initPlanSelection() {
-        const planos = document.querySelectorAll('.plano-card');
-        const offerBox = document.getElementById('offer-box');
-        
-        if (planos.length > 0 && offerBox) {
-            planos.forEach(plano => {
-                plano.addEventListener('click', () => {
-                    planos.forEach(p => p.classList.remove('selected'));
-                    plano.classList.add('selected');
-                    const planoSelecionado = plano.dataset.plano;
-                    updateOfferBoxUI(planoSelecionado);
-                    offerBox.classList.remove('offer-box-hidden');
-                    offerBox.classList.add('offer-box-visible');
-                    offerBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-            });
-        }
-    }
 
     /**
      * Função do Acordeão (FAQ)
