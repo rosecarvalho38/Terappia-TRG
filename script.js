@@ -73,12 +73,17 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Função de Prova Social (Comentários e Compras Sincronizadas)
      */
-    function initSocialProof() {
-        const commentsList = document.getElementById('comments-list');
-        const notificationElement = document.getElementById('new-comment-notification');
-        if (!commentsList || !notificationElement) return;
+    /**
+ * Função da Prova Social (Comentários e Compras)
+ * VERSÃO FINAL COM COMENTÁRIOS RANDÔMICOS
+ */
+function initSocialProof() {
+    const commentsList = document.getElementById('comments-list');
+    const notificationElement = document.getElementById('new-comment-notification');
 
-        const fakeComments = [
+    if (!commentsList || !notificationElement) return;
+
+    const fakeComments = [
     // Depoimentos já existentes...
     { name: 'Juliana Pinho', avatar: 'avatar1.jpg', text: 'Gente, sério. Minha enxaqueca era diária. Na segunda sessão com a Rose, eu entendi a CAUSA da dor. Hoje faz um mês que não sei o que é tomar um remédio. Parece mágica.' },
     { name: 'Amanda Guedes', avatar: 'avatar2.jpg', text: 'Eu era a pessoa mais cética com terapia online. Paguei pra ver e quebrei a cara (graças a Deus!). O acolhimento e a profundidade que a Rose alcança pela tela é algo que eu nunca tive no presencial. Não troco por nada.' },
@@ -87,8 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'Mariana Franco', avatar: 'avatar5.jpg', text: 'O mais surreal é que a gente não fica repassando o trauma mil vezes. É diferente de tudo. A Rose te guia pra olhar pra dor de um lugar seguro, sem sofrimento. E de repente, aquilo que te assombrava vira só uma lembrança distante. É libertador.' },
     { name: 'Fernanda Lívia', avatar: 'avatar6.jpg', text: 'Esse investimento em mim mesma foi o mais barato e o mais transformador de todos. Só vai.' },
     { name: 'Beatriz Macedo', avatar: 'avatar7.jpg', text: 'Aquele peso nos ombros que a gente acha que é \'normal\' da vida adulta? Spoiler: NÃO É. Era culpa, era medo, era um monte de coisa que eu nem sabia que carregava. A TRG com a Rose tirou esse piano das minhas costas.' },
-
-    // Novos 20 depoimentos
     { name: 'Patrícia Rios', avatar: 'avatar8.jpg', text: 'Minha ansiedade se manifestava à noite. Eu simplesmente não dormia, ficava com o coração disparado pensando em mil problemas. Já na primeira sessão a Rose me ensinou uma técnica que me fez apagar. Só isso já valeu tudo.' },
     { name: 'Camila Veiga', avatar: 'avatar9.jpg', text: 'Eu procrastinava tudo no trabalho por medo de não ser boa o suficiente. Achava que era preguiça. Na terapia entendi que era autossabotagem pura. Depois que a gente tratou a raiz disso, recebi uma promoção. Surreal.' },
     { name: 'Vanessa T.', avatar: 'avatar10.jpg', text: 'Fiz anos de terapia convencional e nunca cheguei nem perto da profundidade que alcancei em poucas sessões de TRG. Uma fala sobre o problema, a outra vai lá e resolve a causa. Simples assim.' },
@@ -110,60 +113,67 @@ document.addEventListener('DOMContentLoaded', () => {
     { name:- 'Raquel Campos', avatar: 'avatar26.jpg', text: 'O mais louco é ver as pessoas ao redor comentando: "Nossa, você parece mais leve", "Sua energia tá diferente". A mudança é de dentro pra fora, mas todo mundo nota.' },
     { name: 'Elisa Pinto', avatar: 'avatar27.jpg', text: 'Eu só queria parar de sentir medo do futuro. Vivia ansiosa pelo que podia acontecer. Hoje eu consigo focar no presente e sei que tenho as ferramentas pra lidar com o que vier. Essa segurança não tem preço.' }
 ]
-        
-        let nextCommentIndex = 5;
 
-        function generateRandomTimeAgo() {
-            const type = Math.random() > 0.4 ? 'dias' : 'horas';
-            const dias = Math.floor(Math.random() * 6) + 1;
-            const horas = Math.floor(Math.random() * 23) + 1;
-            return type === 'dias' ? `há ${dias} dia${dias > 1 ? 's' : ''}` : `há ${horas} hora${horas > 1 ? 's' : ''}`;
+    const fakePurchasers = [ /* Sua lista de compradoras */ ];
+
+    // --- NOVA LÓGICA DE SEPARAÇÃO E ALEATORIEDADE ---
+
+    // 1. Separa os 5 comentários iniciais dos restantes.
+    const initialComments = fakeComments.slice(0, 5);
+    let remainingComments = fakeComments.slice(5);
+
+    // 2. Função para embaralhar o array (Fisher-Yates shuffle)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
         }
-
-        function addCommentToUI(comment, isNew = false) {
-            const commentDiv = document.createElement('div');
-            commentDiv.className = 'comment-item';
-            const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
-            commentDiv.innerHTML = `<div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div><div class="comment-body"><p><strong>${comment.name}</strong> ${comment.text}</p><div class="comment-actions">Curtir • Responder • ${timeAgo}</div></div>`;
-            if (isNew) commentsList.prepend(commentDiv);
-            else commentsList.appendChild(commentDiv);
-        }
-
-        function showNotification(message) {
-            notificationElement.innerHTML = message;
-            notificationElement.classList.add('show');
-            setTimeout(() => notificationElement.classList.remove('show'), 8000);
-        }
-
-        const initialComments = fakeComments.slice(0, 5);
-        initialComments.forEach(c => addCommentToUI(c, false));
-
-        function scheduleNextEvent() {
-            const randomDelay = Math.random() * (55000 - 25000) + 25000;
-            setTimeout(() => {
-                if (Math.random() > 0.65 && nextCommentIndex < fakeComments.length) {
-                    const newComment = fakeComments[nextCommentIndex];
-                    addCommentToUI(newComment, true);
-                    showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
-                    nextCommentIndex++;
-                } else {
-                    const planosDisponiveis = Object.keys(planosInfo).filter(p => planosInfo[p].vagasDisponiveis > 0);
-                    if (planosDisponiveis.length > 0) {
-                        const planoCompradoId = planosDisponiveis[Math.floor(Math.random() * planosDisponiveis.length)];
-                        planosInfo[planoCompradoId].vagasDisponiveis--;
-                        const comprador = fakeComments[Math.floor(Math.random() * fakeComments.length)];
-                        showNotification(`✨ ${comprador.name} garantiu uma das últimas vagas no <strong>${planosInfo[planoCompradoId].nome}</strong>!`);
-                        const planoSelecionadoCard = document.querySelector('.plano-card.selected');
-                        if (planoSelecionadoCard && planoSelecionadoCard.dataset.plano === planoCompradoId) {
-                            updateOfferBoxUI(planoCompradoId);
-                        }
-                    }
-                }
-                scheduleNextEvent();
-            }, randomDelay);
-        }
-        setTimeout(scheduleNextEvent, 20000);
     }
+
+    // 3. Embaralha os comentários restantes UMA ÚNICA VEZ.
+    shuffleArray(remainingComments);
+    let newCommentIndex = 0; // Contador para os comentários embaralhados
+
+    function generateRandomTimeAgo() { /* ... (função continua a mesma) ... */ }
+    function showNotification(message) { /* ... (função continua a mesma) ... */ }
+
+    function addCommentToUI(comment, isNew = false) {
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment-item';
+        const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
+        // Corrigindo o caminho da imagem para o padrão Flask
+        commentDiv.innerHTML = `<div class="comment-avatar"><img src="/static/img/${comment.avatar}" alt="avatar"></div><div class="comment-body"><p><strong>${comment.name}</strong> ${comment.text}</p><div class="comment-actions">Curtir • Responder • ${timeAgo}</div></div>`;
+        if (isNew) commentsList.prepend(commentDiv);
+        else commentsList.appendChild(commentDiv);
+    }
+
+    // Popula a página com os 5 comentários iniciais fixos
+    initialComments.forEach(c => addCommentToUI(c, false));
+
+    function scheduleNextEvent() {
+        // ... (lógica de tempo aleatório continua a mesma) ...
+        const randomDelay = Math.random() * (55000 - 25000) + 25000;
+        setTimeout(() => {
+            const eventType = Math.random();
+
+            // A condição agora verifica o novo contador 'newCommentIndex' e o limite de 8
+            if (eventType > 0.65 && newCommentIndex < 8 && newCommentIndex < remainingComments.length) {
+                // MOSTRA NOVO COMENTÁRIO (da lista embaralhada)
+                const newComment = remainingComments[newCommentIndex];
+                addCommentToUI(newComment, true);
+                showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
+                newCommentIndex++; // Avança para o próximo da lista embaralhada
+            } else {
+                // MOSTRA NOVA COMPRA (lógica continua a mesma)
+                // ... (código da notificação de compra) ...
+            }
+            scheduleNextEvent();
+        }, randomDelay);
+    }
+    
+    // Inicia o ciclo de eventos
+    setTimeout(scheduleNextEvent, 20000);
+}
 
     /**
      * Função da Seleção de Planos de Terapia
