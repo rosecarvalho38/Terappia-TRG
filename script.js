@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             commentDiv.className = 'comment-item';
             const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
             commentDiv.innerHTML = `
-                <div class="comment-avatar"><img src="/static/img/${comment.avatar}" alt="avatar"></div>
+                <div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div>
                 <div class="comment-body">
                     <p><strong>${comment.name}</strong> ${comment.text}</p>
                     <div class="comment-actions">Curtir • Responder • ${timeAgo}</div>
