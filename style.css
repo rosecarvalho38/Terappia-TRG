@@ -55,7 +55,7 @@ main#conteudo-principal.is-visible {
 .main-subheadline { font-size: 1.2rem; max-width: 700px; opacity: 0.9; }
 
 /* --- CHECKLIST --- */
-.sintomas-box { margin-top: 50px; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 1px solid rgba(148, 183, 175, 0.3); max-width: 800px; }
+.sintomas-box { margin: 50px auto 0; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 1px solid rgba(148, 183, 175, 0.3); max-width: 800px; }
 .sintomas-box h4 { margin: 20px 0; font-family: var(--font-headline); font-size: 1.3rem; }
 .sintomas-checklist { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; text-align: left; }
 .sintoma-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s; }
