@@ -115,53 +115,67 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'Elisa Pinto', avatar: 'avatar27.jpg', text: 'Eu só queria parar de sentir medo do futuro. Vivia ansiosa pelo que podia acontecer. Hoje eu consigo focar no presente e sei que tenho as ferramentas pra lidar com o que vier. Essa segurança não tem preço.' }
 ]
         
-        let nextCommentIndex = 5;
+        // Separa os 5 comentários iniciais dos restantes
+    const initialComments = fakeComments.slice(0, 5);
+    let remainingComments = fakeComments.slice(5);
 
-        function generateRandomTimeAgo() {
-            const type = Math.random() > 0.4 ? 'dias' : 'horas';
-            const dias = Math.floor(Math.random() * 6) + 1;
-            const horas = Math.floor(Math.random() * 23) + 1;
-            return type === 'dias' ? `há ${dias} dia${dias > 1 ? 's' : ''}` : `há ${horas} hora${horas > 1 ? 's' : ''}`;
+    // FUNÇÃO PARA EMBARALHAR O ARRAY (Algoritmo Fisher-Yates)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
         }
-
-        function addCommentToUI(comment, isNew = false) {
-            const commentDiv = document.createElement('div');
-            commentDiv.className = 'comment-item';
-            const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
-            commentDiv.innerHTML = `
-                <div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div>
-                <div class="comment-body">
-                    <p><strong>${comment.name}</strong> ${comment.text}</p>
-                    <div class="comment-actions">Curtir • Responder • ${timeAgo}</div>
-                </div>`;
-            if (isNew) commentsList.prepend(commentDiv);
-            else commentsList.appendChild(commentDiv);
-        }
-
-        function showNotification(message) {
-            notificationElement.innerHTML = message;
-            notificationElement.classList.add('show');
-            setTimeout(() => notificationElement.classList.remove('show'), 8000);
-        }
-        
-        const initialComments = fakeComments.slice(0, 15);
-        initialComments.forEach(c => addCommentToUI(c, false));
-
-        function scheduleNextComment() {
-            const randomDelay = Math.random() * (55000 - 25000) + 25000;
-            setTimeout(() => {
-                if (nextCommentIndex < fakeComments.length) {
-                    const newComment = fakeComments[nextCommentIndex];
-                    addCommentToUI(newComment, true);
-                    showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
-                    nextCommentIndex++;
-                    scheduleNextComment();
-                }
-            }, randomDelay);
-        }
-        setTimeout(scheduleNextComment, 25000);
     }
 
+    // Embaralha os comentários restantes UMA VEZ
+    shuffleArray(remainingComments);
+    let shuffledCommentIndex = 0; // Um novo contador para os comentários embaralhados
+
+    function generateRandomTimeAgo() { /* ... (esta função continua igual) ... */ }
+    function showNotification(message) { /* ... (esta função continua igual) ... */ }
+
+    function addCommentToUI(comment, isNew = false) {
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment-item';
+        const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
+        commentDiv.innerHTML = `
+            <div class="comment-avatar"><img src="/static/img/${comment.avatar}" alt="avatar"></div>
+            <div class="comment-body">
+                <p><strong>${comment.name}</strong> ${comment.text}</p>
+                <div class="comment-actions">Curtir • Responder • ${timeAgo}</div>
+            </div>`;
+        if (isNew) {
+            commentsList.prepend(commentDiv);
+            commentDiv.classList.add('anim-on-scroll', 'is-visible'); // Adiciona classes para animação
+        } else {
+            commentsList.appendChild(commentDiv);
+        }
+    }
+
+    // Popula os comentários iniciais
+    initialComments.forEach(c => addCommentToUI(c, false));
+
+    function scheduleNextComment() {
+        const randomDelay = Math.random() * (50000 - 30000) + 30000; // Frequência um pouco menor
+        setTimeout(() => {
+            // A condição agora verifica se já mostramos os 8 comentários aleatórios
+            if (shuffledCommentIndex < 8 && shuffledCommentIndex < remainingComments.length) {
+                
+                const newComment = remainingComments[shuffledCommentIndex];
+                addCommentToUI(newComment, true);
+                showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
+                
+                shuffledCommentIndex++; // Avança para o próximo comentário embaralhado
+                
+                scheduleNextComment(); // Agenda o próximo
+            }
+            // Se já mostrou 8, a função para de se chamar, e os comentários param.
+        }, randomDelay);
+    }
+    
+    // Inicia o ciclo de eventos após 15 segundos
+    setTimeout(scheduleNextComment, 25000);
+}
     /**
      * Função da Seleção de Planos de Terapia
      */
