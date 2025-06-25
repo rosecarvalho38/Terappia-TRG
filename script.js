@@ -144,11 +144,11 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => notificationElement.classList.remove('show'), 8000);
         }
         
-        const initialComments = fakeComments.slice(0, 5);
+        const initialComments = fakeComments.slice(0, 15);
         initialComments.forEach(c => addCommentToUI(c, false));
 
         function scheduleNextComment() {
-            const randomDelay = Math.random() * (45000 - 20000) + 20000;
+            const randomDelay = Math.random() * (55000 - 25000) + 25000;
             setTimeout(() => {
                 if (nextCommentIndex < fakeComments.length) {
                     const newComment = fakeComments[nextCommentIndex];
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }, randomDelay);
         }
-        setTimeout(scheduleNextComment, 20000);
+        setTimeout(scheduleNextComment, 25000);
     }
 
     /**
