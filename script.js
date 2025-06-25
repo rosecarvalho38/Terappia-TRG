@@ -79,12 +79,15 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Função de Prova Social (Comentários e Compras Sincronizadas)
      */
-    function initSocialProof() {
-        const commentsList = document.getElementById('comments-list');
-        const notificationElement = document.getElementById('new-comment-notification');
-        if (!commentsList || !notificationElement) return;
+    function initUnifiedSocialProof() {
+    const commentsList = document.getElementById('comments-list');
+    const notificationElement = document.getElementById('new-comment-notification');
 
-        const fakeComments = [
+    // Só roda se os elementos principais existirem
+    if (!commentsList || !notificationElement) return;
+
+    // LISTA 1: Para a caixa de comentários (com texto completo)
+    const fakeComments = [
     // Depoimentos já existentes...
     { name: 'Juliana Pinho', avatar: 'avatar1.jpg', text: 'Gente, sério. Minha enxaqueca era diária. Na segunda sessão com a Rose, eu entendi a CAUSA da dor. Hoje faz um mês que não sei o que é tomar um remédio. Parece mágica.' },
     { name: 'Amanda Guedes', avatar: 'avatar2.jpg', text: 'Eu era a pessoa mais cética com terapia online. Paguei pra ver e quebrei a cara (graças a Deus!). O acolhimento e a profundidade que a Rose alcança pela tela é algo que eu nunca tive no presencial. Não troco por nada.' },
@@ -114,67 +117,77 @@ document.addEventListener('DOMContentLoaded', () => {
     { name:- 'Raquel Campos', avatar: 'avatar26.jpg', text: 'O mais louco é ver as pessoas ao redor comentando: "Nossa, você parece mais leve", "Sua energia tá diferente". A mudança é de dentro pra fora, mas todo mundo nota.' },
     { name: 'Elisa Pinto', avatar: 'avatar27.jpg', text: 'Eu só queria parar de sentir medo do futuro. Vivia ansiosa pelo que podia acontecer. Hoje eu consigo focar no presente e sei que tenho as ferramentas pra lidar com o que vier. Essa segurança não tem preço.' }
 ]
-        
-        // Separa os 5 comentários iniciais dos restantes
-    const initialComments = fakeComments.slice(0, 5);
-    let remainingComments = fakeComments.slice(5);
+    
+    // LISTA 2: Nomes dedicados para as notificações de compra
+    const fakePurchasers = [
+        { name: 'Patrícia Rosa' }, { name: 'Camila Vieira' }, { name: 'Sofia Rodrigues' },
+        { name: 'Gabriela Moura' }, { name: 'Laura Cristina' }, { name: 'Isabela Nunes' },
+        { name: 'Clara Boaventura' }, { name: 'Vanessa Tuani' }, { name: 'Daniela Almeida' },
+        { name: 'Renata Porto' }, { name: 'Thais Oliveira' }, { name: 'Alice Flávia' }, { name: 'Luísa Montes' }
+    ];
 
-    // FUNÇÃO PARA EMBARALHAR O ARRAY (Algoritmo Fisher-Yates)
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
+    let nextCommentIndex = 5;
+
+    function generateRandomTimeAgo() {
+        const type = Math.random() > 0.4 ? 'dias' : 'horas';
+        const dias = Math.floor(Math.random() * 6) + 1;
+        const horas = Math.floor(Math.random() * 23) + 1;
+        return type === 'dias' ? `há ${dias} dia${dias > 1 ? 's' : ''}` : `há ${horas} hora${horas > 1 ? 's' : ''}`;
     }
 
-    // Embaralha os comentários restantes UMA VEZ
-    shuffleArray(remainingComments);
-    let shuffledCommentIndex = 0; // Um novo contador para os comentários embaralhados
-
-    function generateRandomTimeAgo() { /* ... (esta função continua igual) ... */ }
-    function showNotification(message) { /* ... (esta função continua igual) ... */ }
-
+    // FUNÇÃO CORRIGIDA: Aceita o parâmetro 'isNew'
     function addCommentToUI(comment, isNew = false) {
         const commentDiv = document.createElement('div');
         commentDiv.className = 'comment-item';
+        
+        // Lógica para definir o tempo do comentário
         const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
+        
         commentDiv.innerHTML = `
             <div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div>
             <div class="comment-body">
                 <p><strong>${comment.name}</strong> ${comment.text}</p>
                 <div class="comment-actions">Curtir • Responder • ${timeAgo}</div>
             </div>`;
+        
         if (isNew) {
-            commentsList.prepend(commentDiv);
-            commentDiv.classList.add('anim-on-scroll', 'is-visible'); // Adiciona classes para animação
+            commentsList.prepend(commentDiv); // Adiciona no topo
         } else {
-            commentsList.appendChild(commentDiv);
+            commentsList.appendChild(commentDiv); // Adiciona no final
         }
     }
 
-    // Popula os comentários iniciais
+    function showNotification(message) {
+        notificationElement.innerHTML = message;
+        notificationElement.classList.add('show');
+        setTimeout(() => notificationElement.classList.remove('show'), 8000);
+    }
+
+    // Popula os comentários iniciais (isNew é false)
+    const initialComments = fakeComments.slice(0, 5);
     initialComments.forEach(c => addCommentToUI(c, false));
 
-    function scheduleNextComment() {
-        const randomDelay = Math.random() * (50000 - 30000) + 30000; // Frequência um pouco menor
+    function scheduleNextEvent() {
+        const randomDelay = Math.random() * (55000 - 25000) + 25000;
+        
         setTimeout(() => {
-            // A condição agora verifica se já mostramos os 8 comentários aleatórios
-            if (shuffledCommentIndex < 5 && shuffledCommentIndex < remainingComments.length) {
-                
-                const newComment = remainingComments[shuffledCommentIndex];
-                addCommentToUI(newComment, true);
+            if (Math.random() > 0.65 && nextCommentIndex < fakeComments.length) {
+                // MOSTRA NOVO COMENTÁRIO
+                const newComment = fakeComments[nextCommentIndex];
+                // Chamada CORRIGIDA: passa 'true' para indicar que é um novo comentário
+                addCommentToUI(newComment, true); 
                 showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
-                
-                shuffledCommentIndex++; // Avança para o próximo comentário embaralhado
-                
-                scheduleNextComment(); // Agenda o próximo
+                nextCommentIndex++;
+            } else {
+                // MOSTRA NOVA COMPRA
+                const randomPurchaser = fakePurchasers[Math.floor(Math.random() * fakePurchasers.length)];
+                showNotification(`✨ ${randomPurchaser.name} acaba de iniciar sua Jornada de Resgate.`);
             }
-            // Se já mostrou 8, a função para de se chamar, e os comentários param.
+            scheduleNextEvent();
         }, randomDelay);
     }
     
-    // Inicia o ciclo de eventos após 15 segundos
-    setTimeout(scheduleNextComment, 25000);
+    setTimeout(scheduleNextEvent, 25000);
 }
     /**
      * Função da Seleção de Planos de Terapia
