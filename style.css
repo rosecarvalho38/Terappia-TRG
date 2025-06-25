@@ -206,7 +206,7 @@ main#conteudo-principal.is-visible {
 
 /* Ajusta a margem superior do botão final */
 .secao-final-chamada .cta-button {
-    margin-top: 20px;
+    margin-top: 40px;
 }
 .footer { background-color: #0d141f; color: #aaa; padding: 50px 0; text-align: center; font-size: 0.9rem; border-top: 1px solid var(--accent-color-1); }
 .footer p { margin: 5px 0; }
@@ -238,10 +238,10 @@ main#conteudo-principal.is-visible {
 
 /* --- Ajuste Responsivo para Botões de CTA --- */
 .cta-button {
-    padding: 9px 15px; /* Reduz o espaçamento interno */
+    padding: 6px 12px; /* Reduz o espaçamento interno */
     font-size: 1rem;    /* Diminui um pouco a fonte para caber melhor */
     width: 100%;        /* Faz o botão ocupar a largura do container */
-    max-width: 300px;
+    max-width: 200px;
 }
     
 /* Dentro de @media (max-width: 768px) { ... } */
