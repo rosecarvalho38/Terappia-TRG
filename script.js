@@ -3,13 +3,18 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // Objeto central que guarda o estado das vagas.
-    // Declarado aqui para ser acessível por múltiplas funções.
-    // As vagas foram atualizadas conforme sua solicitação.
     const planosInfo = {
-        plus: { nome: 'PLANO PLUS', desc: 'O Ponto de Partida Para a Sua Cura', investimento: '10 Sessões | 1x por semana', vagasTotal: 13, vagasDisponiveis: 13, linkCompra: '#' },
-        premium: { nome: 'PLANO PREMIUM', desc: 'A Transformação Profunda e Acelerada', investimento: '16 Sessões | 2x por semana', vagasTotal: 9, vagasDisponiveis: 9, linkCompra: '#' },
-        master: { nome: 'PLANO MASTER', desc: 'A Imersão Completa Para a Reconstrução', investimento: '24 Sessões | 2x por semana', vagasTotal: 5, vagasDisponiveis: 5, linkCompra: '#' }
+        plus: { nome: 'PLANO PLUS', desc: 'O Ponto de Partida Para a Sua Cura', investimento: '10 Sessões | 1x por semana', vagasTotal: 13, vagasDisponiveis: 0, linkCompra: '#' },
+        premium: { nome: 'PLANO PREMIUM', desc: 'A Transformação Profunda e Acelerada', investimento: '16 Sessões | 2x por semana', vagasTotal: 9, vagasDisponiveis: 0, linkCompra: '#' },
+        master: { nome: 'PLANO MASTER', desc: 'A Imersão Completa Para a Reconstrução', investimento: '24 Sessões | 2x por semana', vagasTotal: 5, vagasDisponiveis: 0, linkCompra: '#' }
     };
+
+    // --- FUNÇÃO PARA INICIALIZAR VAGAS ALEATÓRIAS ---
+    function initRandomVagas() {
+        planosInfo.plus.vagasDisponiveis = Math.floor(Math.random() * 4) + 5; // Gera de 5 a 8 vagas
+        planosInfo.premium.vagasDisponiveis = Math.floor(Math.random() * 3) + 3; // Gera de 3 a 5 vagas
+        planosInfo.master.vagasDisponiveis = Math.floor(Math.random() * 2) + 1; // Gera 1 ou 2 vagas
+    }
 
     /**
      * Função reutilizável para atualizar a caixa de oferta na tela.
@@ -193,39 +198,50 @@ function initSocialProof() {
         commentDiv.className = 'comment-item';
         const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
         // Corrigindo o caminho da imagem para o padrão Flask
-        commentDiv.innerHTML = `<div class="comment-avatar"><img src="/static/img/${comment.avatar}" alt="avatar"></div><div class="comment-body"><p><strong>${comment.name}</strong> ${comment.text}</p><div class="comment-actions">Curtir • Responder • ${timeAgo}</div></div>`;
+        commentDiv.innerHTML = `<div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div><div class="comment-body"><p><strong>${comment.name}</strong> ${comment.text}</p><div class="comment-actions">Curtir • Responder • ${timeAgo}</div></div>`;
         if (isNew) commentsList.prepend(commentDiv);
         else commentsList.appendChild(commentDiv);
     }
 
-    // Popula a página com os 5 comentários iniciais fixos
-    initialComments.forEach(c => addCommentToUI(c, false));
+    const initialComments = fakeComments.slice(0, 5);
+        initialComments.forEach(c => addCommentToUI(c, false));
 
-    function scheduleNextEvent() {
-        // ... (lógica de tempo aleatório continua a mesma) ...
-        const randomDelay = Math.random() * (55000 - 25000) + 25000;
-        setTimeout(() => {
-            const eventType = Math.random();
+        function scheduleNextEvent() {
+            // Frequência um pouco maior: entre 18 e 40 segundos
+            const randomDelay = Math.random() * (40000 - 18000) + 18000;
+            
+            setTimeout(() => {
+                // Aumenta a chance de ser uma compra (80% de chance)
+                const eventType = Math.random();
+                if (eventType > 0.8 && shuffledCommentIndex < 8 && shuffledCommentIndex < remainingComments.length) {
+                    // MOSTRA NOVO COMENTÁRIO (20% de chance)
+                    const newComment = remainingComments[shuffledCommentIndex];
+                    addCommentToUI(newComment, true);
+                    showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
+                    shuffledCommentIndex++;
+                } else {
+                    // MOSTRA NOVA COMPRA (80% de chance)
+                    const planosDisponiveis = Object.keys(planosInfo).filter(p => planosInfo[p].vagasDisponiveis > 0);
+                    if (planosDisponiveis.length > 0) {
+                        const planoCompradoId = planosDisponiveis[Math.floor(Math.random() * planosDisponiveis.length)];
+                        
+                        planosInfo[planoCompradoId].vagasDisponiveis--;
 
-            // A condição agora verifica o novo contador 'newCommentIndex' e o limite de 8
-            if (eventType > 0.65 && newCommentIndex < 8 && newCommentIndex < remainingComments.length) {
-                // MOSTRA NOVO COMENTÁRIO (da lista embaralhada)
-                const newComment = remainingComments[newCommentIndex];
-                addCommentToUI(newComment, true);
-                showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
-                newCommentIndex++; // Avança para o próximo da lista embaralhada
-            } else {
-                // MOSTRA NOVA COMPRA (lógica continua a mesma)
-                // ... (código da notificação de compra) ...
-            }
-            scheduleNextEvent();
-        }, randomDelay);
+                        const comprador = fakePurchasers[Math.floor(Math.random() * fakePurchasers.length)];
+                        
+                        showNotification(`✨ ${comprador.name} garantiu uma das últimas vagas no <strong>${planosInfo[planoCompradoId].nome}</strong>!`);
+
+                        const planoSelecionadoCard = document.querySelector('.plano-card.selected');
+                        if (planoSelecionadoCard && planoSelecionadoCard.dataset.plano === planoCompradoId) {
+                            updateOfferBoxUI(planoCompradoId);
+                        }
+                    }
+                }
+                scheduleNextEvent();
+            }, randomDelay);
+        }
+        setTimeout(scheduleNextEvent, 15000); // Começa um pouco mais rápido
     }
-    
-    // Inicia o ciclo de eventos
-    setTimeout(scheduleNextEvent, 20000);
-}
-
     /**
      * Função da Seleção de Planos de Terapia
      */
