@@ -1,5 +1,3 @@
-// static/js/script.js (VERSÃO FINAL COM ESCASSEZ SINCRONIZADA)
-
 document.addEventListener('DOMContentLoaded', () => {
 
     // Objeto central que guarda o estado das vagas.
