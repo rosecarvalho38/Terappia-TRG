@@ -202,8 +202,6 @@ function initSocialProof() {
         if (isNew) commentsList.prepend(commentDiv);
         else commentsList.appendChild(commentDiv);
     }
-
-    const initialComments = fakeComments.slice(0, 5);
         initialComments.forEach(c => addCommentToUI(c, false));
 
         function scheduleNextEvent() {
