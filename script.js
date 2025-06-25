@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- NOVO SISTEMA UNIFICADO DE PROVA SOCIAL ---
-    function initUnifiedSocialProof() {
+    // --- NOVO SISTEMA UNIFICADO DE PROVA SOCIAL (VERSÃO CORRIGIDA) ---
+function initUnifiedSocialProof() {
     const commentsList = document.getElementById('comments-list');
     const notificationElement = document.getElementById('new-comment-notification');
 
@@ -79,49 +79,59 @@ document.addEventListener('DOMContentLoaded', () => {
         return type === 'dias' ? `há ${dias} dia${dias > 1 ? 's' : ''}` : `há ${horas} hora${horas > 1 ? 's' : ''}`;
     }
 
-    function addCommentToUI(comment) {
+    // FUNÇÃO CORRIGIDA: Aceita o parâmetro 'isNew'
+    function addCommentToUI(comment, isNew = false) {
         const commentDiv = document.createElement('div');
         commentDiv.className = 'comment-item';
+        
+        // Lógica para definir o tempo do comentário
+        const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
+        
         commentDiv.innerHTML = `
-            <div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div>
+            <div class="comment-avatar"><img src="/static/img/${comment.avatar}" alt="avatar"></div>
             <div class="comment-body">
                 <p><strong>${comment.name}</strong> ${comment.text}</p>
-                <div class="comment-actions">Curtir • Responder • ${generateRandomTimeAgo()}</div>
+                <div class="comment-actions">Curtir • Responder • ${timeAgo}</div>
             </div>`;
-        commentsList.prepend(commentDiv);
+        
+        if (isNew) {
+            commentsList.prepend(commentDiv); // Adiciona no topo
+        } else {
+            commentsList.appendChild(commentDiv); // Adiciona no final
+        }
     }
 
     function showNotification(message) {
         notificationElement.innerHTML = message;
         notificationElement.classList.add('show');
-        setTimeout(() => notificationElement.classList.remove('show'), 8000); // 8 segundos para dar tempo de ler
+        setTimeout(() => notificationElement.classList.remove('show'), 8000);
     }
 
-    // Popula os comentários iniciais na caixa de prova social
-    commentsToShow.slice(0, 5).forEach(c => addCommentToUI(c));
+    // Popula os comentários iniciais (isNew é false)
+    commentsToShow.slice(0, 5).forEach(c => addCommentToUI(c, false));
 
     function scheduleNextEvent() {
-        // Frequência reduzida: entre 25 e 55 segundos
         const randomDelay = Math.random() * (55000 - 25000) + 25000;
         
         setTimeout(() => {
-            // Decide aleatoriamente se mostra um novo comentário ou uma nova compra
-            // Diminuí a chance de ser um comentário para ser mais raro
             if (Math.random() > 0.7 && nextCommentIndex < commentsToShow.length) {
-                // MOSTRA NOVO COMENTÁRIO (30% de chance)
+                // MOSTRA NOVO COMENTÁRIO
                 const newComment = commentsToShow[nextCommentIndex];
-                addCommentToUI(newComment);
-                // Notificação com o texto completo do comentário
+                // Chamada CORRIGIDA: passa 'true' para indicar que é um novo comentário
+                addCommentToUI(newComment, true); 
                 showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
                 nextCommentIndex++;
             } else {
-                // MOSTRA NOVA COMPRA (70% de chance)
+                // MOSTRA NOVA COMPRA
                 const randomPurchaser = fakePurchasers[Math.floor(Math.random() * fakePurchasers.length)];
                 showNotification(`✨ ${randomPurchaser.name} acaba de iniciar sua Jornada de Resgate.`);
             }
-            scheduleNextEvent(); // Agenda o próximo evento
+            scheduleNextEvent();
         }, randomDelay);
     }
+    
+    setTimeout(scheduleNextEvent, 20000);
+}
     
     // Inicia o ciclo de eventos após um tempo inicial maior (20 segundos)
     setTimeout(scheduleNextEvent, 20000);
