@@ -83,26 +83,43 @@ function initPlanSelection() {
         const sintomasCheckboxes = document.querySelectorAll('.sintoma-item input[type="checkbox"]');
         const showSolutionBtn = document.getElementById('show-solution-btn');
         const conteudoPrincipal = document.getElementById('conteudo-principal');
+
         if (sintomasCheckboxes.length > 0 && showSolutionBtn && conteudoPrincipal) {
+            
             const checkCheckboxState = () => {
                 const isAnyChecked = Array.from(sintomasCheckboxes).some(cb => cb.checked);
                 showSolutionBtn.disabled = !isAnyChecked;
             };
-            sintomasCheckboxes.forEach(checkbox => checkbox.addEventListener('change', checkCheckboxState));
+
+            sintomasCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', checkCheckboxState);
+            });
+            
             showSolutionBtn.addEventListener('click', () => {
                 if (!showSolutionBtn.disabled) {
+                    // 1. Revela o container principal
                     conteudoPrincipal.classList.add('is-visible');
+                    
+                    // 2. Rola suavemente para a próxima seção
                     const solucaoSection = document.getElementById('solucao');
                     if (solucaoSection) {
                         setTimeout(() => {
                             solucaoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }, 100);
                     }
+
+                    // 3. Força a animação dos elementos que agora estão visíveis
+                    const elementsToAnimate = conteudoPrincipal.querySelectorAll('.anim-on-scroll');
+                    elementsToAnimate.forEach((element, index) => {
+                        // Adiciona a classe .is-visible com um pequeno atraso em cascata
+                        setTimeout(() => {
+                            element.classList.add('is-visible');
+                        }, index * 150); // Atraso de 150ms entre cada elemento
+                    });
                 }
             });
         }
     }
-
     /**
  * Função de Prova Social Híbrida (Comentários e Compras Sincronizadas)
  * VERSÃO FINAL CORRIGIDA
