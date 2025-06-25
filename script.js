@@ -1,17 +1,18 @@
-// static/js/script.js (VERSÃO FINAL E VERIFICADA)
+// static/js/script.js (VERSÃO FINAL COM TODAS AS FUNCIONALIDADES)
 
 document.addEventListener('DOMContentLoaded', () => {
 
     // Objeto central que guarda o estado das vagas.
-    // É declarado aqui no topo para ser acessível por múltiplas funções.
+    // Declarado aqui para ser acessível por múltiplas funções.
+    // As vagas foram atualizadas conforme sua solicitação.
     const planosInfo = {
-        plus: { nome: 'PLANO PLUS', valorVista: 'R$ 480,00', parcelas: '5x de', valorParcela: 'R$ 96,00', vagasTotal: 4, vagasDisponiveis: 3, linkCompra: '#' },
-        premium: { nome: 'PLANO PREMIUM', valorVista: 'R$ 840,00', parcelas: '8x de', valorParcela: 'R$ 105,00', vagasTotal: 4, vagasDisponiveis: 2, linkCompra: '#' },
-        master: { nome: 'PLANO MASTER', valorVista: 'R$ 1.200,00', parcelas: '12x de', valorParcela: 'R$ 100,00', vagasTotal: 2, vagasDisponiveis: 1, linkCompra: '#' }
+        plus: { nome: 'PLANO PLUS', desc: 'O Ponto de Partida Para a Sua Cura', investimento: '10 Sessões | 1x por semana', vagasTotal: 13, vagasDisponiveis: 13, linkCompra: '#' },
+        premium: { nome: 'PLANO PREMIUM', desc: 'A Transformação Profunda e Acelerada', investimento: '16 Sessões | 2x por semana', vagasTotal: 9, vagasDisponiveis: 9, linkCompra: '#' },
+        master: { nome: 'PLANO MASTER', desc: 'A Imersão Completa Para a Reconstrução', investimento: '24 Sessões | 2x por semana', vagasTotal: 5, vagasDisponiveis: 5, linkCompra: '#' }
     };
 
     /**
-     * Função reutilizável para atualizar a caixa de oferta.
+     * Função reutilizável para atualizar a caixa de oferta na tela.
      */
     function updateOfferBoxUI(planoId) {
         const offerDetails = document.getElementById('offer-details');
@@ -22,21 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const percentualPreenchido = (vagasPreenchidas / info.vagasTotal) * 100;
 
         offerDetails.innerHTML = `
-            <div class="price-section-rose">
-                <p class="plano-selecionado">${info.nome}</p>
-                <p class="price-prefix">Faça sua jornada acontecer por apenas:</p>
-                <div class="price-main">
-                    <span class="price-installments">${info.parcelas}</span>
-                    <span class="price-value">${info.valorParcela}</span>
-                </div>
-                <p class="price-descriptor">ou ${info.valorVista} à vista</p>
-            </div>
+            <p class="plano-selecionado">${info.nome}</p>
+            <p class="plano-investimento">${info.investimento}</p>
             <div class="plano-disponibilidade">
                 URGENTE: Restam apenas <strong>${info.vagasDisponiveis}</strong> de ${info.vagasTotal} vagas para este plano.
                 <div class="progress-bar"><div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div></div>
             </div>
-            <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>
-        `;
+            <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>`;
     }
 
     /**
@@ -45,7 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function initHeadlineAnimation() {
         const headline = document.getElementById('main-headline');
         if (headline) {
-            headline.classList.add('is-visible');
+            setTimeout(() => {
+                headline.classList.add('is-visible');
+            }, 100);
         }
     }
 
@@ -58,8 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const conteudoPrincipal = document.getElementById('conteudo-principal');
         if (sintomasCheckboxes.length > 0 && showSolutionBtn && conteudoPrincipal) {
             const checkCheckboxState = () => {
-                const isAnyChecked = Array.from(sintomasCheckboxes).some(cb => cb.checked);
-                showSolutionBtn.disabled = !isAnyChecked;
+                showSolutionBtn.disabled = !Array.from(sintomasCheckboxes).some(cb => cb.checked);
             };
             sintomasCheckboxes.forEach(checkbox => checkbox.addEventListener('change', checkCheckboxState));
             showSolutionBtn.addEventListener('click', () => {
@@ -79,15 +73,12 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Função de Prova Social (Comentários e Compras Sincronizadas)
      */
-    function initUnifiedSocialProof() {
-    const commentsList = document.getElementById('comments-list');
-    const notificationElement = document.getElementById('new-comment-notification');
+    function initSocialProof() {
+        const commentsList = document.getElementById('comments-list');
+        const notificationElement = document.getElementById('new-comment-notification');
+        if (!commentsList || !notificationElement) return;
 
-    // Só roda se os elementos principais existirem
-    if (!commentsList || !notificationElement) return;
-
-    // LISTA 1: Para a caixa de comentários (com texto completo)
-    const fakeComments = [
+        const fakeComments = [
     // Depoimentos já existentes...
     { name: 'Juliana Pinho', avatar: 'avatar1.jpg', text: 'Gente, sério. Minha enxaqueca era diária. Na segunda sessão com a Rose, eu entendi a CAUSA da dor. Hoje faz um mês que não sei o que é tomar um remédio. Parece mágica.' },
     { name: 'Amanda Guedes', avatar: 'avatar2.jpg', text: 'Eu era a pessoa mais cética com terapia online. Paguei pra ver e quebrei a cara (graças a Deus!). O acolhimento e a profundidade que a Rose alcança pela tela é algo que eu nunca tive no presencial. Não troco por nada.' },
@@ -96,6 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'Mariana Franco', avatar: 'avatar5.jpg', text: 'O mais surreal é que a gente não fica repassando o trauma mil vezes. É diferente de tudo. A Rose te guia pra olhar pra dor de um lugar seguro, sem sofrimento. E de repente, aquilo que te assombrava vira só uma lembrança distante. É libertador.' },
     { name: 'Fernanda Lívia', avatar: 'avatar6.jpg', text: 'Esse investimento em mim mesma foi o mais barato e o mais transformador de todos. Só vai.' },
     { name: 'Beatriz Macedo', avatar: 'avatar7.jpg', text: 'Aquele peso nos ombros que a gente acha que é \'normal\' da vida adulta? Spoiler: NÃO É. Era culpa, era medo, era um monte de coisa que eu nem sabia que carregava. A TRG com a Rose tirou esse piano das minhas costas.' },
+
+    // Novos 20 depoimentos
     { name: 'Patrícia Rios', avatar: 'avatar8.jpg', text: 'Minha ansiedade se manifestava à noite. Eu simplesmente não dormia, ficava com o coração disparado pensando em mil problemas. Já na primeira sessão a Rose me ensinou uma técnica que me fez apagar. Só isso já valeu tudo.' },
     { name: 'Camila Veiga', avatar: 'avatar9.jpg', text: 'Eu procrastinava tudo no trabalho por medo de não ser boa o suficiente. Achava que era preguiça. Na terapia entendi que era autossabotagem pura. Depois que a gente tratou a raiz disso, recebi uma promoção. Surreal.' },
     { name: 'Vanessa T.', avatar: 'avatar10.jpg', text: 'Fiz anos de terapia convencional e nunca cheguei nem perto da profundidade que alcancei em poucas sessões de TRG. Uma fala sobre o problema, a outra vai lá e resolve a causa. Simples assim.' },
@@ -117,92 +110,74 @@ document.addEventListener('DOMContentLoaded', () => {
     { name:- 'Raquel Campos', avatar: 'avatar26.jpg', text: 'O mais louco é ver as pessoas ao redor comentando: "Nossa, você parece mais leve", "Sua energia tá diferente". A mudança é de dentro pra fora, mas todo mundo nota.' },
     { name: 'Elisa Pinto', avatar: 'avatar27.jpg', text: 'Eu só queria parar de sentir medo do futuro. Vivia ansiosa pelo que podia acontecer. Hoje eu consigo focar no presente e sei que tenho as ferramentas pra lidar com o que vier. Essa segurança não tem preço.' }
 ]
-    
-    // LISTA 2: Nomes dedicados para as notificações de compra
-    const fakePurchasers = [
-        { name: 'Patrícia Rosa' }, { name: 'Camila Vieira' }, { name: 'Sofia Rodrigues' },
-        { name: 'Gabriela Moura' }, { name: 'Laura Cristina' }, { name: 'Isabela Nunes' },
-        { name: 'Clara Boaventura' }, { name: 'Vanessa Tuani' }, { name: 'Daniela Almeida' },
-        { name: 'Renata Porto' }, { name: 'Thais Oliveira' }, { name: 'Alice Flávia' }, { name: 'Luísa Montes' }
-    ];
-
-    let nextCommentIndex = 5;
-
-    function generateRandomTimeAgo() {
-        const type = Math.random() > 0.4 ? 'dias' : 'horas';
-        const dias = Math.floor(Math.random() * 6) + 1;
-        const horas = Math.floor(Math.random() * 23) + 1;
-        return type === 'dias' ? `há ${dias} dia${dias > 1 ? 's' : ''}` : `há ${horas} hora${horas > 1 ? 's' : ''}`;
-    }
-
-    // FUNÇÃO CORRIGIDA: Aceita o parâmetro 'isNew'
-    function addCommentToUI(comment, isNew = false) {
-        const commentDiv = document.createElement('div');
-        commentDiv.className = 'comment-item';
         
-        // Lógica para definir o tempo do comentário
-        const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
-        
-        commentDiv.innerHTML = `
-            <div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div>
-            <div class="comment-body">
-                <p><strong>${comment.name}</strong> ${comment.text}</p>
-                <div class="comment-actions">Curtir • Responder • ${timeAgo}</div>
-            </div>`;
-        
-        if (isNew) {
-            commentsList.prepend(commentDiv); // Adiciona no topo
-        } else {
-            commentsList.appendChild(commentDiv); // Adiciona no final
+        let nextCommentIndex = 5;
+
+        function generateRandomTimeAgo() {
+            const type = Math.random() > 0.4 ? 'dias' : 'horas';
+            const dias = Math.floor(Math.random() * 6) + 1;
+            const horas = Math.floor(Math.random() * 23) + 1;
+            return type === 'dias' ? `há ${dias} dia${dias > 1 ? 's' : ''}` : `há ${horas} hora${horas > 1 ? 's' : ''}`;
         }
+
+        function addCommentToUI(comment, isNew = false) {
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment-item';
+            const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
+            commentDiv.innerHTML = `<div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div><div class="comment-body"><p><strong>${comment.name}</strong> ${comment.text}</p><div class="comment-actions">Curtir • Responder • ${timeAgo}</div></div>`;
+            if (isNew) commentsList.prepend(commentDiv);
+            else commentsList.appendChild(commentDiv);
+        }
+
+        function showNotification(message) {
+            notificationElement.innerHTML = message;
+            notificationElement.classList.add('show');
+            setTimeout(() => notificationElement.classList.remove('show'), 8000);
+        }
+
+        const initialComments = fakeComments.slice(0, 5);
+        initialComments.forEach(c => addCommentToUI(c, false));
+
+        function scheduleNextEvent() {
+            const randomDelay = Math.random() * (55000 - 25000) + 25000;
+            setTimeout(() => {
+                if (Math.random() > 0.65 && nextCommentIndex < fakeComments.length) {
+                    const newComment = fakeComments[nextCommentIndex];
+                    addCommentToUI(newComment, true);
+                    showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
+                    nextCommentIndex++;
+                } else {
+                    const planosDisponiveis = Object.keys(planosInfo).filter(p => planosInfo[p].vagasDisponiveis > 0);
+                    if (planosDisponiveis.length > 0) {
+                        const planoCompradoId = planosDisponiveis[Math.floor(Math.random() * planosDisponiveis.length)];
+                        planosInfo[planoCompradoId].vagasDisponiveis--;
+                        const comprador = fakeComments[Math.floor(Math.random() * fakeComments.length)];
+                        showNotification(`✨ ${comprador.name} garantiu uma das últimas vagas no <strong>${planosInfo[planoCompradoId].nome}</strong>!`);
+                        const planoSelecionadoCard = document.querySelector('.plano-card.selected');
+                        if (planoSelecionadoCard && planoSelecionadoCard.dataset.plano === planoCompradoId) {
+                            updateOfferBoxUI(planoCompradoId);
+                        }
+                    }
+                }
+                scheduleNextEvent();
+            }, randomDelay);
+        }
+        setTimeout(scheduleNextEvent, 20000);
     }
 
-    function showNotification(message) {
-        notificationElement.innerHTML = message;
-        notificationElement.classList.add('show');
-        setTimeout(() => notificationElement.classList.remove('show'), 8000);
-    }
-
-    // Popula os comentários iniciais (isNew é false)
-    const initialComments = fakeComments.slice(0, 5);
-    initialComments.forEach(c => addCommentToUI(c, false));
-
-    function scheduleNextEvent() {
-        const randomDelay = Math.random() * (55000 - 25000) + 25000;
-        
-        setTimeout(() => {
-            if (Math.random() > 0.65 && nextCommentIndex < fakeComments.length) {
-                // MOSTRA NOVO COMENTÁRIO
-                const newComment = fakeComments[nextCommentIndex];
-                // Chamada CORRIGIDA: passa 'true' para indicar que é um novo comentário
-                addCommentToUI(newComment, true); 
-                showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
-                nextCommentIndex++;
-            } else {
-                // MOSTRA NOVA COMPRA
-                const randomPurchaser = fakePurchasers[Math.floor(Math.random() * fakePurchasers.length)];
-                showNotification(`✨ ${randomPurchaser.name} acaba de iniciar sua Jornada de Resgate.`);
-            }
-            scheduleNextEvent();
-        }, randomDelay);
-    }
-    
-    setTimeout(scheduleNextEvent, 25000);
-}
     /**
      * Função da Seleção de Planos de Terapia
      */
     function initPlanSelection() {
         const planos = document.querySelectorAll('.plano-card');
         const offerBox = document.getElementById('offer-box');
-        
         if (planos.length > 0 && offerBox) {
             planos.forEach(plano => {
                 plano.addEventListener('click', () => {
                     planos.forEach(p => p.classList.remove('selected'));
                     plano.classList.add('selected');
                     const planoSelecionado = plano.dataset.plano;
-                    updateOfferBoxUI(planoSelecionado); // Usa a função de update
+                    updateOfferBoxUI(planoSelecionado);
                     offerBox.classList.remove('offer-box-hidden');
                     offerBox.classList.add('offer-box-visible');
                     setTimeout(() => {
