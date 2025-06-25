@@ -52,7 +52,7 @@ main#conteudo-principal.is-visible {
 .main-headline span { display: inline-block; opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
 /* A classe .is-visible no H1 torna os spans visíveis */
 .main-headline.is-visible span { opacity: 1; transform: translateY(0); }
-.main-subheadline { font-size: 1.2rem; max-width: 700px; opacity: 0.9; }
+.main-subheadline { margin: 50px auto 0; font-size: 1.2rem; max-width: 700px; opacity: 0.9; }
 
 /* --- CHECKLIST --- */
 .sintomas-box { margin: 50px auto 0; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 1px solid rgba(148, 183, 175, 0.3); max-width: 800px; }
