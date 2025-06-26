@@ -18,8 +18,6 @@ def home():
 def thank_you_page():
     # Pega os dados da URL (ex: /obrigado?name=Maria&product=Plano%20Premium)
     # Se não encontrar os dados, usa um valor padrão.
-    customer_name = request.args.get('name', 'querida cliente')
-    plan_name = request.args.get('product', 'seu plano')
     
     # Passa as variáveis para o template HTML
     return render_template('obrigado.html', customer_name=customer_name, plan_name=plan_name)
