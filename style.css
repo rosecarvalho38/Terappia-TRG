@@ -262,7 +262,7 @@ animation: move-aurora 30s ease infinite;
 /* Agora estilizamos os blocos diretamente */
 .obrigado-header, .instrucoes-box, .assinatura-rose {
     width: 100%;
-    max-width: 700px; /* Largura máxima para o conteúdo */
+    max-width: 400px; /* Largura máxima para o conteúdo */
 }
 
 .obrigado-header { margin-bottom: 25px; }
@@ -285,9 +285,9 @@ animation: move-aurora 30s ease infinite;
 
 .instrucoes-box h2 {
     font-family: var(--font-headline);
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: var(--text-color);
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     padding-bottom: 20px;
     /* Linha separadora para o título */
     border-bottom: 1px solid rgba(148, 183, 175, 0.3);
