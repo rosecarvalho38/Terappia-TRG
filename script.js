@@ -237,55 +237,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
  * Função do Cronômetro Evergreen (Pessoal e Cíclico)
- * Cria um prazo único por visitante e o salva no navegador.
+ * VERSÃO FINAL COM URGÊNCIA DO DIA E OCULTAR DIAS
  */
 function initAgendaCountdown() {
     const countdownBox = document.getElementById('agenda-countdown');
-    if (!countdownBox) return; // Só roda se o cronômetro existir
+    if (!countdownBox) return;
 
-    const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
     const secondsEl = document.getElementById('seconds');
 
-    // 1. Verifica se já existe um prazo salvo no navegador do usuário
+    const planosContainer = document.querySelector('.planos-container');
+    const offerBox = document.getElementById('offer-box');
+    const ofertaExpiradaBox = document.getElementById('oferta-expirada-box');
+    const timerBox = document.querySelector('.agenda-timer-box');
+
     let deadline = localStorage.getItem('countdownDeadline');
 
-    // 2. Se não existir, cria um novo prazo para daqui a 3 dias e o salva
     if (!deadline) {
-        const newDeadline = new Date();
-        newDeadline.setDate(newDeadline.getDate() + 3); // Define o prazo para 3 dias a partir de agora
+        const now = new Date();
+        const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0); // Meia-noite de hoje
+        const newDeadline = new Date(startOfDay.getTime() + (72 * 60 * 60 * 1000)); // Adiciona 72 horas
         localStorage.setItem('countdownDeadline', newDeadline);
         deadline = newDeadline;
     }
 
-    // 3. Inicia o cronômetro contando para esse prazo final pessoal
-    function updateCountdown() {
+    const intervalId = setInterval(() => {
         const targetDate = new Date(deadline);
         const now = new Date();
         const totalSeconds = (targetDate - now) / 1000;
 
         if (totalSeconds > 0) {
-            const d = Math.floor(totalSeconds / 3600 / 24);
-            const h = Math.floor(totalSeconds / 3600) % 24;
-            const m = Math.floor(totalSeconds / 60) % 60;
-            const s = Math.floor(totalSeconds) % 60;
+            const h = Math.floor(totalSeconds / 3600);
+            const m = Math.floor((totalSeconds % 3600) / 60);
+            const s = Math.floor(totalSeconds % 60);
 
-            daysEl.innerHTML = d.toString().padStart(2, '0');
             hoursEl.innerHTML = h.toString().padStart(2, '0');
             minutesEl.innerHTML = m.toString().padStart(2, '0');
             secondsEl.innerHTML = s.toString().padStart(2, '0');
         } else {
-            // 4. Se o tempo já esgotou, mostra uma mensagem
-            countdownBox.innerHTML = "<p class='timer-expired'>OFERTA ENCERRADA</p>";
-            // Aqui você poderia também desativar os botões de compra com JS
+            if (planosContainer) planosContainer.style.display = 'none';
+            if (offerBox) offerBox.style.display = 'none';
+            if (timerBox) timerBox.style.display = 'none';
+            if (ofertaExpiradaBox) ofertaExpiradaBox.classList.remove('hidden');
+
+            clearInterval(intervalId);
         }
-    }
-
-    updateCountdown(); // Roda imediatamente
-    setInterval(updateCountdown, 1000); // Atualiza a cada segundo
+    }, 1000);
 }
-
     /**
      * Função Geral para Animações de Entrada ao Rolar
      */
