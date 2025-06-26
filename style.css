@@ -331,10 +331,13 @@ main#conteudo-principal.is-visible {
     .cta-button {
     padding: 18px 30px;  /* Um padding equilibrado */
     font-size: 1rem;     /* Um tamanho de fonte legível */
-    line-height: 1.4;    /* Melhora o espaçamento se o texto quebrar em 2 linhas */
+    line-height: 1.1;    /* Melhora o espaçamento se o texto quebrar em 2 linhas */
     width: auto;         /* Deixa o botão se ajustar ao conteúdo */
-    max-width: 95%;      /* Garante que o botão nunca seja maior que a tela */
+    max-width: 85%;      /* Garante que o botão nunca seja maior que a tela */
     display: inline-block; }
+    .price-section-rose { /* Se você tiver uma classe para a seção de preços */
+    margin-bottom: 35px;    /* Adiciona espaço abaixo dos preços */
+    }
     .secao-final-chamada .cta-button {
     display: block;
     margin: 40px auto 0;
