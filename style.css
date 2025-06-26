@@ -241,7 +241,6 @@ animation: move-aurora 30s ease infinite;
 /* --- ESTILOS DA PÁGINA DE OBRIGADO (LAYOUT NO-SCROLL) --- */
 
 .obrigado-body {
-    display: flex;
     flex-direction: column; /* Empilha os itens verticalmente */
     justify-content: center;
     align-items: center;
