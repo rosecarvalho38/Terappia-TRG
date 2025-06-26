@@ -1,8 +1,8 @@
-// static/js/script.js (VERSÃO FINAL E CORRIGIDA)
+// static/js/script.js (VERSÃO DEFINITIVA E FUNCIONAL)
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Objeto central que guarda o estado das vagas.
+    // Objeto central que guarda o estado das vagas, acessível por múltiplas funções.
     const planosInfo = {
         plus: { nome: 'PLANO PLUS', desc: 'O Ponto de Partida Para a Sua Cura', investimento: '10 Sessões | 1x por semana', vagasTotal: 13, vagasDisponiveis: 0, linkCompra: '#' },
         premium: { nome: 'PLANO PREMIUM', desc: 'A Transformação Profunda e Acelerada', investimento: '16 Sessões | 2x por semana', vagasTotal: 9, vagasDisponiveis: 0, linkCompra: '#' },
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!info || !offerDetails) return;
 
         const vagasPreenchidas = info.vagasTotal - info.vagasDisponiveis;
-        const percentualPreenchido = (vagasPreenchidas / info.vagasTotal) * 100;
+        const percentualPreenchido = Math.max(0, (vagasPreenchidas / info.vagasTotal) * 100);
 
         offerDetails.innerHTML = `
             <p class="plano-selecionado">${info.nome}</p>
@@ -38,7 +38,28 @@ document.addEventListener('DOMContentLoaded', () => {
         planosInfo.premium.vagasDisponiveis = Math.floor(Math.random() * 3) + 3; // Gera de 3 a 5 vagas
         planosInfo.master.vagasDisponiveis = Math.floor(Math.random() * 2) + 1; // Gera 1 ou 2 vagas
     }
-                                                     
+
+    /**
+     * Função de Animação da Headline Principal
+     */
+    function initHeadlineAnimation() {
+        const headline = document.getElementById('main-headline');
+        if (headline) {
+            const text = headline.textContent.trim();
+            const words = text.split(' ');
+            headline.innerHTML = '';
+            words.forEach((word) => {
+                const span = document.createElement('span');
+                span.textContent = word;
+                headline.appendChild(span);
+                headline.appendChild(document.createTextNode(' '));
+            });
+            setTimeout(() => {
+                headline.classList.add('is-visible');
+            }, 100);
+        }
+    }
+
     /**
      * Função do Checklist de Sintomas
      */
@@ -71,11 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function initSocialProof() {
         const commentsList = document.getElementById('comments-list');
         const notificationElement = document.getElementById('new-comment-notification');
-
         if (!commentsList || !notificationElement) return;
 
         const fakeComments = [
-    // Depoimentos já existentes...
+
     { name: 'Juliana Pinho', avatar: 'avatar1.jpg', text: 'Gente, sério. Minha enxaqueca era diária. Na segunda sessão com a Rose, eu entendi a CAUSA da dor. Hoje faz um mês que não sei o que é tomar um remédio. Parece mágica.' },
     { name: 'Amanda Guedes', avatar: 'avatar2.jpg', text: 'Eu era a pessoa mais cética com terapia online. Paguei pra ver e quebrei a cara (graças a Deus!). O acolhimento e a profundidade que a Rose alcança pela tela é algo que eu nunca tive no presencial. Não troco por nada.' },
     { name: 'Letícia Bueloni', avatar: 'avatar3.jpg', text: 'A síndrome da \'mulher boazinha\'... isso me consumia. A TRG com a Rose me DEVOLVEU a minha voz. Hoje, minha paz não é negociável. Obrigada.' },
@@ -112,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: 'Helena Martins' }, { name: 'Priscila Dias' }, { name: 'Bárbara Lima' },
         ];
 
-        let remainingComments = fakeComments.slice(12);
+        let remainingComments = fakeComments.slice(5);
         let shuffledCommentIndex = 0;
 
         function shuffleArray(array) {
@@ -135,8 +155,12 @@ document.addEventListener('DOMContentLoaded', () => {
             commentDiv.className = 'comment-item';
             const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
             commentDiv.innerHTML = `<div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div><div class="comment-body"><p><strong>${comment.name}</strong> ${comment.text}</p><div class="comment-actions">Curtir • Responder • ${timeAgo}</div></div>`;
-            if (isNew) commentsList.prepend(commentDiv);
-            else commentsList.appendChild(commentDiv);
+            if (isNew) {
+                commentsList.prepend(commentDiv);
+                commentDiv.classList.add('anim-on-scroll', 'is-visible');
+            } else {
+                commentsList.appendChild(commentDiv);
+            }
         }
 
         function showNotification(message) {
@@ -144,11 +168,12 @@ document.addEventListener('DOMContentLoaded', () => {
             notificationElement.classList.add('show');
             setTimeout(() => notificationElement.classList.remove('show'), 8000);
         }
-        const initialComments = fakeComments.slice(0, 12);
+
+        const initialComments = fakeComments.slice(0, 5);
         initialComments.forEach(c => addCommentToUI(c, false));
 
         function scheduleNextEvent() {
-            const randomDelay = Math.random() * (40000 - 25000) + 25000;
+            const randomDelay = Math.random() * (55000 - 25000) + 25000;
             setTimeout(() => {
                 if (Math.random() > 0.5 && shuffledCommentIndex < remainingComments.length) {
                     const newComment = remainingComments[shuffledCommentIndex];
@@ -171,44 +196,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 scheduleNextEvent();
             }, randomDelay);
         }
-        setTimeout(scheduleNextEvent, 5000);
+        setTimeout(scheduleNextEvent, 15000);
     }
-
-    /**
- * Função da Urgência Evergreen com Data Fixa
- * Cria um prazo final único por visitante e exibe a data.
- */
-function initEvergreenDeadline() {
-    const deadlineElement = document.getElementById('deadline-date');
-    if (!deadlineElement) return; // Só roda se o elemento existir
-
-    // 1. Verifica se já existe um prazo salvo no navegador do usuário
-    let deadlineString = localStorage.getItem('jornadaDeadline');
-
-    // 2. Se não existir, cria um novo prazo para daqui a 2 dias e o salva
-    if (!deadlineString) {
-        const targetDate = new Date();
-        targetDate.setDate(targetDate.getDate() + 2);
-        
-        // Salva a data completa no localStorage
-        localStorage.setItem('jornadaDeadline', targetDate.toISOString());
-        deadlineString = targetDate.toISOString();
-    }
-
-    // 3. Formata a data para um formato amigável em português
-    const targetDate = new Date(deadlineString);
-    const diasDaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
-    const mesesDoAno = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-
-    const diaSemana = diasDaSemana[targetDate.getDay()];
-    const dia = targetDate.getDate();
-    const mes = mesesDoAno[targetDate.getMonth()];
-
-    const dataFormatada = `${diaSemana}, ${dia} de ${mes}`;
-
-    // 4. Exibe a data na página
-    deadlineElement.textContent = dataFormatada;
-}
+    
     /**
      * Função da Seleção de Planos de Terapia
      */
@@ -247,6 +237,42 @@ function initEvergreenDeadline() {
             });
         }
     }
+
+    /**
+ * Função da Urgência Evergreen com Data Fixa
+ * Cria um prazo final único por visitante e exibe a data.
+ */
+function initEvergreenDeadline() {
+    const deadlineElement = document.getElementById('deadline-date');
+    if (!deadlineElement) return; // Só roda se o elemento existir
+
+    // 1. Verifica se já existe um prazo salvo no navegador do usuário
+    let deadlineString = localStorage.getItem('jornadaDeadline');
+
+    // 2. Se não existir, cria um novo prazo para daqui a 2 dias e o salva
+    if (!deadlineString) {
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 2);
+        
+        // Salva a data completa no localStorage
+        localStorage.setItem('jornadaDeadline', targetDate.toISOString());
+        deadlineString = targetDate.toISOString();
+    }
+
+    // 3. Formata a data para um formato amigável em português
+    const targetDate = new Date(deadlineString);
+    const diasDaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+    const mesesDoAno = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+    const diaSemana = diasDaSemana[targetDate.getDay()];
+    const dia = targetDate.getDate();
+    const mes = mesesDoAno[targetDate.getMonth()];
+
+    const dataFormatada = `${diaSemana}, ${dia} de ${mes}`;
+
+    // 4. Exibe a data na página
+    deadlineElement.textContent = dataFormatada;
+  }
 
     /**
      * Função Geral para Animações de Entrada ao Rolar
