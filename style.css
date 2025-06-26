@@ -264,24 +264,82 @@ main#conteudo-principal.is-visible {
 .obrigado-title { font-size: clamp(2rem, 5vw, 2.8rem); }
 .obrigado-subtitle { font-size: 1.1rem; margin-top: 10px; }
 
+/* Bloco Novo e Refinado */
 .instrucoes-box {
-    padding: 25px;
-    margin-bottom: 25px;
-    background: rgba(0, 0, 0, 0.2);
+    /* Fundo com gradiente sutil para dar profundidade */
+    background: linear-gradient(145deg, rgba(53, 112, 161, 0.1), rgba(0, 0, 0, 0.2));
+    /* Borda e brilho para destacar a caixa */
+    border: 1px solid var(--accent-color-2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 15px rgba(148, 183, 175, 0.1);
+    
     backdrop-filter: blur(10px);
     border-radius: 15px;
-    border: 1px solid var(--accent-color-1);
+    padding: 40px;
+    margin: 40px auto;
 }
 
-.instrucoes-box h2 { font-size: 1.5rem; margin-bottom: 25px; }
-.instrucoes-lista { gap: 20px; text-align: left; }
-.instrucao-item { gap: 15px; }
-.instrucao-numero {
-    width: 35px; height: 35px; line-height: 35px;
-    font-size: 1.3rem;
+.instrucoes-box h2 {
+    font-family: var(--font-headline);
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    /* Linha separadora para o título */
+    border-bottom: 1px solid rgba(148, 183, 175, 0.3);
 }
-.instrucao-texto h3 { font-size: 1.1rem; }
-.instrucao-texto p { font-size: 0.9rem; text-align: left; }
+
+.instrucoes-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espaçamento ajustado */
+    text-align: left;
+}
+
+.instrucao-item {
+    display: flex;
+    align-items: center; /* Alinha o número e o texto verticalmente */
+    gap: 20px;
+    padding: 15px 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+/* Efeito de hover sutil em cada passo */
+.instrucao-item:hover {
+    background-color: rgba(240, 232, 221, 0.05);
+}
+
+.instrucao-numero {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background-color: var(--accent-color-2);
+    color: var(--bg-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-headline);
+    font-size: 1.5rem;
+    font-weight: 700;
+    /* Sombra no texto do número para dar profundidade */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.instrucao-texto h3 {
+    font-family: var(--font-headline);
+    font-size: 1.3rem;
+    color: var(--text-color);
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.instrucao-texto p {
+    font-size: 1rem;
+    color: #ccc; /* Cor mais suave para o texto de apoio */
+    line-height: 1.5;
+    text-align: left;
+}
 
 .formulario-button { margin: 0; } /* Remove margem superior antiga */
 
