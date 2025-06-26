@@ -346,10 +346,29 @@ animation: move-aurora 30s ease infinite;
     text-align: left;
 }
 
-.formulario-button { margin: 0; } /* Remove margem superior antiga */
+/* Dentro dos estilos da Página de Obrigado */
 
-.assinatura-rose { line-height: 1.6; font-style: italic; font-size: 1.1rem; }
-.assinatura-rose p { margin-top: 25px; }
+.assinatura-rose {
+    width: 100%;
+    max-width: 700px;
+    line-height: 1.6;
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-top: 30px; /* Adiciona um espaço acima do botão */
+}
+
+.formulario-button {
+    margin-bottom: 25px; /* Adiciona um espaço abaixo do botão */
+}
+
+.assinatura-texto p {
+    margin: 5px 0;
+}
+
+.assinatura-texto strong {
+    font-style: normal;
+    font-weight: 700;
+}
 
 /* --- ANIMAÇÕES GERAIS --- */
 .anim-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
@@ -389,3 +408,52 @@ animation: move-aurora 30s ease infinite;
     right: 15px;
     width: auto;
     transform: translateY(-150%);
+
+/* =============================================== */
+/* --- RESPONSIVIDADE PARA PÁGINA DE OBRIGADO --- */
+/* =============================================== */
+
+@media (max-width: 768px) {
+    .obrigado-body {
+        /* Permite um pouco de rolagem no mobile se necessário */
+        justify-content: flex-start; 
+        padding: 40px 15px;
+    }
+
+    .obrigado-title {
+        font-size: 1.8rem; /* Fonte menor para o título principal */
+    }
+
+    .obrigado-subtitle {
+        font-size: 1rem;
+    }
+
+    .instrucoes-box {
+        padding: 25px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .instrucoes-box h2 {
+        font-size: 1.3rem;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+
+    .instrucao-item {
+        gap: 15px;
+    }
+
+    .instrucao-texto h3 {
+        font-size: 1.1rem;
+    }
+
+    .instrucao-texto p {
+        font-size: 0.9rem;
+    }
+    
+    .assinatura-rose {
+        margin-top: 20px;
+        font-size: 1rem;
+    }
+}
