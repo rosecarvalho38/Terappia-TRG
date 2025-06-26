@@ -1,4 +1,4 @@
-// static/js/script.js (VERSÃO DEFINITIVA E FUNCIONAL)
+// static/js/script.js (VERSÃO FINAL E CORRIGIDA)
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -28,6 +28,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="progress-bar"><div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div></div>
             </div>
             <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>`;
+    }
+
+    /**
+     * Função para inicializar as vagas com valores aleatórios.
+     */
+    function initRandomVagas() {
+        planosInfo.plus.vagasDisponiveis = Math.floor(Math.random() * 4) + 5; // Gera de 5 a 8 vagas
+        planosInfo.premium.vagasDisponiveis = Math.floor(Math.random() * 3) + 3; // Gera de 3 a 5 vagas
+        planosInfo.master.vagasDisponiveis = Math.floor(Math.random() * 2) + 1; // Gera 1 ou 2 vagas
     }
                                                      
     /**
