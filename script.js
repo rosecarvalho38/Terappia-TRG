@@ -7,35 +7,35 @@ const planosInfo = {
     plus: { 
         nome: 'PLANO PLUS', 
         desc: 'O Ponto de Partida Para a Sua Cura', 
-        valorOriginal: 'R$ 600,00', 
-        valorVista: 'R$ 480,00', 
-        parcelas: '5x de', 
-        valorParcela: 'R$ 96,00', 
+        valorOriginal: 'R$ 732,00', 
+        valorVista: 'R$ 584,00', 
+        parcelas: '12x de', 
+        valorParcela: 'R$ 60,40', 
         vagasTotal: 13, 
         vagasDisponiveis: 0, 
-        linkCompra: '#' 
+        linkCompra: 'https://pay.kiwify.com.br/3asCtd5' 
     },
     premium: { 
         nome: 'PLANO PREMIUM', 
         desc: 'A Transformação Profunda e Acelerada', 
         valorOriginal: 'R$ 1.000,00', 
-        valorVista: 'R$ 840,00', 
-        parcelas: '8x de', 
-        valorParcela: 'R$ 105,00', 
+        valorVista: 'R$ 898,00', 
+        parcelas: '12x de', 
+        valorParcela: 'R$ 92,87', 
         vagasTotal: 9, 
         vagasDisponiveis: 0, 
-        linkCompra: '#' 
+        linkCompra: 'https://pay.kiwify.com.br/F7AddT0' 
     },
     master: { 
         nome: 'PLANO MASTER', 
         desc: 'A Imersão Completa Para a Reconstrução', 
         valorOriginal: 'R$ 1.500,00', 
-        valorVista: 'R$ 1.200,00', 
+        valorVista: 'R$ 1.296,00', 
         parcelas: '12x de', 
-        valorParcela: 'R$ 100,00', 
+        valorParcela: 'R$ 134,04', 
         vagasTotal: 5, 
         vagasDisponiveis: 0, 
-        linkCompra: '#' 
+        linkCompra: 'https://pay.kiwify.com.br/ofky8ml' 
     }
 };
 
