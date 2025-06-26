@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: 'Helena Martins' }, { name: 'Priscila Dias' }, { name: 'Bárbara Lima' },
         ];
 
-        let remainingComments = fakeComments.slice(5);
+        let remainingComments = fakeComments.slice(12);
         let shuffledCommentIndex = 0;
 
         function shuffleArray(array) {
@@ -166,13 +166,13 @@ document.addEventListener('DOMContentLoaded', () => {
             notificationElement.classList.add('show');
             setTimeout(() => notificationElement.classList.remove('show'), 8000);
         }
-        const initialComments = fakeComments.slice(0, 5);
+        const initialComments = fakeComments.slice(0, 12);
         initialComments.forEach(c => addCommentToUI(c, false));
 
         function scheduleNextEvent() {
             const randomDelay = Math.random() * (40000 - 25000) + 25000;
             setTimeout(() => {
-                if (Math.random() > 0.8 && shuffledCommentIndex < remainingComments.length) {
+                if (Math.random() > 0.5 && shuffledCommentIndex < remainingComments.length) {
                     const newComment = remainingComments[shuffledCommentIndex];
                     addCommentToUI(newComment, true);
                     showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
