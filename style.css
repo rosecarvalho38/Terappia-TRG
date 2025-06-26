@@ -256,7 +256,8 @@ main#conteudo-principal.is-visible {
     .cta-button {
     white-space: nowrap; /* Impede que o texto quebre em duas linhas */
     font-size: 1rem;     /* Reduz a fonte para garantir que caiba */
-    padding: 15px 25px;}
+    padding: 5px 10px;
+    max-width: 200px;}
     .comment-notification {
     top: 20px;
     bottom: auto;
@@ -264,7 +265,3 @@ main#conteudo-principal.is-visible {
     right: 15px;
     width: auto;
     transform: translateY(-150%);
-    .price-section-rose {
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
