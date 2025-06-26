@@ -296,6 +296,5 @@ function initEvergreenDeadline() {
     initPlanSelection();
     initFaqAccordion();
     initScrollAnimations();
-    initAgendaCountdown();
     initEvergreenDeadline();
 });
