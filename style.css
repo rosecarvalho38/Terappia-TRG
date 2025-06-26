@@ -353,45 +353,49 @@ main#conteudo-principal.is-visible {
 
 @media (max-width: 768px) {
     .obrigado-body {
-        /* Permite um pouco de rolagem no mobile se necessário */
-        justify-content: flex-start; 
-        padding: 10px 5px;
+        justify-content: flex-start; /* Permite rolagem se necessário */
+        padding: 40px 15px;
+    }
+
+    .obrigado-container {
+        padding: 30px 20px;
     }
 
     .obrigado-title {
-        font-size: 1rem; /* Fonte menor para o título principal */
+        font-size: 1.8rem;
     }
 
     .obrigado-subtitle {
-        font-size: 0.7rem;
+        font-size: 1rem;
     }
 
     .instrucoes-box {
-        padding: 5px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        padding: 25px;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
     .instrucoes-box h2 {
-        font-size: 0.7rem;
-        padding-bottom: 5px;
-        margin-bottom: 10px;
+        font-size: 1.3rem;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
     }
 
+    /* Regras para empilhar os itens de instrução */
     .instrucao-item {
-    flex-direction: column; /* Empilha o número e o texto verticalmente */
-    align-items: center;    /* Centraliza eles horizontalmente */
-    gap: 15px;              /* Ajusta o espaçamento vertical entre eles */
-    text-align: center;     /* Garante que o texto dentro também se centralize */
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        text-align: center;
     }
 
     .instrucao-texto h3 {
-        text-align: center;
-        font-size: 0.7rem;
+        font-size: 1.2rem;
     }
 
     .instrucao-texto p {
-        font-size: 0.6rem;
+        font-size: 0.95rem;
+        text-align: center; /* Garante a centralização */
     }
     
     .assinatura-rose {
