@@ -234,13 +234,22 @@ main#conteudo-principal.is-visible {
 .footer-disclaimer { font-size: 0.8rem; max-width: 600px; margin: 20px auto 0 auto; opacity: 0.7; }
 
 /* --- ESTILOS DA PÁGINA DE OBRIGADO --- */
+
 .obrigado-body {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;    /* Centraliza verticalmente */
     min-height: 100vh;
     padding: 60px 20px;
-    background-image: linear-gradient(to bottom right, var(--bg-color), #0d141f);
+    position: relative;     /* Necessário para o z-index do fundo */
+    overflow: hidden;       /* Garante que a animação não cause barras de rolagem */
+
+    /* Estilos do fundo Aurora (reutilizados da página principal) */
+    background: radial-gradient(circle at 20% 20%, var(--accent-color-1), transparent 40%),
+                radial-gradient(circle at 80% 70%, var(--accent-color-2), transparent 40%),
+                var(--bg-color);
+    background-size: 300% 300%;
+    animation: move-aurora 30s ease infinite;
 }
 .obrigado-container {
     width: 100%;
