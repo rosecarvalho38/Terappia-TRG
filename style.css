@@ -301,7 +301,10 @@ main#conteudo-principal.is-visible {
 .instrucao-texto p { font-size: 1rem; color: #ccc; line-height: 1.5; text-align: left; }
 
 .assinatura-rose { margin-top: 40px; line-height: 1.6; font-style: italic; font-size: 1.1rem; }
-.formulario-button { margin-bottom: 25px; }
+.formulario-button {
+    display: inline-block;
+    margin-bottom: 40px; /* <<< ADICIONE ESTA LINHA */
+}
 .assinatura-texto p { margin: 5px 0; text-align: center; }
 .assinatura-texto strong { font-style: normal; font-weight: 700; }
 
