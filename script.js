@@ -1,62 +1,36 @@
 // static/js/script.js (VERSÃO DEFINITIVA E FUNCIONAL)
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {More actions
 
     // Objeto central que guarda o estado das vagas.
+    // Declarado no topo para ser acessível por múltiplas funções.
+    const planosInfo = {
+        plus: { nome: 'PLANO PLUS', desc: 'O Ponto de Partida Para a Sua Cura', investimento: '10 Sessões | 1x por semana', vagasTotal: 13, vagasDisponiveis: 0, linkCompra: '#' },
+        premium: { nome: 'PLANO PREMIUM', desc: 'A Transformação Profunda e Acelerada', investimento: '16 Sessões | 2x por semana', vagasTotal: 9, vagasDisponiveis: 0, linkCompra: '#' },
+        master: { nome: 'PLANO MASTER', desc: 'A Imersão Completa Para a Reconstrução', investimento: '24 Sessões | 2x por semana', vagasTotal: 5, vagasDisponiveis: 0, linkCompra: '#' }
+    };
 
-    // Declarado no topo para ser acessível por múltiplas funções.
+    /**
+     * Função reutilizável para atualizar a caixa de oferta na tela.
+     */
+    function updateOfferBoxUI(planoId) {
+        const offerDetails = document.getElementById('offer-details');
+        const info = planosInfo[planoId];
+        if (!info || !offerDetails) return;
 
-    const planosInfo = {
+        const vagasPreenchidas = info.vagasTotal - info.vagasDisponiveis;
+        const percentualPreenchido = (vagasPreenchidas / info.vagasTotal) * 100;
 
-        plus: { nome: 'PLANO PLUS', desc: 'O Ponto de Partida Para a Sua Cura', investimento: '10 Sessões | 1x por semana', vagasTotal: 13, vagasDisponiveis: 0, linkCompra: '#' },
-
-        premium: { nome: 'PLANO PREMIUM', desc: 'A Transformação Profunda e Acelerada', investimento: '16 Sessões | 2x por semana', vagasTotal: 9, vagasDisponiveis: 0, linkCompra: '#' },
-
-        master: { nome: 'PLANO MASTER', desc: 'A Imersão Completa Para a Reconstrução', investimento: '24 Sessões | 2x por semana', vagasTotal: 5, vagasDisponiveis: 0, linkCompra: '#' }
-
-    };
-
-
-
-    /**
-
-     * Função reutilizável para atualizar a caixa de oferta na tela.
-
-     */
-
-    function updateOfferBoxUI(planoId) {
-
-        const offerDetails = document.getElementById('offer-details');
-
-        const info = planosInfo[planoId];
-
-        if (!info || !offerDetails) return;
-
-
-
-        const vagasPreenchidas = info.vagasTotal - info.vagasDisponiveis;
-
-        const percentualPreenchido = (vagasPreenchidas / info.vagasTotal) * 100;
-
-
-
-        offerDetails.innerHTML = `
-
-            <p class="plano-selecionado">${info.nome}</p>
-
-            <p class="plano-investimento">${info.investimento}</p>
-
-            <div class="plano-disponibilidade">
-
-                URGENTE: Restam apenas <strong>${info.vagasDisponiveis}</strong> de ${info.vagasTotal} vagas para este plano.
-
-                <div class="progress-bar"><div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div></div>
-
-            </div>
-
-            <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>`;
-
-    }
+        offerDetails.innerHTML = `
+            <p class="plano-selecionado">${info.nome}</p>
+            <p class="plano-investimento">${info.investimento}</p>
+            <div class="plano-disponibilidade">
+                URGENTE: Restam apenas <strong>${info.vagasDisponiveis}</strong> de ${info.vagasTotal} vagas para este plano.
+                <div class="progress-bar"><div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div></div>
+            </div>
+            <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>`;
+    }
+                                                     
     /**
      * Função do Checklist de Sintomas
      */
