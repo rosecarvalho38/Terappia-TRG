@@ -257,7 +257,7 @@ animation: move-aurora 30s ease infinite;
 /* A regra para o container volta a ser a principal forma de centralização */
 .obrigado-container {
     width: 100%;
-    max-width: 750px;
+    max-width: 900px;
     margin: 0 auto; /* Centraliza o container na página */
     text-align: center;
     background: rgba(0, 0, 0, 0.2);
