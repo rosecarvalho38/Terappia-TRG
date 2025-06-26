@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initialComments.forEach(c => addCommentToUI(c, false));
 
         function scheduleNextEvent() {
-            const randomDelay = Math.random() * (55000 - 25000) + 25000;
+            const randomDelay = Math.random() * (40000 - 25000) + 25000;
             setTimeout(() => {
                 if (Math.random() > 0.8 && shuffledCommentIndex < remainingComments.length) {
                     const newComment = remainingComments[shuffledCommentIndex];
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 scheduleNextEvent();
             }, randomDelay);
         }
-        setTimeout(scheduleNextEvent, 15000);
+        setTimeout(scheduleNextEvent, 5000);
     }
 
     /**
