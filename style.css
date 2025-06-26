@@ -252,19 +252,6 @@ main#conteudo-principal.is-visible {
     animation: move-aurora 30s ease infinite;
 }
 
-.obrigado-container {
-    width: 100%;
-    max-width: 750px;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    padding: 40px;
-    border-radius: 15px;
-    border: 1px solid var(--accent-color-1);
-    /* A MARGEM AUTOMÁTICA CENTRALIZA O CONTAINER HORIZONTALMENTE */
-    margin: 0 auto; 
-}
-
 .obrigado-header { margin-bottom: 40px; }
 .obrigado-logo { max-width: 120px; margin-bottom: 30px; opacity: 0.8; }
 .obrigado-title { font-family: var(--font-headline); font-size: clamp(2.2rem, 5vw, 3rem); color: var(--text-color); }
