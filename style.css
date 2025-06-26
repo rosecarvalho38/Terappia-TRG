@@ -209,6 +209,12 @@ main#conteudo-principal.is-visible {
 #offer-details .progress-bar { width: 80%; max-width: 300px; height: 10px; background: rgba(0,0,0,0.3); margin: 10px auto; border-radius: 5px; }
 #offer-details .progress-bar-inner { height: 100%; background: var(--accent-color-2); border-radius: 5px; transition: width 0.5s ease-out; }
 #offer-details .cta-button { margin-top: 25px; }
+#offer-details {
+    display: flex;
+    flex-direction: column; /* Empilha os itens verticalmente */
+    align-items: center;    /* Centraliza todos eles horizontalmente */
+    gap: 15px;              /* Adiciona um espaçamento vertical entre os elementos */
+}
 
 /* --- FAQ E RODAPÉ --- */
 .secao-pos-compra, .secao-final-chamada { background-color: #111e2e; }
@@ -329,7 +335,7 @@ main#conteudo-principal.is-visible {
     .comment-notification.show { transform: translateY(0); }
     .main-headline { font-size: 2.5rem; }
     .cta-button {
-    padding: 18px 30px;  /* Um padding equilibrado */
+    padding: 18px 25px;  /* Um padding equilibrado */
     font-size: 1rem;     /* Um tamanho de fonte legível */
     line-height: 1.1;    /* Melhora o espaçamento se o texto quebrar em 2 linhas */
     width: auto;         /* Deixa o botão se ajustar ao conteúdo */
