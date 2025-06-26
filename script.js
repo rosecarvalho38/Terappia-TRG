@@ -35,9 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
      * Função para inicializar as vagas com valores aleatórios.
      */
     function initRandomVagas() {
-        planosInfo.plus.vagasDisponiveis = Math.floor(Math.random() * 4) + 5; // Gera de 5 a 8 vagas
-        planosInfo.premium.vagasDisponiveis = Math.floor(Math.random() * 3) + 3; // Gera de 3 a 5 vagas
-        planosInfo.master.vagasDisponiveis = Math.floor(Math.random() * 2) + 1; // Gera 1 ou 2 vagas
+        planosInfo.plus.vagasDisponiveis = Math.floor(Math.random() * 4) + 4; // Gera de 5 a 8 vagas
+        planosInfo.premium.vagasDisponiveis = Math.floor(Math.random() * 3) + 2; // Gera de 3 a 5 vagas
+        planosInfo.master.vagasDisponiveis = Math.floor(Math.random() * 2) + 3; // Gera 1 ou 2 vagas
     }
 
     /**
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const commentDiv = document.createElement('div');
             commentDiv.className = 'comment-item';
             const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
-            commentDiv.innerHTML = `<div class="comment-avatar"><img src="/static/img/${comment.avatar}" alt="avatar"></div><div class="comment-body"><p><strong>${comment.name}</strong> ${comment.text}</p><div class="comment-actions">Curtir • Responder • ${timeAgo}</div></div>`;
+            commentDiv.innerHTML = `<div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div><div class="comment-body"><p><strong>${comment.name}</strong> ${comment.text}</p><div class="comment-actions">Curtir • Responder • ${timeAgo}</div></div>`;
             if (isNew) commentsList.prepend(commentDiv);
             else commentsList.appendChild(commentDiv);
         }
