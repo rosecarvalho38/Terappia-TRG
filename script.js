@@ -312,4 +312,5 @@ function initAgendaCountdown() {
     initPlanSelection();
     initFaqAccordion();
     initScrollAnimations();
+    initAgendaCountdown();
 });
