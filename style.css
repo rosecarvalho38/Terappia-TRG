@@ -233,24 +233,25 @@ main#conteudo-principal.is-visible {
 .footer p { margin: 5px 0; }
 .footer-disclaimer { font-size: 0.8rem; max-width: 600px; margin: 20px auto 0 auto; opacity: 0.7; }
 
-/* --- ESTILOS DA PÁGINA DE OBRIGADO --- */
+/* --- ESTILOS DA PÁGINA DE OBRIGADO (VERSÃO FINAL CORRIGIDA) --- */
 
 .obrigado-body {
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;    /* Centraliza verticalmente */
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
     padding: 60px 20px;
-    position: relative;     /* Necessário para o z-index do fundo */
-    overflow: hidden;       /* Garante que a animação não cause barras de rolagem */
+    position: relative;
+    overflow: hidden;
 
-    /* Estilos do fundo Aurora (reutilizados da página principal) */
+    /* Estilos do fundo Aurora */
     background: radial-gradient(circle at 20% 20%, var(--accent-color-1), transparent 40%),
                 radial-gradient(circle at 80% 70%, var(--accent-color-2), transparent 40%),
                 var(--bg-color);
     background-size: 300% 300%;
     animation: move-aurora 30s ease infinite;
 }
+
 .obrigado-container {
     width: 100%;
     max-width: 750px;
@@ -260,14 +261,18 @@ main#conteudo-principal.is-visible {
     padding: 40px;
     border-radius: 15px;
     border: 1px solid var(--accent-color-1);
+    /* A MARGEM AUTOMÁTICA CENTRALIZA O CONTAINER HORIZONTALMENTE */
+    margin: 0 auto; 
 }
+
 .obrigado-header { margin-bottom: 40px; }
+.obrigado-logo { max-width: 120px; margin-bottom: 30px; opacity: 0.8; }
 .obrigado-title { font-family: var(--font-headline); font-size: clamp(2.2rem, 5vw, 3rem); color: var(--text-color); }
 .obrigado-subtitle { font-size: 1.2rem; margin-top: 10px; color: var(--accent-color-2); }
 .obrigado-subtitle strong { font-weight: 700; }
 
 .mensagem-pessoal { margin-bottom: 40px; line-height: 1.8; }
-.mensagem-pessoal p { margin-bottom: 15px; }
+.mensagem-pessoal p { margin-bottom: 15px; text-align: center; }
 
 .instrucoes-box { border-top: 1px solid var(--accent-color-1); border-bottom: 1px solid var(--accent-color-1); padding: 40px 0; margin-bottom: 40px; }
 .instrucoes-box h2 { font-size: 1.8rem; margin-bottom: 30px; font-family: var(--font-headline); }
@@ -275,12 +280,12 @@ main#conteudo-principal.is-visible {
 .instrucao-item { display: flex; align-items: flex-start; gap: 20px; }
 .instrucao-numero { flex-shrink: 0; width: 40px; height: 40px; background-color: var(--accent-color-2); color: var(--bg-color); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-family: var(--font-headline); font-size: 1.5rem; font-weight: bold; }
 .instrucao-texto h3 { font-family: var(--font-headline); font-size: 1.3rem; color: var(--text-color); margin-bottom: 5px; }
-.instrucao-texto p { font-size: 1rem; color: #ccc; line-height: 1.5; }
+.instrucao-texto p { font-size: 1rem; color: #ccc; line-height: 1.5; text-align: left; }
 
 .formulario-button { display: inline-block; margin-top: 40px; }
 
 .assinatura-rose { margin-top: 50px; line-height: 1.6; font-style: italic; font-size: 1.1rem; }
-.assinatura-rose p { margin: 5px 0; }
+.assinatura-rose p { margin: 5px 0; text-align: center; }
 
 /* --- ANIMAÇÕES GERAIS --- */
 .anim-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
