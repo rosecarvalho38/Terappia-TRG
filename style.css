@@ -355,27 +355,27 @@ main#conteudo-principal.is-visible {
     .obrigado-body {
         /* Permite um pouco de rolagem no mobile se necessário */
         justify-content: flex-start; 
-        padding: 40px 15px;
+        padding: 10px 5px;
     }
 
     .obrigado-title {
-        font-size: 1.8rem; /* Fonte menor para o título principal */
+        font-size: 1rem; /* Fonte menor para o título principal */
     }
 
     .obrigado-subtitle {
-        font-size: 1rem;
+        font-size: 0.7rem;
     }
 
     .instrucoes-box {
-        padding: 25px;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        padding: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
     .instrucoes-box h2 {
-        font-size: 1.3rem;
-        padding-bottom: 15px;
-        margin-bottom: 20px;
+        font-size: 0.7rem;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
     }
 
     .instrucao-item {
@@ -383,11 +383,11 @@ main#conteudo-principal.is-visible {
     }
 
     .instrucao-texto h3 {
-        font-size: 1.1rem;
+        font-size: 0.7rem;
     }
 
     .instrucao-texto p {
-        font-size: 0.9rem;
+        font-size: 0.6rem;
     }
     
     .assinatura-rose {
