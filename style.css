@@ -345,6 +345,7 @@ main#conteudo-principal.is-visible {
 
 .assinatura-rose { line-height: 1.6; font-style: italic; font-size: 1.1rem; }
 .assinatura-rose p { margin-top: 25px; }
+
 /* --- ANIMAÇÕES GERAIS --- */
 .anim-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
 .anim-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
