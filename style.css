@@ -261,7 +261,7 @@ animation: move-aurora 30s ease infinite;
 /* Agora estilizamos os blocos diretamente */
 .obrigado-header, .instrucoes-box, .assinatura-rose {
     width: 100%;
-    max-width: 400px; /* Largura máxima para o conteúdo */
+    max-width: 900px; /* Largura máxima para o conteúdo */
 }
 
 .obrigado-header { margin-bottom: 25px; }
