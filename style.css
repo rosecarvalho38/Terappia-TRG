@@ -238,17 +238,13 @@ animation: move-aurora 30s ease infinite;
 .footer p { margin: 5px 0; }
 .footer-disclaimer { font-size: 0.8rem; max-width: 600px; margin: 20px auto 0 auto; opacity: 0.7; }
 
-/* --- ESTILOS DA PÁGINA DE OBRIGADO (LAYOUT NO-SCROLL) --- */
+/* --- ESTILOS DA PÁGINA DE OBRIGADO (LAYOUT DE ROLAGEM) --- */
 
 .obrigado-body {
-    flex-direction: column; /* Empilha os itens verticalmente */
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px; /* Padding geral menor */
-    text-align: center; /* Centraliza todo o texto por padrão */
+    /* Removemos o display:flex para um comportamento de rolagem padrão */
+    padding: 80px 20px; /* Adicionamos mais padding vertical */
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
 
     /* Fundo Aurora mantido */
     background: radial-gradient(circle at 20% 20%, var(--accent-color-1), transparent 40%),
@@ -258,61 +254,40 @@ animation: move-aurora 30s ease infinite;
     animation: move-aurora 30s ease infinite;
 }
 
-/* Agora estilizamos os blocos diretamente */
-.obrigado-header, .instrucoes-box, .assinatura-rose {
+/* A regra para o container volta a ser a principal forma de centralização */
+.obrigado-container {
     width: 100%;
-    max-width: 900px; /* Largura máxima para o conteúdo */
-}
-
-.obrigado-header { margin-bottom: 25px; }
-.obrigado-title { font-size: clamp(2rem, 5vw, 2.8rem); }
-.obrigado-subtitle { font-size: 1.1rem; margin-top: 10px; }
-
-/* Bloco Novo e Refinado */
-.instrucoes-box {
-    /* Fundo com gradiente sutil para dar profundidade */
-    background: linear-gradient(145deg, rgba(53, 112, 161, 0.1), rgba(0, 0, 0, 0.2));
-    /* Borda e brilho para destacar a caixa */
-    border: 1px solid var(--accent-color-2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 15px rgba(148, 183, 175, 0.1);
-    
+    max-width: 750px;
+    margin: 0 auto; /* Centraliza o container na página */
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
+    padding: 50px;
     border-radius: 15px;
-    padding: 40px;
-    margin: 40px auto;
+    border: 1px solid var(--accent-color-1);
 }
 
-.instrucoes-box h2 {
-    font-family: var(--font-headline);
-    font-size: 1.5rem;
-    color: var(--text-color);
-    margin-bottom: 15px;
-    padding-bottom: 20px;
-    /* Linha separadora para o título */
-    border-bottom: 1px solid rgba(148, 183, 175, 0.3);
+.obrigado-header { margin-bottom: 50px; } /* Mais espaço */
+.obrigado-logo { max-width: 120px; margin-bottom: 30px; opacity: 0.8; }
+.obrigado-title { font-family: var(--font-headline); font-size: clamp(2.2rem, 5vw, 3rem); color: var(--text-color); }
+.obrigado-subtitle { font-size: 1.2rem; margin-top: 10px; color: var(--accent-color-2); }
+.obrigado-subtitle strong { font-weight: 700; }
+
+.instrucoes-box {
+    border-top: 1px solid var(--accent-color-1);
+    border-bottom: 1px solid var(--accent-color-1);
+    padding: 40px 0;
+    margin: 50px 0; /* Mais espaço vertical */
+    background: none; /* Removemos os estilos de caixa daqui */
+    backdrop-filter: none;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
 }
 
-.instrucoes-lista {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Espaçamento ajustado */
-    text-align: left;
-}
-
-.instrucao-item {
-    display: flex;
-    align-items: center; /* Alinha o número e o texto verticalmente */
-    gap: 20px;
-    padding: 15px 10px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-}
-
-/* Efeito de hover sutil em cada passo */
-.instrucao-item:hover {
-    background-color: rgba(240, 232, 221, 0.05);
-}
-
+.instrucoes-box h2 { font-size: 1.8rem; margin-bottom: 30px; font-family: var(--font-headline); }
+.instrucoes-lista { display: flex; flex-direction: column; gap: 30px; text-align: left; }
+.instrucao-item { display: flex; align-items: center; gap: 20px; }
 .instrucao-numero {
     flex-shrink: 0;
     width: 40px;
@@ -325,49 +300,15 @@ animation: move-aurora 30s ease infinite;
     align-items: center;
     font-family: var(--font-headline);
     font-size: 1.5rem;
-    font-weight: 700;
-    /* Sombra no texto do número para dar profundidade */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    font-weight: bold;
 }
+.instrucao-texto h3 { font-family: var(--font-headline); font-size: 1.3rem; color: var(--text-color); margin-bottom: 5px; }
+.instrucao-texto p { font-size: 1rem; color: #ccc; line-height: 1.5; text-align: left; }
 
-.instrucao-texto h3 {
-    font-family: var(--font-headline);
-    font-size: 1.3rem;
-    color: var(--text-color);
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-
-.instrucao-texto p {
-    font-size: 1rem;
-    color: #ccc; /* Cor mais suave para o texto de apoio */
-    line-height: 1.5;
-    text-align: left;
-}
-
-/* Dentro dos estilos da Página de Obrigado */
-
-.assinatura-rose {
-    width: 100%;
-    max-width: 700px;
-    line-height: 1.6;
-    font-style: italic;
-    font-size: 1.1rem;
-    margin-top: 30px; /* Adiciona um espaço acima do botão */
-}
-
-.formulario-button {
-    margin-bottom: 25px; /* Adiciona um espaço abaixo do botão */
-}
-
-.assinatura-texto p {
-    margin: 5px 0;
-}
-
-.assinatura-texto strong {
-    font-style: normal;
-    font-weight: 700;
-}
+.assinatura-rose { margin-top: 40px; line-height: 1.6; font-style: italic; font-size: 1.1rem; }
+.formulario-button { margin-bottom: 25px; }
+.assinatura-texto p { margin: 5px 0; text-align: center; }
+.assinatura-texto strong { font-style: normal; font-weight: 700; }
 
 /* --- ANIMAÇÕES GERAIS --- */
 .anim-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
