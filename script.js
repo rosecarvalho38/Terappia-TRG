@@ -3,12 +3,22 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // Objeto central que guarda o estado das vagas.
-    // Declarado no topo para ser acessível por múltiplas funções.
+    // Começa com 0, mas será preenchido pela função initRandomVagas().
     const planosInfo = {
         plus: { nome: 'PLANO PLUS', desc: 'O Ponto de Partida Para a Sua Cura', investimento: '10 Sessões | 1x por semana', vagasTotal: 13, vagasDisponiveis: 0, linkCompra: '#' },
         premium: { nome: 'PLANO PREMIUM', desc: 'A Transformação Profunda e Acelerada', investimento: '16 Sessões | 2x por semana', vagasTotal: 9, vagasDisponiveis: 0, linkCompra: '#' },
         master: { nome: 'PLANO MASTER', desc: 'A Imersão Completa Para a Reconstrução', investimento: '24 Sessões | 2x por semana', vagasTotal: 5, vagasDisponiveis: 0, linkCompra: '#' }
     };
+
+    /**
+     * Função para inicializar as vagas com valores aleatórios.
+     * ESSA FUNÇÃO GARANTE QUE AS VAGAS NUNCA COMECEM EM ZERO.
+     */
+    function initRandomVagas() {
+        planosInfo.plus.vagasDisponiveis = Math.floor(Math.random() * 4) + 5; // Gera de 5 a 8 vagas
+        planosInfo.premium.vagasDisponiveis = Math.floor(Math.random() * 3) + 3; // Gera de 3 a 5 vagas
+        planosInfo.master.vagasDisponiveis = Math.floor(Math.random() * 2) + 1; // Gera 1 ou 2 vagas
+    }
 
     /**
      * Função reutilizável para atualizar a caixa de oferta na tela.
@@ -29,36 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="progress-bar"><div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div></div>
             </div>
             <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>`;
-    }
-
-    /**
-     * Função para inicializar as vagas com valores aleatórios.
-     */
-    function initRandomVagas() {
-        planosInfo.plus.vagasDisponiveis = Math.floor(Math.random() * 4) + 4; // Gera de 5 a 8 vagas
-        planosInfo.premium.vagasDisponiveis = Math.floor(Math.random() * 3) + 2; // Gera de 3 a 5 vagas
-        planosInfo.master.vagasDisponiveis = Math.floor(Math.random() * 2) + 3; // Gera 1 ou 2 vagas
-    }
-
-    /**
-     * Função de Animação da Headline Principal
-     */
-    function initHeadlineAnimation() {
-        const headline = document.getElementById('main-headline');
-        if (headline) {
-            const text = headline.textContent.trim();
-            const words = text.split(' ');
-            headline.innerHTML = '';
-            words.forEach((word) => {
-                const span = document.createElement('span');
-                span.textContent = word;
-                headline.appendChild(span);
-                headline.appendChild(document.createTextNode(' '));
-            });
-            setTimeout(() => {
-                headline.classList.add('is-visible');
-            }, 100);
-        }
     }
 
     /**
