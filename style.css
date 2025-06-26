@@ -169,6 +169,41 @@ main#conteudo-principal.is-visible {
 }
 .secao-planos { background-color: #111e2e; }
 /* --- ESTILO DO CRONÔMETRO DE URGÊNCIA --- */
+
+/* --- ESTILO DO ÍCONE DO CRONÔMETRO --- */
+.timer-icon {
+    font-size: 2rem;
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--accent-color-1); /* Ou outra cor que combine */
+}
+
+/* Ajuste no display do timer para remover a exibição de dias */
+.timer-display {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.timer-display div {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os números e o texto */
+}
+
+.timer-display span:first-child {
+    font-family: var(--font-headline);
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    color: var(--accent-color-2);
+    line-height: 1;
+}
+
+.timer-display span:last-child {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
 .agenda-timer-box {
     border: 2px solid var(--accent-color-1);
     background: rgba(0, 0, 0, 0.2);
