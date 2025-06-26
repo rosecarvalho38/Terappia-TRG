@@ -168,6 +168,47 @@ main#conteudo-principal.is-visible {
     }
 }
 .secao-planos { background-color: #111e2e; }
+/* --- ESTILO DO CRONÔMETRO DE URGÊNCIA --- */
+.agenda-timer-box {
+    border: 2px solid var(--accent-color-1);
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 25px;
+    max-width: 600px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.timer-headline {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.timer-display {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.timer-display div {
+    display: flex;
+    flex-direction: column;
+}
+
+.timer-display span:first-child {
+    font-family: var(--font-headline);
+    font-size: clamp(2.5rem, 8vw, 3.5rem);
+    color: var(--accent-color-2);
+    line-height: 1;
+}
+
+.timer-display span:last-child {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
 .planos-container { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 50px; }
 .plano-card { border: 3px solid var(--accent-color-1); border-radius: 15px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; }
 .plano-card:hover { transform: translateY(-10px); }
