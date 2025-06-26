@@ -256,8 +256,7 @@ main#conteudo-principal.is-visible {
     .cta-button {
     white-space: nowrap; /* Impede que o texto quebre em duas linhas */
     font-size: 1rem;     /* Reduz a fonte para garantir que caiba */
-    padding: 5px 10px;
-    max-width: 200px;}
+    max-width: 100px;}
     .comment-notification {
     top: 20px;
     bottom: auto;
