@@ -50,23 +50,29 @@ function updateOfferBoxUI(planoId) {
     const vagasPreenchidas = info.vagasTotal - info.vagasDisponiveis;
     const percentualPreenchido = Math.max(0, (vagasPreenchidas / info.vagasTotal) * 100);
 
-    // NOVO HTML com ancoragem e destaque no parcelado
+    // Estrutura HTML final e otimizada para a oferta
     offerDetails.innerHTML = `
         <p class="plano-selecionado">${info.nome}</p>
+        
         <div class="price-section-rose">
             <p class="price-old">De <del>${info.valorOriginal}</del></p>
-            <p class="price-prefix">Por apenas:</p>
+            <p class="price-prefix">Faça sua jornada acontecer por apenas:</p>
             <div class="price-main">
                 <span class="price-installments">${info.parcelas}</span>
                 <span class="price-value">${info.valorParcela}</span>
             </div>
             <p class="price-descriptor">ou ${info.valorVista} à vista</p>
         </div>
+
         <div class="plano-disponibilidade">
             URGENTE: Restam apenas <strong>${info.vagasDisponiveis}</strong> de ${info.vagasTotal} vagas para este plano.
-            <div class="progress-bar"><div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div></div>
+            <div class="progress-bar">
+                <div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div>
+            </div>
         </div>
-        <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>`;
+        
+        <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>
+    `;
 }
     /**
  * Função para inicializar as vagas com valores aleatórios.
