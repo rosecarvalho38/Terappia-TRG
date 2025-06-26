@@ -227,7 +227,7 @@ main#conteudo-principal.is-visible {
 
 /* Ajusta a margem superior do botão final */
 .secao-final-chamada .cta-button {
-    margin-top: 40px;
+    margin-top: 80px;
 }
 .footer { background-color: #0d141f; color: #aaa; padding: 50px 0; text-align: center; font-size: 0.9rem; border-top: 1px solid var(--accent-color-1); }
 .footer p { margin: 5px 0; }
