@@ -243,4 +243,9 @@ main#conteudo-principal.is-visible {
     right: 15px;
     width: auto;
     transform: translateY(-150%);
+    .price-section-rose {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
