@@ -161,10 +161,11 @@ main#conteudo-principal.is-visible {
 /* Ajuste no mobile para o novo bloco de preço */
 @media (max-width: 768px) {
     .price-section-rose .price-installments {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
+        margin-top: 10px;
     }
     .price-section-rose .price-value {
-        font-size: 3.8rem;
+        font-size: 3rem;
     }
 }
 .secao-planos { background-color: #111e2e; }
