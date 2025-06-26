@@ -1,9 +1,8 @@
 // static/js/script.js (VERSÃO DEFINITIVA E FUNCIONAL)
 
-document.addEventListener('DOMContentLoaded', () => {More actions
+document.addEventListener('DOMContentLoaded', () => {
 
     // Objeto central que guarda o estado das vagas.
-    // Declarado no topo para ser acessível por múltiplas funções.
     const planosInfo = {
         plus: { nome: 'PLANO PLUS', desc: 'O Ponto de Partida Para a Sua Cura', investimento: '10 Sessões | 1x por semana', vagasTotal: 13, vagasDisponiveis: 0, linkCompra: '#' },
         premium: { nome: 'PLANO PREMIUM', desc: 'A Transformação Profunda e Acelerada', investimento: '16 Sessões | 2x por semana', vagasTotal: 9, vagasDisponiveis: 0, linkCompra: '#' },
