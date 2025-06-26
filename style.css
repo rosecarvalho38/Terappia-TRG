@@ -233,6 +233,46 @@ main#conteudo-principal.is-visible {
 .footer p { margin: 5px 0; }
 .footer-disclaimer { font-size: 0.8rem; max-width: 600px; margin: 20px auto 0 auto; opacity: 0.7; }
 
+/* --- ESTILOS DA PÁGINA DE OBRIGADO --- */
+.obrigado-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 60px 20px;
+    background-image: linear-gradient(to bottom right, var(--bg-color), #0d141f);
+}
+.obrigado-container {
+    width: 100%;
+    max-width: 750px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 15px;
+    border: 1px solid var(--accent-color-1);
+}
+.obrigado-header { margin-bottom: 40px; }
+.obrigado-title { font-family: var(--font-headline); font-size: clamp(2.2rem, 5vw, 3rem); color: var(--text-color); }
+.obrigado-subtitle { font-size: 1.2rem; margin-top: 10px; color: var(--accent-color-2); }
+.obrigado-subtitle strong { font-weight: 700; }
+
+.mensagem-pessoal { margin-bottom: 40px; line-height: 1.8; }
+.mensagem-pessoal p { margin-bottom: 15px; }
+
+.instrucoes-box { border-top: 1px solid var(--accent-color-1); border-bottom: 1px solid var(--accent-color-1); padding: 40px 0; margin-bottom: 40px; }
+.instrucoes-box h2 { font-size: 1.8rem; margin-bottom: 30px; font-family: var(--font-headline); }
+.instrucoes-lista { display: flex; flex-direction: column; gap: 30px; text-align: left; }
+.instrucao-item { display: flex; align-items: flex-start; gap: 20px; }
+.instrucao-numero { flex-shrink: 0; width: 40px; height: 40px; background-color: var(--accent-color-2); color: var(--bg-color); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-family: var(--font-headline); font-size: 1.5rem; font-weight: bold; }
+.instrucao-texto h3 { font-family: var(--font-headline); font-size: 1.3rem; color: var(--text-color); margin-bottom: 5px; }
+.instrucao-texto p { font-size: 1rem; color: #ccc; line-height: 1.5; }
+
+.formulario-button { display: inline-block; margin-top: 40px; }
+
+.assinatura-rose { margin-top: 50px; line-height: 1.6; font-style: italic; font-size: 1.1rem; }
+.assinatura-rose p { margin: 5px 0; }
+
 /* --- ANIMAÇÕES GERAIS --- */
 .anim-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
 .anim-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
