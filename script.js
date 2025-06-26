@@ -236,6 +236,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+ * Função do Cronômetro Evergreen (Pessoal e Cíclico)
+ * Cria um prazo único por visitante e o salva no navegador.
+ */
+function initAgendaCountdown() {
+    const countdownBox = document.getElementById('agenda-countdown');
+    if (!countdownBox) return; // Só roda se o cronômetro existir
+
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    // 1. Verifica se já existe um prazo salvo no navegador do usuário
+    let deadline = localStorage.getItem('countdownDeadline');
+
+    // 2. Se não existir, cria um novo prazo para daqui a 3 dias e o salva
+    if (!deadline) {
+        const newDeadline = new Date();
+        newDeadline.setDate(newDeadline.getDate() + 3); // Define o prazo para 3 dias a partir de agora
+        localStorage.setItem('countdownDeadline', newDeadline);
+        deadline = newDeadline;
+    }
+
+    // 3. Inicia o cronômetro contando para esse prazo final pessoal
+    function updateCountdown() {
+        const targetDate = new Date(deadline);
+        const now = new Date();
+        const totalSeconds = (targetDate - now) / 1000;
+
+        if (totalSeconds > 0) {
+            const d = Math.floor(totalSeconds / 3600 / 24);
+            const h = Math.floor(totalSeconds / 3600) % 24;
+            const m = Math.floor(totalSeconds / 60) % 60;
+            const s = Math.floor(totalSeconds) % 60;
+
+            daysEl.innerHTML = d.toString().padStart(2, '0');
+            hoursEl.innerHTML = h.toString().padStart(2, '0');
+            minutesEl.innerHTML = m.toString().padStart(2, '0');
+            secondsEl.innerHTML = s.toString().padStart(2, '0');
+        } else {
+            // 4. Se o tempo já esgotou, mostra uma mensagem
+            countdownBox.innerHTML = "<p class='timer-expired'>OFERTA ENCERRADA</p>";
+            // Aqui você poderia também desativar os botões de compra com JS
+        }
+    }
+
+    updateCountdown(); // Roda imediatamente
+    setInterval(updateCountdown, 1000); // Atualiza a cada segundo
+}
+
+    /**
      * Função Geral para Animações de Entrada ao Rolar
      */
     function initScrollAnimations() {
