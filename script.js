@@ -1,20 +1,14 @@
-// static/js/script.js (VERSÃO FINAL COM TODAS AS FUNCIONALIDADES)
+// static/js/script.js (VERSÃO DEFINITIVA E FUNCIONAL)
 
 document.addEventListener('DOMContentLoaded', () => {
 
     // Objeto central que guarda o estado das vagas.
+    // Declarado no topo para ser acessível por múltiplas funções.
     const planosInfo = {
         plus: { nome: 'PLANO PLUS', desc: 'O Ponto de Partida Para a Sua Cura', investimento: '10 Sessões | 1x por semana', vagasTotal: 13, vagasDisponiveis: 0, linkCompra: '#' },
         premium: { nome: 'PLANO PREMIUM', desc: 'A Transformação Profunda e Acelerada', investimento: '16 Sessões | 2x por semana', vagasTotal: 9, vagasDisponiveis: 0, linkCompra: '#' },
         master: { nome: 'PLANO MASTER', desc: 'A Imersão Completa Para a Reconstrução', investimento: '24 Sessões | 2x por semana', vagasTotal: 5, vagasDisponiveis: 0, linkCompra: '#' }
     };
-
-    // --- FUNÇÃO PARA INICIALIZAR VAGAS ALEATÓRIAS ---
-    function initRandomVagas() {
-        planosInfo.plus.vagasDisponiveis = Math.floor(Math.random() * 4) + 5; // Gera de 5 a 8 vagas
-        planosInfo.premium.vagasDisponiveis = Math.floor(Math.random() * 3) + 3; // Gera de 3 a 5 vagas
-        planosInfo.master.vagasDisponiveis = Math.floor(Math.random() * 2) + 1; // Gera 1 ou 2 vagas
-    }
 
     /**
      * Função reutilizável para atualizar a caixa de oferta na tela.
@@ -38,11 +32,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+     * Função para inicializar as vagas com valores aleatórios.
+     */
+    function initRandomVagas() {
+        planosInfo.plus.vagasDisponiveis = Math.floor(Math.random() * 4) + 5; // Gera de 5 a 8 vagas
+        planosInfo.premium.vagasDisponiveis = Math.floor(Math.random() * 3) + 3; // Gera de 3 a 5 vagas
+        planosInfo.master.vagasDisponiveis = Math.floor(Math.random() * 2) + 1; // Gera 1 ou 2 vagas
+    }
+
+    /**
      * Função de Animação da Headline Principal
      */
     function initHeadlineAnimation() {
         const headline = document.getElementById('main-headline');
         if (headline) {
+            const text = headline.textContent.trim();
+            const words = text.split(' ');
+            headline.innerHTML = '';
+            words.forEach((word) => {
+                const span = document.createElement('span');
+                span.textContent = word;
+                headline.appendChild(span);
+                headline.appendChild(document.createTextNode(' '));
+            });
             setTimeout(() => {
                 headline.classList.add('is-visible');
             }, 100);
@@ -78,17 +90,13 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Função de Prova Social (Comentários e Compras Sincronizadas)
      */
-    /**
- * Função da Prova Social (Comentários e Compras)
- * VERSÃO FINAL COM COMENTÁRIOS RANDÔMICOS
- */
-function initSocialProof() {
-    const commentsList = document.getElementById('comments-list');
-    const notificationElement = document.getElementById('new-comment-notification');
+    function initSocialProof() {
+        const commentsList = document.getElementById('comments-list');
+        const notificationElement = document.getElementById('new-comment-notification');
 
-    if (!commentsList || !notificationElement) return;
+        if (!commentsList || !notificationElement) return;
 
-    const fakeComments = [
+        const fakeComments = [
     // Depoimentos já existentes...
     { name: 'Juliana Pinho', avatar: 'avatar1.jpg', text: 'Gente, sério. Minha enxaqueca era diária. Na segunda sessão com a Rose, eu entendi a CAUSA da dor. Hoje faz um mês que não sei o que é tomar um remédio. Parece mágica.' },
     { name: 'Amanda Guedes', avatar: 'avatar2.jpg', text: 'Eu era a pessoa mais cética com terapia online. Paguei pra ver e quebrei a cara (graças a Deus!). O acolhimento e a profundidade que a Rose alcança pela tela é algo que eu nunca tive no presencial. Não troco por nada.' },
@@ -118,117 +126,64 @@ function initSocialProof() {
     { name:- 'Raquel Campos', avatar: 'avatar26.jpg', text: 'O mais louco é ver as pessoas ao redor comentando: "Nossa, você parece mais leve", "Sua energia tá diferente". A mudança é de dentro pra fora, mas todo mundo nota.' },
     { name: 'Elisa Pinto', avatar: 'avatar27.jpg', text: 'Eu só queria parar de sentir medo do futuro. Vivia ansiosa pelo que podia acontecer. Hoje eu consigo focar no presente e sei que tenho as ferramentas pra lidar com o que vier. Essa segurança não tem preço.' }
 ]
+        
+        const fakePurchasers = [
+            { name: 'Gabriela Mota' }, { name: 'Isabela Neves' }, { name: 'Laura Cunha' },
+            { name: 'Renata Paiva' }, { name: 'Daniela Almeida' }, { name: 'Thais Oliveira' },
+            { name: 'Alice Furtado' }, { name: 'Luísa Mattos' }, { name: 'Sandra Costa' },
+            { name: 'Helena Martins' }, { name: 'Priscila Dias' }, { name: 'Bárbara Lima' },
+        ];
 
-    const fakePurchasers = [
-  { name: 'Juliana R.', location: 'São Paulo, SP', plan: 'Plano Premium' },
-  { name: 'Camila O.', location: 'Feira de Santana, BA', plan: 'Plano Plus' },
-  { name: 'Beatriz L.', location: 'Curitiba, PR', plan: 'Plano Master' },
-  { name: 'Fernanda C.', location: 'Recife, PE', plan: 'Plano Premium' },
-  { name: 'Amanda S.', location: 'Belo Horizonte, MG', plan: 'Plano Premium' },
-  { name: 'Letícia M.', location: 'Rio de Janeiro, RJ', plan: 'Plano Plus' },
-  { name: 'Mariana F.', location: 'Porto Alegre, RS', plan: 'Plano Premium' },
-  { name: 'Carla B.', location: 'Salvador, BA', plan: 'Plano Plus' },
-  { name: 'Sofia A.', location: 'Brasília, DF', plan: 'Plano Premium' },
-  { name: 'Laura P.', location: 'Fortaleza, CE', plan: 'Plano Master' },
-  { name: 'Ana V.', location: 'Goiânia, GO', plan: 'Plano Plus' },
-  { name: 'Clara G.', location: 'Vitória, ES', plan: 'Plano Premium' },
-  { name: 'Valentina T.', location: 'Manaus, AM', plan: 'Plano Premium' },
-  { name: 'Helena M.', location: 'Campinas, SP', plan: 'Plano Plus' },
-  { name: 'Lorena D.', location: 'Niterói, RJ', plan: 'Plano Premium' },
-  { name: 'Manuela Q.', location: 'Florianópolis, SC', plan: 'Plano Plus' },
-  { name: 'Alice F.', location: 'São Luís, MA', plan: 'Plano Premium' },
-  { name: 'Isabela N.', location: 'Belém, PA', plan: 'Plano Plus' },
-  { name: 'Yasmin C.', location: 'Sorocaba, SP', plan: 'Plano Premium' },
-  { name: 'Gabriela P.', location: 'Maceió, AL', plan: 'Plano Premium' },
-  { name: 'Luísa R.', location: 'Campo Grande, MS', plan: 'Plano Master' },
-  { name: 'Rafaela B.', location: 'Santos, SP', plan: 'Plano Plus' },
-  { name: 'Mariana V.', location: 'Joinville, SC', plan: 'Plano Premium' },
-  { name: 'Lívia S.', location: 'João Pessoa, PB', plan: 'Plano Premium' },
-  { name: 'Eduarda M.', location: 'Teresina, PI', plan: 'Plano Plus' },
-  { name: 'Carolina F.', location: 'Cuiabá, MT', plan: 'Plano Premium' },
-  { name: 'Brenda O.', location: 'Uberlândia, MG', plan: 'Plano Plus' },
-  { name: 'Nicole A.', location: 'Londrina, PR', plan: 'Plano Premium' },
-  { name: 'Thaís C.', location: 'Ribeirão Preto, SP', plan: 'Plano Premium' },
-  { name: 'Esther G.', location: 'Aracaju, SE', plan: 'Plano Plus' },
-  { name: 'Melissa P.', location: 'Juiz de Fora, MG', plan: 'Plano Master' },
-  { name: 'Catarina L.', location: 'Blumenau, SC', plan: 'Plano Premium' },
-  { name: 'Elisa B.', location: 'Porto Velho, RO', plan: 'Plano Plus' },
-  { name: 'Rebeca V.', location: 'Caxias do Sul, RS', plan: 'Plano Premium' },
-  { name: 'Agatha M.', location: 'Taubaté, SP', plan: 'Plano Plus' },
-  { name: 'Sarah F.', location: 'Olinda, PE', plan: 'Plano Premium' },
-  { name: 'Bruna K.', location: 'São José dos Campos, SP', plan: 'Plano Premium' },
-  { name: 'Ingrid S.', location: 'Anápolis, GO', plan: 'Plano Plus' },
-  { name: 'Débora R.', location: 'Pelotas, RS', plan: 'Plano Premium' },
-  { name: 'Vanessa P.', location: 'Boa Vista, RR', plan: 'Plano Plus' },
-  { name: 'Marina T.', location: 'Guarulhos, SP', plan: 'Plano Master' },
-  { name: 'Aline G.', location: 'Maringá, PR', plan: 'Plano Premium' },
-  { name: 'Júlia B.', location: 'Contagem, MG', plan: 'Plano Premium' },
-  { name: 'Evelyn A.', location: 'Campina Grande, PB', plan: 'Plano Plus' },
-  { name: 'Letícia C.', location: 'Macapá, AP', plan: 'Plano Premium' },
-  { name: 'Talita M.', location: 'Serra, ES', plan: 'Plano Plus' },
-  { name: 'Raquel N.', location: 'Petrópolis, RJ', plan: 'Plano Premium' },
-  { name: 'Paula S.', location: 'Canoas, RS', plan: 'Plano Plus' },
-  { name: 'Andressa F.', location: 'Montes Claros, MG', plan: 'Plano Premium' },
-  { name: 'Tatiane L.', location: 'Palmas, TO', plan: 'Plano Master' }
-];
+        let remainingComments = fakeComments.slice(5);
+        let shuffledCommentIndex = 0;
 
-    // --- NOVA LÓGICA DE SEPARAÇÃO E ALEATORIEDADE ---
-
-    // 1. Separa os 5 comentários iniciais dos restantes.
-    const initialComments = fakeComments.slice(0, 5);
-    let remainingComments = fakeComments.slice(5);
-
-    // 2. Função para embaralhar o array (Fisher-Yates shuffle)
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
         }
-    }
+        shuffleArray(remainingComments);
 
-    // 3. Embaralha os comentários restantes UMA ÚNICA VEZ.
-    shuffleArray(remainingComments);
-    let newCommentIndex = 0; // Contador para os comentários embaralhados
+        function generateRandomTimeAgo() {
+            const type = Math.random() > 0.4 ? 'dias' : 'horas';
+            const dias = Math.floor(Math.random() * 6) + 1;
+            const horas = Math.floor(Math.random() * 23) + 1;
+            return type === 'dias' ? `há ${dias} dia${dias > 1 ? 's' : ''}` : `há ${horas} hora${horas > 1 ? 's' : ''}`;
+        }
 
-    function generateRandomTimeAgo() { /* ... (função continua a mesma) ... */ }
-    function showNotification(message) { /* ... (função continua a mesma) ... */ }
+        function addCommentToUI(comment, isNew = false) {
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment-item';
+            const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
+            commentDiv.innerHTML = `<div class="comment-avatar"><img src="/static/img/${comment.avatar}" alt="avatar"></div><div class="comment-body"><p><strong>${comment.name}</strong> ${comment.text}</p><div class="comment-actions">Curtir • Responder • ${timeAgo}</div></div>`;
+            if (isNew) commentsList.prepend(commentDiv);
+            else commentsList.appendChild(commentDiv);
+        }
 
-    function addCommentToUI(comment, isNew = false) {
-        const commentDiv = document.createElement('div');
-        commentDiv.className = 'comment-item';
-        const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
-        // Corrigindo o caminho da imagem para o padrão Flask
-        commentDiv.innerHTML = `<div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div><div class="comment-body"><p><strong>${comment.name}</strong> ${comment.text}</p><div class="comment-actions">Curtir • Responder • ${timeAgo}</div></div>`;
-        if (isNew) commentsList.prepend(commentDiv);
-        else commentsList.appendChild(commentDiv);
-    }
+        function showNotification(message) {
+            notificationElement.innerHTML = message;
+            notificationElement.classList.add('show');
+            setTimeout(() => notificationElement.classList.remove('show'), 8000);
+        }
+        const initialComments = fakeComments.slice(0, 5);
         initialComments.forEach(c => addCommentToUI(c, false));
 
         function scheduleNextEvent() {
-            // Frequência um pouco maior: entre 18 e 40 segundos
-            const randomDelay = Math.random() * (40000 - 18000) + 18000;
-            
+            const randomDelay = Math.random() * (55000 - 25000) + 25000;
             setTimeout(() => {
-                // Aumenta a chance de ser uma compra (80% de chance)
-                const eventType = Math.random();
-                if (eventType > 0.8 && shuffledCommentIndex < 8 && shuffledCommentIndex < remainingComments.length) {
-                    // MOSTRA NOVO COMENTÁRIO (20% de chance)
+                if (Math.random() > 0.8 && shuffledCommentIndex < remainingComments.length) {
                     const newComment = remainingComments[shuffledCommentIndex];
                     addCommentToUI(newComment, true);
                     showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
                     shuffledCommentIndex++;
                 } else {
-                    // MOSTRA NOVA COMPRA (80% de chance)
                     const planosDisponiveis = Object.keys(planosInfo).filter(p => planosInfo[p].vagasDisponiveis > 0);
                     if (planosDisponiveis.length > 0) {
                         const planoCompradoId = planosDisponiveis[Math.floor(Math.random() * planosDisponiveis.length)];
-                        
                         planosInfo[planoCompradoId].vagasDisponiveis--;
-
                         const comprador = fakePurchasers[Math.floor(Math.random() * fakePurchasers.length)];
-                        
                         showNotification(`✨ ${comprador.name} garantiu uma das últimas vagas no <strong>${planosInfo[planoCompradoId].nome}</strong>!`);
-
                         const planoSelecionadoCard = document.querySelector('.plano-card.selected');
                         if (planoSelecionadoCard && planoSelecionadoCard.dataset.plano === planoCompradoId) {
                             updateOfferBoxUI(planoCompradoId);
@@ -238,8 +193,9 @@ function initSocialProof() {
                 scheduleNextEvent();
             }, randomDelay);
         }
-        setTimeout(scheduleNextEvent, 15000); // Começa um pouco mais rápido
+        setTimeout(scheduleNextEvent, 15000);
     }
+
     /**
      * Função da Seleção de Planos de Terapia
      */
@@ -298,6 +254,7 @@ function initSocialProof() {
     }
 
     // --- EXECUTA TODAS AS FUNÇÕES DE INICIALIZAÇÃO ---
+    initRandomVagas();
     initHeadlineAnimation();
     initSymptomChecklist();
     initSocialProof();
