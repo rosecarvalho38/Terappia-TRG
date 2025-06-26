@@ -254,9 +254,16 @@ main#conteudo-principal.is-visible {
     .comment-notification.show { transform: translateY(0); }
     .main-headline { font-size: 2.5rem; }
     .cta-button {
-    white-space: nowrap; /* Impede que o texto quebre em duas linhas */
-    font-size: 0.7rem;     /* Reduz a fonte para garantir que caiba */
-    max-width: 100px;}
+    padding: 18px 30px;  /* Um padding equilibrado */
+    font-size: 1rem;     /* Um tamanho de fonte legível */
+    line-height: 1.4;    /* Melhora o espaçamento se o texto quebrar em 2 linhas */
+    width: auto;         /* Deixa o botão se ajustar ao conteúdo */
+    max-width: 95%;      /* Garante que o botão nunca seja maior que a tela */
+    display: inline-block; }
+    .secao-final-chamada .cta-button {
+    display: block;
+    margin: 40px auto 0;
+    width: fit-content;}
     .comment-notification {
     top: 20px;
     bottom: auto;
