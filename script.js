@@ -197,6 +197,41 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+ * Função da Urgência Evergreen com Data Fixa
+ * Cria um prazo final único por visitante e exibe a data.
+ */
+function initEvergreenDeadline() {
+    const deadlineElement = document.getElementById('deadline-date');
+    if (!deadlineElement) return; // Só roda se o elemento existir
+
+    // 1. Verifica se já existe um prazo salvo no navegador do usuário
+    let deadlineString = localStorage.getItem('jornadaDeadline');
+
+    // 2. Se não existir, cria um novo prazo para daqui a 2 dias e o salva
+    if (!deadlineString) {
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 2);
+        
+        // Salva a data completa no localStorage
+        localStorage.setItem('jornadaDeadline', targetDate.toISOString());
+        deadlineString = targetDate.toISOString();
+    }
+
+    // 3. Formata a data para um formato amigável em português
+    const targetDate = new Date(deadlineString);
+    const diasDaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+    const mesesDoAno = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+    const diaSemana = diasDaSemana[targetDate.getDay()];
+    const dia = targetDate.getDate();
+    const mes = mesesDoAno[targetDate.getMonth()];
+
+    const dataFormatada = `${diaSemana}, ${dia} de ${mes}`;
+
+    // 4. Exibe a data na página
+    deadlineElement.textContent = dataFormatada;
+}
+    /**
      * Função da Seleção de Planos de Terapia
      */
     function initPlanSelection() {
@@ -262,4 +297,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initFaqAccordion();
     initScrollAnimations();
     initAgendaCountdown();
+    initEvergreenDeadline();
 });
