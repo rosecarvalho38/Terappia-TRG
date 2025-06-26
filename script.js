@@ -236,56 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
- * Função do Cronômetro Evergreen (Pessoal e Cíclico)
- * VERSÃO FINAL COM URGÊNCIA DO DIA E OCULTAR DIAS
- */
-function initAgendaCountdown() {
-    const countdownBox = document.getElementById('agenda-countdown');
-    if (!countdownBox) return;
-
-    const hoursEl = document.getElementById('hours');
-    const minutesEl = document.getElementById('minutes');
-    const secondsEl = document.getElementById('seconds');
-
-    const planosContainer = document.querySelector('.planos-container');
-    const offerBox = document.getElementById('offer-box');
-    const ofertaExpiradaBox = document.getElementById('oferta-expirada-box');
-    const timerBox = document.querySelector('.agenda-timer-box');
-
-    let deadline = localStorage.getItem('countdownDeadline');
-
-    if (!deadline) {
-        const now = new Date();
-        const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0); // Meia-noite de hoje
-        const newDeadline = new Date(startOfDay.getTime() + (72 * 60 * 60 * 1000)); // Adiciona 72 horas
-        localStorage.setItem('countdownDeadline', newDeadline);
-        deadline = newDeadline;
-    }
-
-    const intervalId = setInterval(() => {
-        const targetDate = new Date(deadline);
-        const now = new Date();
-        const totalSeconds = (targetDate - now) / 1000;
-
-        if (totalSeconds > 0) {
-            const h = Math.floor(totalSeconds / 3600);
-            const m = Math.floor((totalSeconds % 3600) / 60);
-            const s = Math.floor(totalSeconds % 60);
-
-            hoursEl.innerHTML = h.toString().padStart(2, '0');
-            minutesEl.innerHTML = m.toString().padStart(2, '0');
-            secondsEl.innerHTML = s.toString().padStart(2, '0');
-        } else {
-            if (planosContainer) planosContainer.style.display = 'none';
-            if (offerBox) offerBox.style.display = 'none';
-            if (timerBox) timerBox.style.display = 'none';
-            if (ofertaExpiradaBox) ofertaExpiradaBox.classList.remove('hidden');
-
-            clearInterval(intervalId);
-        }
-    }, 1000);
-}
-    /**
      * Função Geral para Animações de Entrada ao Rolar
      */
     function initScrollAnimations() {
