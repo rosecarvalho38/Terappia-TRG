@@ -168,6 +168,27 @@ main#conteudo-principal.is-visible {
     }
 }
 .secao-planos { background-color: #111e2e; }
+/* Adicione este novo estilo e remova os antigos do cronômetro */
+
+.deadline-box {
+    text-align: center;
+    padding: 20px;
+    margin: 40px auto;
+    max-width: 700px;
+    border: 2px solid var(--accent-color-1);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.deadline-box p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+#deadline-date {
+    color: var(--accent-color-2);
+    font-weight: 700;
+}
 .planos-container { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 50px; }
 .plano-card { border: 3px solid var(--accent-color-1); border-radius: 15px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; }
 .plano-card:hover { transform: translateY(-10px); }
@@ -233,10 +254,9 @@ main#conteudo-principal.is-visible {
     .comment-notification.show { transform: translateY(0); }
     .main-headline { font-size: 2.5rem; }
     .cta-button {
-    padding: 9px 15px; /* Reduz o espaçamento interno */
-    font-size: 1rem;    /* Diminui um pouco a fonte para caber melhor */
-    width: 100%;        /* Faz o botão ocupar a largura do container */
-    max-width: 300px; }
+    white-space: nowrap; /* Impede que o texto quebre em duas linhas */
+    font-size: 1rem;     /* Reduz a fonte para garantir que caiba */
+    padding: 15px 25px;}
     .comment-notification {
     top: 20px;
     bottom: auto;
@@ -244,4 +264,7 @@ main#conteudo-principal.is-visible {
     right: 15px;
     width: auto;
     transform: translateY(-150%);
+    .price-section-rose {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }

@@ -1,17 +1,16 @@
-// static/js/script.js (VERSÃO FINAL E VERIFICADA)
+// static/js/script.js (VERSÃO DEFINITIVA E FUNCIONAL)
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Objeto central que guarda o estado das vagas.
-    // É declarado aqui no topo para ser acessível por múltiplas funções.
+    // Objeto central que guarda o estado das vagas, acessível por múltiplas funções.
     const planosInfo = {
-        plus: { nome: 'PLANO PLUS', valorVista: 'R$ 480,00', parcelas: '5x de', valorParcela: 'R$ 96,00', vagasTotal: 4, vagasDisponiveis: 3, linkCompra: '#' },
-        premium: { nome: 'PLANO PREMIUM', valorVista: 'R$ 840,00', parcelas: '8x de', valorParcela: 'R$ 105,00', vagasTotal: 4, vagasDisponiveis: 2, linkCompra: '#' },
-        master: { nome: 'PLANO MASTER', valorVista: 'R$ 1.200,00', parcelas: '12x de', valorParcela: 'R$ 100,00', vagasTotal: 2, vagasDisponiveis: 1, linkCompra: '#' }
+        plus: { nome: 'PLANO PLUS', desc: 'O Ponto de Partida Para a Sua Cura', investimento: '10 Sessões | 1x por semana', vagasTotal: 13, vagasDisponiveis: 0, linkCompra: '#' },
+        premium: { nome: 'PLANO PREMIUM', desc: 'A Transformação Profunda e Acelerada', investimento: '16 Sessões | 2x por semana', vagasTotal: 9, vagasDisponiveis: 0, linkCompra: '#' },
+        master: { nome: 'PLANO MASTER', desc: 'A Imersão Completa Para a Reconstrução', investimento: '24 Sessões | 2x por semana', vagasTotal: 5, vagasDisponiveis: 0, linkCompra: '#' }
     };
 
     /**
-     * Função reutilizável para atualizar a caixa de oferta.
+     * Função reutilizável para atualizar a caixa de oferta na tela.
      */
     function updateOfferBoxUI(planoId) {
         const offerDetails = document.getElementById('offer-details');
@@ -19,24 +18,25 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!info || !offerDetails) return;
 
         const vagasPreenchidas = info.vagasTotal - info.vagasDisponiveis;
-        const percentualPreenchido = (vagasPreenchidas / info.vagasTotal) * 100;
+        const percentualPreenchido = Math.max(0, (vagasPreenchidas / info.vagasTotal) * 100);
 
         offerDetails.innerHTML = `
-            <div class="price-section-rose">
-                <p class="plano-selecionado">${info.nome}</p>
-                <p class="price-prefix">Faça sua jornada acontecer por apenas:</p>
-                <div class="price-main">
-                    <span class="price-installments">${info.parcelas}</span>
-                    <span class="price-value">${info.valorParcela}</span>
-                </div>
-                <p class="price-descriptor">ou ${info.valorVista} à vista</p>
-            </div>
+            <p class="plano-selecionado">${info.nome}</p>
+            <p class="plano-investimento">${info.investimento}</p>
             <div class="plano-disponibilidade">
                 URGENTE: Restam apenas <strong>${info.vagasDisponiveis}</strong> de ${info.vagasTotal} vagas para este plano.
                 <div class="progress-bar"><div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div></div>
             </div>
-            <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>
-        `;
+            <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>`;
+    }
+
+    /**
+     * Função para inicializar as vagas com valores aleatórios.
+     */
+    function initRandomVagas() {
+        planosInfo.plus.vagasDisponiveis = Math.floor(Math.random() * 4) + 5; // Gera de 5 a 8 vagas
+        planosInfo.premium.vagasDisponiveis = Math.floor(Math.random() * 3) + 3; // Gera de 3 a 5 vagas
+        planosInfo.master.vagasDisponiveis = Math.floor(Math.random() * 2) + 1; // Gera 1 ou 2 vagas
     }
 
     /**
@@ -45,7 +45,18 @@ document.addEventListener('DOMContentLoaded', () => {
     function initHeadlineAnimation() {
         const headline = document.getElementById('main-headline');
         if (headline) {
-            headline.classList.add('is-visible');
+            const text = headline.textContent.trim();
+            const words = text.split(' ');
+            headline.innerHTML = '';
+            words.forEach((word) => {
+                const span = document.createElement('span');
+                span.textContent = word;
+                headline.appendChild(span);
+                headline.appendChild(document.createTextNode(' '));
+            });
+            setTimeout(() => {
+                headline.classList.add('is-visible');
+            }, 100);
         }
     }
 
@@ -58,8 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const conteudoPrincipal = document.getElementById('conteudo-principal');
         if (sintomasCheckboxes.length > 0 && showSolutionBtn && conteudoPrincipal) {
             const checkCheckboxState = () => {
-                const isAnyChecked = Array.from(sintomasCheckboxes).some(cb => cb.checked);
-                showSolutionBtn.disabled = !isAnyChecked;
+                showSolutionBtn.disabled = !Array.from(sintomasCheckboxes).some(cb => cb.checked);
             };
             sintomasCheckboxes.forEach(checkbox => checkbox.addEventListener('change', checkCheckboxState));
             showSolutionBtn.addEventListener('click', () => {
@@ -85,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!commentsList || !notificationElement) return;
 
         const fakeComments = [
-    // Depoimentos já existentes...
+
     { name: 'Juliana Pinho', avatar: 'avatar1.jpg', text: 'Gente, sério. Minha enxaqueca era diária. Na segunda sessão com a Rose, eu entendi a CAUSA da dor. Hoje faz um mês que não sei o que é tomar um remédio. Parece mágica.' },
     { name: 'Amanda Guedes', avatar: 'avatar2.jpg', text: 'Eu era a pessoa mais cética com terapia online. Paguei pra ver e quebrei a cara (graças a Deus!). O acolhimento e a profundidade que a Rose alcança pela tela é algo que eu nunca tive no presencial. Não troco por nada.' },
     { name: 'Letícia Bueloni', avatar: 'avatar3.jpg', text: 'A síndrome da \'mulher boazinha\'... isso me consumia. A TRG com a Rose me DEVOLVEU a minha voz. Hoje, minha paz não é negociável. Obrigada.' },
@@ -115,7 +125,23 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: 'Elisa Pinto', avatar: 'avatar27.jpg', text: 'Eu só queria parar de sentir medo do futuro. Vivia ansiosa pelo que podia acontecer. Hoje eu consigo focar no presente e sei que tenho as ferramentas pra lidar com o que vier. Essa segurança não tem preço.' }
 ]
         
-        let nextCommentIndex = 5;
+        const fakePurchasers = [
+            { name: 'Gabriela Mota' }, { name: 'Isabela Neves' }, { name: 'Laura Cunha' },
+            { name: 'Renata Paiva' }, { name: 'Daniela Almeida' }, { name: 'Thais Oliveira' },
+            { name: 'Alice Furtado' }, { name: 'Luísa Mattos' }, { name: 'Sandra Costa' },
+            { name: 'Helena Martins' }, { name: 'Priscila Dias' }, { name: 'Bárbara Lima' },
+        ];
+
+        let remainingComments = fakeComments.slice(5);
+        let shuffledCommentIndex = 0;
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        shuffleArray(remainingComments);
 
         function generateRandomTimeAgo() {
             const type = Math.random() > 0.4 ? 'dias' : 'horas';
@@ -128,14 +154,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const commentDiv = document.createElement('div');
             commentDiv.className = 'comment-item';
             const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
-            commentDiv.innerHTML = `
-                <div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div>
-                <div class="comment-body">
-                    <p><strong>${comment.name}</strong> ${comment.text}</p>
-                    <div class="comment-actions">Curtir • Responder • ${timeAgo}</div>
-                </div>`;
-            if (isNew) commentsList.prepend(commentDiv);
-            else commentsList.appendChild(commentDiv);
+            commentDiv.innerHTML = `<div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div><div class="comment-body"><p><strong>${comment.name}</strong> ${comment.text}</p><div class="comment-actions">Curtir • Responder • ${timeAgo}</div></div>`;
+            if (isNew) {
+                commentsList.prepend(commentDiv);
+                commentDiv.classList.add('anim-on-scroll', 'is-visible');
+            } else {
+                commentsList.appendChild(commentDiv);
+            }
         }
 
         function showNotification(message) {
@@ -143,39 +168,50 @@ document.addEventListener('DOMContentLoaded', () => {
             notificationElement.classList.add('show');
             setTimeout(() => notificationElement.classList.remove('show'), 8000);
         }
-        
+
         const initialComments = fakeComments.slice(0, 5);
         initialComments.forEach(c => addCommentToUI(c, false));
 
-        function scheduleNextComment() {
-            const randomDelay = Math.random() * (45000 - 20000) + 20000;
+        function scheduleNextEvent() {
+            const randomDelay = Math.random() * (55000 - 25000) + 25000;
             setTimeout(() => {
-                if (nextCommentIndex < fakeComments.length) {
-                    const newComment = fakeComments[nextCommentIndex];
+                if (Math.random() > 0.5 && shuffledCommentIndex < remainingComments.length) {
+                    const newComment = remainingComments[shuffledCommentIndex];
                     addCommentToUI(newComment, true);
                     showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
-                    nextCommentIndex++;
-                    scheduleNextComment();
+                    shuffledCommentIndex++;
+                } else {
+                    const planosDisponiveis = Object.keys(planosInfo).filter(p => planosInfo[p].vagasDisponiveis > 0);
+                    if (planosDisponiveis.length > 0) {
+                        const planoCompradoId = planosDisponiveis[Math.floor(Math.random() * planosDisponiveis.length)];
+                        planosInfo[planoCompradoId].vagasDisponiveis--;
+                        const comprador = fakePurchasers[Math.floor(Math.random() * fakePurchasers.length)];
+                        showNotification(`✨ ${comprador.name} garantiu uma das últimas vagas no <strong>${planosInfo[planoCompradoId].nome}</strong>!`);
+                        const planoSelecionadoCard = document.querySelector('.plano-card.selected');
+                        if (planoSelecionadoCard && planoSelecionadoCard.dataset.plano === planoCompradoId) {
+                            updateOfferBoxUI(planoCompradoId);
+                        }
+                    }
                 }
+                scheduleNextEvent();
             }, randomDelay);
         }
-        setTimeout(scheduleNextComment, 20000);
+        setTimeout(scheduleNextEvent, 15000);
     }
-
+    
     /**
      * Função da Seleção de Planos de Terapia
      */
     function initPlanSelection() {
         const planos = document.querySelectorAll('.plano-card');
         const offerBox = document.getElementById('offer-box');
-        
         if (planos.length > 0 && offerBox) {
             planos.forEach(plano => {
                 plano.addEventListener('click', () => {
                     planos.forEach(p => p.classList.remove('selected'));
                     plano.classList.add('selected');
                     const planoSelecionado = plano.dataset.plano;
-                    updateOfferBoxUI(planoSelecionado); // Usa a função de update
+                    updateOfferBoxUI(planoSelecionado);
                     offerBox.classList.remove('offer-box-hidden');
                     offerBox.classList.add('offer-box-visible');
                     setTimeout(() => {
@@ -203,6 +239,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+ * Função da Urgência Evergreen com Data Fixa
+ * Cria um prazo final único por visitante e exibe a data.
+ */
+function initEvergreenDeadline() {
+    const deadlineElement = document.getElementById('deadline-date');
+    if (!deadlineElement) return; // Só roda se o elemento existir
+
+    // 1. Verifica se já existe um prazo salvo no navegador do usuário
+    let deadlineString = localStorage.getItem('jornadaDeadline');
+
+    // 2. Se não existir, cria um novo prazo para daqui a 2 dias e o salva
+    if (!deadlineString) {
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 2);
+        
+        // Salva a data completa no localStorage
+        localStorage.setItem('jornadaDeadline', targetDate.toISOString());
+        deadlineString = targetDate.toISOString();
+    }
+
+    // 3. Formata a data para um formato amigável em português
+    const targetDate = new Date(deadlineString);
+    const diasDaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+    const mesesDoAno = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+    const diaSemana = diasDaSemana[targetDate.getDay()];
+    const dia = targetDate.getDate();
+    const mes = mesesDoAno[targetDate.getMonth()];
+
+    const dataFormatada = `${diaSemana}, ${dia} de ${mes}`;
+
+    // 4. Exibe a data na página
+    deadlineElement.textContent = dataFormatada;
+  }
+
+    /**
      * Função Geral para Animações de Entrada ao Rolar
      */
     function initScrollAnimations() {
@@ -221,10 +293,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- EXECUTA TODAS AS FUNÇÕES DE INICIALIZAÇÃO ---
+    initRandomVagas();
     initHeadlineAnimation();
     initSymptomChecklist();
     initSocialProof();
     initPlanSelection();
     initFaqAccordion();
     initScrollAnimations();
+    initEvergreenDeadline();
 });
