@@ -110,6 +110,25 @@ main#conteudo-principal.is-visible { max-height: 20000px; opacity: 1; }
 .price-section-rose .price-installments { font-size: 2.5rem; font-family: var(--font-primary); font-weight: 700; }
 .price-section-rose .price-value { font-size: 5.5rem; font-family: var(--font-headline); font-weight: 700; color: var(--accent-color-2); }
 .price-section-rose .price-descriptor { font-size: 0.9rem; opacity: 0.7; margin-top: 10px; }
+.deadline-box {
+    text-align: center;
+    padding: 20px;
+    margin: 40px auto;
+    max-width: 700px;
+    border: 2px solid var(--accent-color-1);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.deadline-box p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+#deadline-date {
+    color: var(--accent-color-2);
+    font-weight: 700;
+}
 
 /* --- FAQ, RODAPÉ E FINAIS --- */
 .secao-pos-compra, .secao-final-chamada, .secao-faq { background-color: #111e2e; }
