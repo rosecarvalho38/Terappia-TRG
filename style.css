@@ -125,6 +125,82 @@ main#conteudo-principal.is-visible { max-height: 20000px; opacity: 1; }
 .footer p { margin: 5px 0; }
 .footer-disclaimer { font-size: 0.8rem; max-width: 600px; margin: 20px auto 0 auto; opacity: 0.7; }
 
+/* --- ESTILOS DA PÁGINA DE OBRIGADO (LAYOUT DE ROLAGEM) --- */
+
+.obrigado-body {
+    /* Removemos o display:flex para um comportamento de rolagem padrão */
+    padding: 80px 20px; /* Adicionamos mais padding vertical */
+    position: relative;
+    overflow-x: hidden;
+
+    /* Fundo Aurora mantido */
+    background: radial-gradient(circle at 20% 20%, var(--accent-color-1), transparent 40%),
+                radial-gradient(circle at 80% 70%, var(--accent-color-2), transparent 40%),
+                var(--bg-color);
+    background-size: 300% 300%;
+    animation: move-aurora 30s ease infinite;
+}
+
+/* A regra para o container volta a ser a principal forma de centralização */
+.obrigado-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto; /* Centraliza o container na página */
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 50px;
+    border-radius: 15px;
+    border: 1px solid var(--accent-color-1);
+}
+
+.obrigado-header { margin-bottom: 50px; } /* Mais espaço */
+.obrigado-logo { max-width: 120px; margin-bottom: 30px; opacity: 0.8; }
+.obrigado-title { font-family: var(--font-headline); font-size: clamp(2.2rem, 5vw, 3rem); color: var(--text-color); }
+.obrigado-subtitle { font-size: 1.2rem; margin-top: 10px; color: var(--accent-color-2); }
+.obrigado-subtitle strong { font-weight: 700; }
+
+.instrucoes-box {
+    border-top: 1px solid var(--accent-color-1);
+    border-bottom: 1px solid var(--accent-color-1);
+    padding: 40px 0;
+    margin: 50px 0; /* Mais espaço vertical */
+    background: none; /* Removemos os estilos de caixa daqui */
+    backdrop-filter: none;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+}
+
+.instrucoes-box h2 { font-size: 1.8rem; margin-bottom: 30px; font-family: var(--font-headline); }
+.instrucoes-lista { display: flex; flex-direction: column; gap: 30px; text-align: left; }
+.instrucao-item { display: flex; align-items: center; gap: 20px; }
+.instrucao-numero {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    background-color: var(--accent-color-2);
+    color: var(--bg-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-headline);
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.instrucao-texto h3 { font-family: var(--font-headline); font-size: 1.3rem; color: var(--text-color); margin-bottom: 5px; }
+.instrucao-texto p { font-size: 1rem; color: #ccc; line-height: 1.5; text-align: left; }
+
+.assinatura-rose { margin-top: 40px; line-height: 1.6; font-style: italic; font-size: 1.1rem; }
+.formulario-button {
+    display: inline-block;
+    margin-bottom: 40px; /* <<< ADICIONE ESTA LINHA */
+}
+.assinatura-texto p { margin: 5px 0; text-align: center; }
+.assinatura-texto strong { font-style: normal; font-weight: 700; }
+
+
 /* --- RESPONSIVIDADE --- */
 @media (min-width: 992px) {
     .passos-trg, .planos-container { grid-template-columns: repeat(3, 1fr); }
@@ -141,3 +217,61 @@ main#conteudo-principal.is-visible { max-height: 20000px; opacity: 1; }
     .cta-button { padding: 18px 30px; font-size: 1rem; }
     #offer-details .cta-button { width: 100%; white-space: normal; }
 }
+
+/* =============================================== */
+/* --- RESPONSIVIDADE PARA PÁGINA DE OBRIGADO --- */
+/* =============================================== */
+
+@media (max-width: 768px) {
+    .obrigado-body {
+        justify-content: flex-start; /* Permite rolagem se necessário */
+        padding: 40px 15px;
+    }
+
+    .obrigado-container {
+        padding: 30px 20px;
+    }
+
+    .obrigado-title {
+        font-size: 1.8rem;
+    }
+
+    .obrigado-subtitle {
+        font-size: 1rem;
+    }
+
+    .instrucoes-box {
+        padding: 25px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .instrucoes-box h2 {
+        font-size: 1.3rem;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+
+    /* Regras para empilhar os itens de instrução */
+    .instrucao-item {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .instrucao-texto h3 {
+        font-size: 1.2rem;
+    }
+
+    .instrucao-texto p {
+        font-size: 0.95rem;
+        text-align: center; /* Garante a centralização */
+    }
+    
+    .assinatura-rose {
+        margin-top: 20px;
+        font-size: 1rem;
+    }
+}
+
