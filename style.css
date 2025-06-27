@@ -1,60 +1,42 @@
+/* static/css/style.css (VERSÃO FINAL E DEFINITIVA) */
+
 /* --- CONFIGURAÇÕES GLOBAIS E FONTES --- */
 :root {
     --bg-color: #15385b;
     --text-color: #f0e8dd;
     --accent-color-1: #3570a1;
     --accent-color-2: #94b7af;
-    --font-primary: 'Comfortaa', sans-serif;
-    --font-headline: 'Cinzel', serif;
+    --font-primary: 'Roboto', sans-serif;
+    --font-headline: 'Playfair Display', serif;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: var(--font-primary);
-    line-height: 1.7;
-    font-size: 18px;
-    font-weight: 300;
-}
-.container { 
-    width: 90%; 
-    max-width: 1100px; /* Aumentamos a largura máxima */
-    margin: 0 auto; 
-}
-.secao { padding: 100px 0; position: relative; }
+body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-primary); line-height: 1.7; font-size: 18px; font-weight: 300; }
+.container { width: 90%; max-width: 1100px; margin: 0 auto; }
+.secao { padding: 100px 0; position: relative; overflow: hidden; }
 .section-title { font-family: var(--font-headline); font-size: clamp(2.2rem, 5vw, 3.2rem); text-align: center; margin-bottom: 40px; line-height: 1.3; font-weight: 600; }
-.section-intro-text { text-align: center; max-width: 700px; margin: 0 auto 50px auto; opacity: 0.9; }
+.section-intro-text { text-align: center; max-width: 700px; margin: 0 auto 30px auto; opacity: 0.9; }
 .highlight { color: var(--accent-color-2); font-weight: 500; }
 
-/* --- LÓGICA DE REVELAÇÃO DO CONTEÚDO PRINCIPAL --- */
-main#conteudo-principal {
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: max-height 1s ease-in-out, opacity 1s ease-in-out 0.3s;
-}
-main#conteudo-principal.is-visible {
-    max-height: 10000px; /* Um valor alto para garantir que todo o conteúdo caiba */
-    opacity: 1;
-}
+/* --- REVELAÇÃO DE CONTEÚDO E ANIMAÇÕES --- */
+main#conteudo-principal { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 1.2s ease-in-out, opacity 0.8s ease-in-out 0.4s; }
+main#conteudo-principal.is-visible { max-height: 20000px; opacity: 1; }
+.anim-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.anim-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+.passo-card.anim-on-scroll:nth-child(2) { transition-delay: 0.2s; }
+.passo-card.anim-on-scroll:nth-child(3) { transition-delay: 0.4s; }
 
 /* --- FUNDO ANIMADO "AURORA" --- */
-@keyframes move-aurora {
-    0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }
-}
-.secao-intro { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; overflow: hidden; }
+@keyframes move-aurora { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+.secao-intro { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; }
 .aurora-background { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 20%, var(--accent-color-1), transparent 40%), radial-gradient(circle at 80% 70%, var(--accent-color-2), transparent 40%), var(--bg-color); background-size: 300% 300%; animation: move-aurora 30s ease infinite; opacity: 0.3; z-index: -1; }
 
-/* --- ANIMAÇÃO E ESTILO DA HEADLINE --- */
-.main-headline { font-family: var(--font-headline); font-size: clamp(2.8rem, 7vw, 4.5rem); margin-bottom: 20px; font-weight: 700; }
-/* Oculta os spans por padrão */
-.main-headline span { display: inline-block; opacity: 0; transform: translateY(20px); transition: opacity 0.5s, transform 0.5s; }
-/* A classe .is-visible no H1 torna os spans visíveis */
-.main-headline.is-visible span { opacity: 1; transform: translateY(0); }
-.main-subheadline { margin: 50px auto 0; font-size: 1.2rem; max-width: 700px; opacity: 0.9; }
-
-/* --- CHECKLIST --- */
+/* --- HEADLINE E CHECKLIST --- */
+.main-headline { font-family: var(--font-headline); font-size: clamp(2.8rem, 7vw, 4.5rem); margin-bottom: 20px; font-weight: 700; opacity: 0; transition: opacity 0.5s; }
+.main-headline.is-visible { opacity: 1; }
+.main-headline.is-visible span { display: inline-block; opacity: 0; transform: translateY(20px); animation: fadeInWord 0.6s ease-out forwards; }
+@keyframes fadeInWord { to { opacity: 1; transform: translateY(0); } }
+.main-subheadline { font-size: 1.2rem; max-width: 700px; opacity: 0.9; }
 .sintomas-box { margin: 50px auto 0; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 1px solid rgba(148, 183, 175, 0.3); max-width: 800px; }
 .sintomas-box h4 { margin: 20px 0; font-family: var(--font-headline); font-size: 1.3rem; }
 .sintomas-checklist { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; text-align: left; }
@@ -62,41 +44,19 @@ main#conteudo-principal.is-visible {
 .sintoma-item:hover { background-color: rgba(255, 255, 255, 0.05); }
 .sintoma-item input[type="checkbox"] { accent-color: var(--accent-color-2); width: 20px; height: 20px; flex-shrink: 0; }
 .sintoma-item input:checked + span { color: var(--accent-color-2); font-weight: 500; }
-
 .cta-button { margin-top: 30px; padding: 15px 40px; font-size: 1.1rem; font-weight: bold; color: var(--bg-color); background-color: var(--accent-color-2); border: none; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
 .cta-button:disabled { background-color: #555; color: #999; cursor: not-allowed; opacity: 0.5; }
 .cta-button:not(:disabled):hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(148, 183, 175, 0.5); }
 
 /* --- SEÇÕES DE CONTEÚDO --- */
-.secao-transicao, .secao-armadura { text-align: center; }
-.secao-transicao p, .secao-armadura p { max-width: 700px; margin: 20px auto; }
-.manifesto { font-family: var(--font-headline); font-size: 1.5rem; font-style: italic; margin: 40px auto; border-left: 3px solid var(--accent-color-2); padding-left: 20px; }
+.secao-transicao p, .secao-armadura p { max-width: 700px; margin: 20px auto; text-align: center; }
+.manifesto { font-family: var(--font-headline); font-size: 1.5rem; font-style: italic; margin: 40px auto; border-left: 3px solid var(--accent-color-2); padding-left: 20px; max-width: 700px; text-align: left;}
 .como-funciona-title { font-family: var(--font-headline); font-size: 1.8rem; text-align: center; color: var(--accent-color-2); }
-/* Container que envolve o grid para dar largura máxima */
-.passos-trg-container {
-    width: 90%;
-    max-width: 1200px; /* Uma largura maior que o container padrão */
-    margin: 40px auto 0 auto; /* Margem superior e centralização horizontal */
-}
-
-.passos-trg { 
-    display: grid; 
-    /* No mobile, continua 1 coluna */
-    grid-template-columns: 1fr; 
-    gap: 30px; 
-}
-
-/* Força 3 colunas apenas em telas maiores */
-@media (min-width: 992px) {
-    .passos-trg {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
+.passos-trg-container { width: 90%; max-width: 1200px; margin: 40px auto 0 auto; }
+.passos-trg { display: grid; grid-template-columns: 1fr; gap: 30px; }
 .passo-card { text-align: center; padding: 30px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--accent-color-1); border-radius: 10px; }
 .passo-card span { display: inline-block; width: 50px; height: 50px; line-height: 50px; border-radius: 50%; background: var(--accent-color-2); color: var(--bg-color); font-weight: bold; font-family: var(--font-headline); font-size: 2rem; margin-bottom: 20px; }
 .passo-card h4 { font-family: var(--font-headline); font-size: 1.5rem; margin-bottom: 10px; }
-
-/* SEÇÃO IMAGINE A VIDA */
 .secao-imagine { background-color: #111e2e; }
 .imagine-list { list-style: none; padding-left: 0; max-width: 600px; margin: 30px auto; text-align: left; }
 .imagine-list li { padding-left: 2em; position: relative; margin-bottom: 15px; font-size: 1.1rem; }
@@ -108,87 +68,21 @@ main#conteudo-principal.is-visible {
 .instagram-comments-widget::-webkit-scrollbar { width: 8px; }
 .instagram-comments-widget::-webkit-scrollbar-track { background: #e9e9e9; }
 .instagram-comments-widget::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
-.comment-item { display: flex; gap: 15px; margin-bottom: 20px; animation: slideIn 0.5s ease-out; text-align: left; }
+.comment-item { display: flex; gap: 15px; margin-bottom: 20px; animation: slideIn 0.5s ease-out; }
 @keyframes slideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
 .comment-avatar { width: 40px; height: 40px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
 .comment-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .comment-body p { margin: 0; line-height: 1.5; font-size: 0.95rem; text-align: left; }
 .comment-body p strong { font-weight: 700; margin-right: 5px; }
 .comment-actions { font-size: 0.8rem; color: #8e8e8e; margin-top: 5px; text-align: left; }
-
 .comment-notification { position: fixed; bottom: 20px; left: 20px; background-color: #fff; color: #111; padding: 15px 20px; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); font-size: 0.9rem; z-index: 1001; opacity: 0; transform: translateY(20px); visibility: hidden; transition: all 0.4s ease-in-out; }
 .comment-notification.show { opacity: 1; transform: translateY(0); visibility: visible; }
 
 /* --- PLANOS --- */
-
-/* Novo estilo para o bloco de preço, com destaque no parcelamento */
-.price-section-rose {
-    margin: 25px 0;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-.price-section-rose .price-prefix {
-    font-size: 1rem;
-    opacity: 0.9;
-    margin-bottom: 5px;
-}
-.price-section-rose .price-main {
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    gap: 15px;
-    color: var(--text-color);
-    line-height: 1;
-}
-.price-section-rose .price-installments {
-    font-size: 2.5rem;
-    font-family: var(--font-primary);
-    font-weight: 700;
-}
-.price-section-rose .price-value {
-    font-size: 5.5rem; /* Destaque máximo */
-    font-family: var(--font-headline);
-    font-weight: 700;
-    color: var(--accent-color-2);
-}
-.price-section-rose .price-descriptor {
-    font-size: 0.9rem;
-    opacity: 0.7;
-    margin-top: 10px;
-}
-
-/* Ajuste no mobile para o novo bloco de preço */
-@media (max-width: 768px) {
-    .price-section-rose .price-installments {
-        font-size: 1.4rem;
-    }
-    .price-section-rose .price-value {
-        font-size: 3rem;
-    }
-}
 .secao-planos { background-color: #111e2e; }
-/* Adicione este novo estilo e remova os antigos do cronômetro */
-
-.deadline-box {
-    text-align: center;
-    padding: 20px;
-    margin: 40px auto;
-    max-width: 700px;
-    border: 2px solid var(--accent-color-1);
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.2);
-}
-
-.deadline-box p {
-    margin: 0;
-    line-height: 1.6;
-}
-
-#deadline-date {
-    color: var(--accent-color-2);
-    font-weight: 700;
-}
+.deadline-box { text-align: center; padding: 20px; margin: 40px auto; max-width: 700px; border: 2px solid var(--accent-color-1); border-radius: 8px; background: rgba(0, 0, 0, 0.2); }
+.deadline-box p { margin: 0; line-height: 1.6; }
+#deadline-date { color: var(--accent-color-2); font-weight: 700; }
 .planos-container { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 50px; }
 .plano-card { border: 3px solid var(--accent-color-1); border-radius: 15px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; }
 .plano-card:hover { transform: translateY(-10px); }
@@ -200,20 +94,25 @@ main#conteudo-principal.is-visible {
 .plano-desc { font-weight: bold; margin: 10px 0; font-size: 1.1rem; color: var(--accent-color-2); }
 .plano-sessoes { margin-top: 20px; display: block; font-style: italic; opacity: 0.8; }
 
-.offer-box-hidden { max-height: 0; overflow: hidden; transition: all 0.6s ease-in-out; }
-.offer-box-visible { margin-top: 50px; padding: 30px; border: 2px solid var(--accent-color-2); border-radius: 10px; text-align: center; max-height: 500px; }
-.offer-box-visible h4 { font-family: var(--font-headline); font-size: 1.5rem; }
-#offer-details .plano-selecionado { font-size: 1.5rem; font-weight: bold; color: var(--accent-color-2); margin: 10px 0; }
-#offer-details .plano-investimento { font-size: 1.1rem; }
-#offer-details .plano-disponibilidade { width: 100%; max-width: 400px; }
-#offer-details .progress-bar { width: 80%; max-width: 300px; height: 10px; background: rgba(0,0,0,0.3); margin: 10px auto; border-radius: 5px; }
+/* --- CAIXA DE OFERTA CORRIGIDA --- */
+.offer-box-hidden { max-height: 0; opacity: 0; overflow: hidden; transition: all 0.6s ease-in-out; }
+.offer-box-visible { margin-top: 50px; padding: 30px; border: 2px solid var(--accent-color-2); border-radius: 10px; text-align: center; max-height: 1000px; /* CORRIGIDO: Altura flexível */ opacity: 1; }
+#offer-details { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; }
+.price-section-rose, .plano-disponibilidade { width: 100%; max-width: 450px; }
+#offer-details .plano-selecionado { font-size: 1.5rem; font-weight: bold; color: var(--accent-color-2); margin-bottom: 0; }
+#offer-details .plano-disponibilidade { margin: 0; font-weight: bold; }
+#offer-details .progress-bar { width: 100%; height: 10px; background: rgba(0,0,0,0.3); margin: 10px auto; border-radius: 5px; }
 #offer-details .progress-bar-inner { height: 100%; background: var(--accent-color-2); border-radius: 5px; transition: width 0.5s ease-out; }
-#offer-details .cta-button { margin-top: 15px; } /* Ajusta o espaço acima do botão */
-#offer-details { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; }
+#offer-details .cta-button { margin-top: 20px; }
+.price-section-rose { margin: 15px 0; padding: 20px; background-color: rgba(0, 0, 0, 0.2); border-radius: 8px; }
+.price-section-rose .price-prefix { font-size: 1rem; opacity: 0.9; margin-bottom: 5px; }
+.price-section-rose .price-main { display: flex; justify-content: center; align-items: baseline; gap: 15px; color: var(--text-color); line-height: 1; }
+.price-section-rose .price-installments { font-size: 2.5rem; font-family: var(--font-primary); font-weight: 700; }
+.price-section-rose .price-value { font-size: 5.5rem; font-family: var(--font-headline); font-weight: 700; color: var(--accent-color-2); }
+.price-section-rose .price-descriptor { font-size: 0.9rem; opacity: 0.7; margin-top: 10px; }
 
-/* --- FAQ E RODAPÉ --- */
-.secao-pos-compra, .secao-final-chamada { background-color: #111e2e; }
-.secao-faq { background-color: var(--bg-color); }
+/* --- FAQ, RODAPÉ E FINAIS --- */
+.secao-pos-compra, .secao-final-chamada, .secao-faq { background-color: #111e2e; }
 .accordion { max-width: 900px; margin: 50px auto 0 auto; }
 .accordion-item { border-bottom: 1px solid rgba(148, 183, 175, 0.3); }
 .accordion-header { width: 100%; background: none; border: none; padding: 20px 0; font-family: var(--font-primary); font-weight: bold; font-size: 1.2rem; color: var(--text-color); text-align: left; cursor: pointer; position: relative; }
@@ -221,193 +120,24 @@ main#conteudo-principal.is-visible {
 .accordion-header.active::after { transform: rotate(45deg); }
 .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
 .accordion-content p { padding: 0 10px 20px 0; color: #ccc; text-align: left; }
-
-.secao-final-chamada .container {
-    text-align: center;
-}
-
-/* Ajusta a margem superior do botão final */
-.secao-final-chamada .cta-button {
-    margin-top: 80px;
-}
+.secao-final-chamada .cta-button { display: block; width: fit-content; margin: 40px auto 0; }
 .footer { background-color: #0d141f; color: #aaa; padding: 50px 0; text-align: center; font-size: 0.9rem; border-top: 1px solid var(--accent-color-1); }
 .footer p { margin: 5px 0; }
 .footer-disclaimer { font-size: 0.8rem; max-width: 600px; margin: 20px auto 0 auto; opacity: 0.7; }
 
-/* --- ESTILOS DA PÁGINA DE OBRIGADO (LAYOUT DE ROLAGEM) --- */
-
-.obrigado-body {
-    /* Removemos o display:flex para um comportamento de rolagem padrão */
-    padding: 80px 20px; /* Adicionamos mais padding vertical */
-    position: relative;
-    overflow-x: hidden;
-
-    /* Fundo Aurora mantido */
-    background: radial-gradient(circle at 20% 20%, var(--accent-color-1), transparent 40%),
-                radial-gradient(circle at 80% 70%, var(--accent-color-2), transparent 40%),
-                var(--bg-color);
-    background-size: 300% 300%;
-    animation: move-aurora 30s ease infinite;
-}
-
-/* A regra para o container volta a ser a principal forma de centralização */
-.obrigado-container {
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto; /* Centraliza o container na página */
-    text-align: center;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    padding: 50px;
-    border-radius: 15px;
-    border: 1px solid var(--accent-color-1);
-}
-
-.obrigado-header { margin-bottom: 50px; } /* Mais espaço */
-.obrigado-logo { max-width: 120px; margin-bottom: 30px; opacity: 0.8; }
-.obrigado-title { font-family: var(--font-headline); font-size: clamp(2.2rem, 5vw, 3rem); color: var(--text-color); }
-.obrigado-subtitle { font-size: 1.2rem; margin-top: 10px; color: var(--accent-color-2); }
-.obrigado-subtitle strong { font-weight: 700; }
-
-.instrucoes-box {
-    border-top: 1px solid var(--accent-color-1);
-    border-bottom: 1px solid var(--accent-color-1);
-    padding: 40px 0;
-    margin: 50px 0; /* Mais espaço vertical */
-    background: none; /* Removemos os estilos de caixa daqui */
-    backdrop-filter: none;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-}
-
-.instrucoes-box h2 { font-size: 1.8rem; margin-bottom: 30px; font-family: var(--font-headline); }
-.instrucoes-lista { display: flex; flex-direction: column; gap: 30px; text-align: left; }
-.instrucao-item { display: flex; align-items: center; gap: 20px; }
-.instrucao-numero {
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    background-color: var(--accent-color-2);
-    color: var(--bg-color);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: var(--font-headline);
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-.instrucao-texto h3 { font-family: var(--font-headline); font-size: 1.3rem; color: var(--text-color); margin-bottom: 5px; }
-.instrucao-texto p { font-size: 1rem; color: #ccc; line-height: 1.5; text-align: left; }
-
-.assinatura-rose { margin-top: 40px; line-height: 1.6; font-style: italic; font-size: 1.1rem; }
-.formulario-button {
-    display: inline-block;
-    margin-bottom: 40px; /* <<< ADICIONE ESTA LINHA */
-}
-.assinatura-texto p { margin: 5px 0; text-align: center; }
-.assinatura-texto strong { font-style: normal; font-weight: 700; }
-
-/* --- ANIMAÇÕES GERAIS --- */
-.anim-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-.anim-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
-/* Delay para animações sequenciais */
-.passo-card.anim-on-scroll:nth-child(2) { transition-delay: 0.2s; }
-.passo-card.anim-on-scroll:nth-child(3) { transition-delay: 0.4s; }
-
 /* --- RESPONSIVIDADE --- */
-@media (min-width: 769px) {
-    .passos-trg { grid-template-columns: repeat(3, 1fr); }
-    .planos-container { grid-template-columns: repeat(3, 1fr); }
+@media (min-width: 992px) {
+    .passos-trg, .planos-container { grid-template-columns: repeat(3, 1fr); }
 }
-
 @media (max-width: 768px) {
     body { font-size: 16px; }
-    .secao { padding: 60px 0; }
+    .secao { padding: 80px 0; }
+    .main-headline { font-size: 2.5rem; }
     .passos-trg, .planos-container { grid-template-columns: 1fr; }
     .sintomas-checklist { grid-template-columns: 1fr; }
-    .comment-notification.show { transform: translateY(0); }
-    .main-headline { font-size: 2.5rem; }
-    /* Ajuste no bloco de preço */
-    .price-section-rose .price-installments {
-        font-size: 1.8rem;
-    }
-    .price-section-rose .price-value {
-        font-size: 4rem;
-    }
-
-    #offer-details .cta-button {
-        width: 100%; /* Ocupa a largura total da caixa de oferta */
-        padding: 18px 20px;
-        font-size: 1.1rem;
-        white-space: normal; /* Permite que o texto quebre em duas linhas de forma limpa */
-    }
-    .secao-final-chamada .cta-button {
-    display: block;
-    margin: 40px auto 0;
-    width: fit-content;}
-    .comment-notification {
-    top: 20px;
-    bottom: auto;
-    left: 15px;
-    right: 15px;
-    width: auto;
-    transform: translateY(-150%);
-
-/* =============================================== */
-/* --- RESPONSIVIDADE PARA PÁGINA DE OBRIGADO --- */
-/* =============================================== */
-
-@media (max-width: 768px) {
-    .obrigado-body {
-        justify-content: flex-start; /* Permite rolagem se necessário */
-        padding: 40px 15px;
-    }
-
-    .obrigado-container {
-        padding: 30px 20px;
-    }
-
-    .obrigado-title {
-        font-size: 1.8rem;
-    }
-
-    .obrigado-subtitle {
-        font-size: 1rem;
-    }
-
-    .instrucoes-box {
-        padding: 25px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
-    .instrucoes-box h2 {
-        font-size: 1.3rem;
-        padding-bottom: 15px;
-        margin-bottom: 20px;
-    }
-
-    /* Regras para empilhar os itens de instrução */
-    .instrucao-item {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        text-align: center;
-    }
-
-    .instrucao-texto h3 {
-        font-size: 1.2rem;
-    }
-
-    .instrucao-texto p {
-        font-size: 0.95rem;
-        text-align: center; /* Garante a centralização */
-    }
-    
-    .assinatura-rose {
-        margin-top: 20px;
-        font-size: 1rem;
-    }
+    .comment-notification { top: 15px; bottom: auto; left: 15px; right: 15px; width: auto; transform: translateY(-150%); }
+    .price-section-rose .price-installments { font-size: 1.8rem; }
+    .price-section-rose .price-value { font-size: 3.8rem; }
+    .cta-button { padding: 18px 30px; font-size: 1rem; }
+    #offer-details .cta-button { width: 100%; white-space: normal; }
 }
