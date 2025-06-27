@@ -105,14 +105,36 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!commentsList || !notificationElement) return;
 
         const fakeComments = [
-            { name: 'Juliana Pinho', avatar: 'avatar1.jpg', text: 'Gente, sério. Minha enxaqueca era diária. Na segunda sessão com a Rose, eu entendi a CAUSA da dor.' },
-            { name: 'Amanda Guedes', avatar: 'avatar2.jpg', text: 'Eu era a pessoa mais cética com terapia online. O acolhimento e a profundidade que a Rose alcança pela tela é algo surreal.' },
-            { name: 'Letícia Bueloni', avatar: 'avatar3.jpg', text: 'A síndrome da \'mulher boazinha\'... isso me consumia. A TRG com a Rose me DEVOLVEU a minha voz.' },
-            { name: 'Carla Santos', avatar: 'avatar4.jpg', text: 'Pra quem sofre com ansiedade de verdade, aquela que aperta o peito... só digo uma coisa: comecem.' },
-            { name: 'Mariana Franco', avatar: 'avatar5.jpg', text: 'O mais surreal é que a gente não fica repassando o trauma. A Rose te guia pra olhar pra dor de um lugar seguro. É libertador.' },
-            { name: 'Fernanda Lívia', avatar: 'avatar6.jpg', text: 'Esse investimento em mim mesma foi o mais barato e o mais transformador de todos. Só vai.' },
-            { name: 'Beatriz Macedo', avatar: 'avatar7.jpg', text: 'Aquele peso nos ombros que a gente acha que é \'normal\'? Spoiler: NÃO É. A TRG com a Rose tirou esse piano das minhas costas.' }
-        ];
+
+    { name: 'Juliana Pinho', avatar: 'avatar1.jpg', text: 'Gente, sério. Minha enxaqueca era diária. Na segunda sessão com a Rose, eu entendi a CAUSA da dor. Hoje faz um mês que não sei o que é tomar um remédio. Parece mágica.' },
+    { name: 'Amanda Guedes', avatar: 'avatar2.jpg', text: 'Eu era a pessoa mais cética com terapia online. Paguei pra ver e quebrei a cara (graças a Deus!). O acolhimento e a profundidade que a Rose alcança pela tela é algo que eu nunca tive no presencial. Não troco por nada.' },
+    { name: 'Letícia Bueloni', avatar: 'avatar3.jpg', text: 'A síndrome da \'mulher boazinha\'... isso me consumia. A TRG com a Rose me DEVOLVEU a minha voz. Hoje, minha paz não é negociável. Obrigada.' },
+    { name: 'Carla Santos', avatar: 'avatar4.jpg', text: 'Pra quem sofre com ansiedade de verdade, aquela que aperta o peito e dá vontade de sumir... só digo uma coisa: comecem. Eu tava no fundo do poço há 3 semanas. Hoje eu consigo respirar fundo de novo.' },
+    { name: 'Mariana Franco', avatar: 'avatar5.jpg', text: 'O mais surreal é que a gente não fica repassando o trauma mil vezes. É diferente de tudo. A Rose te guia pra olhar pra dor de um lugar seguro, sem sofrimento. E de repente, aquilo que te assombrava vira só uma lembrança distante. É libertador.' },
+    { name: 'Fernanda Lívia', avatar: 'avatar6.jpg', text: 'Esse investimento em mim mesma foi o mais barato e o mais transformador de todos. Só vai.' },
+    { name: 'Beatriz Macedo', avatar: 'avatar7.jpg', text: 'Aquele peso nos ombros que a gente acha que é \'normal\' da vida adulta? Spoiler: NÃO É. Era culpa, era medo, era um monte de coisa que eu nem sabia que carregava. A TRG com a Rose tirou esse piano das minhas costas.' },
+    { name: 'Patrícia Rios', avatar: 'avatar8.jpg', text: 'Minha ansiedade se manifestava à noite. Eu simplesmente não dormia, ficava com o coração disparado pensando em mil problemas. Já na primeira sessão a Rose me ensinou uma técnica que me fez apagar. Só isso já valeu tudo.' },
+    { name: 'Camila Veiga', avatar: 'avatar9.jpg', text: 'Eu procrastinava tudo no trabalho por medo de não ser boa o suficiente. Achava que era preguiça. Na terapia entendi que era autossabotagem pura. Depois que a gente tratou a raiz disso, recebi uma promoção. Surreal.' },
+    { name: 'Vanessa T.', avatar: 'avatar10.jpg', text: 'Fiz anos de terapia convencional e nunca cheguei nem perto da profundidade que alcancei em poucas sessões de TRG. Uma fala sobre o problema, a outra vai lá e resolve a causa. Simples assim.' },
+    { name: 'Gabriela Mota', avatar: 'avatar11.jpg', text: 'O "clique" pra mim foi entender que minha irritabilidade com meus filhos vinha de um padrão da minha própria infância. A Rose conectou os pontos de um jeito... mudou minha relação com eles da água pro vinho. 🙏' },
+    { name: 'Isabela Neves', avatar: 'avatar12.jpg', text: 'Gastrite nervosa. Nó na garganta. Meu corpo gritava. Eu achava que era o que eu comia, mas na verdade era o que eu sentia e não falava. A terapia me deu as ferramentas pra cuidar de mim de verdade. As dores? Sumiram.' },
+    { name: 'Laura Cunha', avatar: 'avatar13.jpg', text: 'Finalmente parei de me sentir culpada por querer um tempo pra mim. Antes eu achava que era egoísmo. Hoje eu entendo que é sobrevivência. A Rose me ensinou a colocar minha máscara de oxigênio primeiro.' },
+    { name: 'Renata Paiva', avatar: 'avatar14.jpg', text: 'Eu tinha muito medo de \'mexer\' em coisas do passado, achava que ia sofrer mais. A Rose foi tão cuidadosa, tão profissional... em nenhum momento me senti desrespeitada. Ela cria um campo tão seguro que a cura acontece de forma leve.' },
+    { name: 'Daniela Almeida', avatar: 'avatar15.jpg', text: 'O processo é intenso, não vou mentir. Mas é uma intensidade que limpa, que organiza a bagunça interna. É como fazer uma faxina na alma. A sensação de paz no final é indescritível.' },
+    { name: 'Thais Oliveira', avatar: 'avatar16.jpg', text: 'Meu foco melhorou 200%. Aquela névoa mental, sabe? A dificuldade de tomar decisões... desapareceu. Hoje entendo que minha energia não está mais sendo gasta pra conter a ansiedade o tempo todo.' },
+    { name: 'Alice Furtado', avatar: 'avatar17.jpg', text: 'A melhor decisão que tomei no último ano. Ponto. Se você tá em dúvida, para de pensar e só vai.' },
+    { name: 'Luísa Mattos', avatar: 'avatar18.jpg', text: 'Gente, só queria dizer uma coisa. Se você tá lendo isso, no fundo você já sabe que precisa de ajuda. O medo paralisa, eu sei. Mas a dor de continuar como está é muito maior. Dê esse presente pra você mesma. Você merece. ✨' },
+    { name: 'Sandra Costa', avatar: 'avatar19.jpg', text: 'Eu me sentia uma fraude. A síndrome da impostora me travava em tudo. A gente trabalhou a origem dessa crença e hoje eu consigo celebrar minhas conquistas sem achar que foi "sorte". Liberdade define.' },
+    { name: 'Helena Martins', avatar: 'avatar20.jpg', text: 'Pra quem é mãe, como eu: façam. Eu era uma pilha de nervos, sem paciência. Hoje sou uma mãe muito mais presente e calma, porque cuidei da minha própria bagunça primeiro. Meus filhos ganharam uma nova mãe.' },
+    { name: 'Priscila Dias', avatar: 'avatar21.jpg', text: 'O que eu mais gostei é que a Rose não te dá as respostas, ela te ensina a encontrar as suas próprias. É uma terapia que te dá autonomia e poder pessoal. Incrível.' },
+    { name: 'Bárbara Lima', avatar: 'avatar22.jpg', text: 'Eu achava que nunca ia superar o fim do meu último relacionamento. Estava presa no passado. A TRG me ajudou a reprocessar essa dor e a seguir em frente de verdade, sem carregar o peso do que foi.' },
+    { name: 'Vitória Reis', avatar: 'avatar23.jpg', text: 'Hoje eu me olhei no espelho e não precisei forçar um sorriso. Ele veio naturalmente. Fazia tempo que isso não acontecia. 😊' },
+    { name: 'Yasmin Barros', avatar: 'avatar24.jpg', text: 'O valor do plano Premium pareceu um pouco alto, mas dividi no cartão e nem pesou. E o resultado... gente, não tem preço. É um investimento na sua sanidade, na sua paz. Vale cada centavo e mais.' },
+    { name: 'Melissa Duarte', avatar: 'avatar25.jpg', text: 'Sempre fui muito racional, achava que conseguia resolver tudo com a lógica. Mas tem coisas que não estão na mente, estão no corpo. A TRG me ensinou a ouvir meu corpo. Que virada de chave.' },
+    { name:- 'Raquel Campos', avatar: 'avatar26.jpg', text: 'O mais louco é ver as pessoas ao redor comentando: "Nossa, você parece mais leve", "Sua energia tá diferente". A mudança é de dentro pra fora, mas todo mundo nota.' },
+    { name: 'Elisa Pinto', avatar: 'avatar27.jpg', text: 'Eu só queria parar de sentir medo do futuro. Vivia ansiosa pelo que podia acontecer. Hoje eu consigo focar no presente e sei que tenho as ferramentas pra lidar com o que vier. Essa segurança não tem preço.' }
+];
+
         
         const fakePurchasers = [
   { name: 'Juliana Ribeiro' }, { name: 'Camila Oliveira' }, { name: 'Beatriz Lima' },
@@ -150,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
   { name: 'Lourdes Pereira' }, { name: 'Marta Almeida' }, { name: 'Nair Alves' }
 ];
 
-        let remainingComments = fakeComments.slice(5);
+        let remainingComments = fakeComments.slice(10);
         let shuffledCommentIndex = 0;
 
         function shuffleArray(array) {
@@ -187,13 +209,13 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => notificationElement.classList.remove('show'), 8000);
         }
 
-        const initialComments = fakeComments.slice(0, 5);
+        const initialComments = fakeComments.slice(0, 10);
         initialComments.forEach(c => addCommentToUI(c, false));
 
         function scheduleNextEvent() {
             const randomDelay = Math.random() * (55000 - 25000) + 25000;
             setTimeout(() => {
-                if (Math.random() > 0.8 && shuffledCommentIndex < remainingComments.length) {
+                if (Math.random() > 0.6 && shuffledCommentIndex < remainingComments.length) {
                     const newComment = remainingComments[shuffledCommentIndex];
                     addCommentToUI(newComment, true);
                     showNotification(`💬 <strong>${newComment.name}</strong> comentou: "<em>${newComment.text.substring(0, 80)}...</em>"`);
