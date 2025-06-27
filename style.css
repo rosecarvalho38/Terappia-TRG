@@ -205,16 +205,11 @@ main#conteudo-principal.is-visible {
 .offer-box-visible h4 { font-family: var(--font-headline); font-size: 1.5rem; }
 #offer-details .plano-selecionado { font-size: 1.5rem; font-weight: bold; color: var(--accent-color-2); margin: 10px 0; }
 #offer-details .plano-investimento { font-size: 1.1rem; }
-#offer-details .plano-disponibilidade { margin: 20px 0; font-weight: bold; }
+#offer-details .plano-disponibilidade { width: 100%; max-width: 400px; }
 #offer-details .progress-bar { width: 80%; max-width: 300px; height: 10px; background: rgba(0,0,0,0.3); margin: 10px auto; border-radius: 5px; }
 #offer-details .progress-bar-inner { height: 100%; background: var(--accent-color-2); border-radius: 5px; transition: width 0.5s ease-out; }
-#offer-details .cta-button { margin-top: 25px; }
-#offer-details {
-    display: flex;
-    flex-direction: column; /* Empilha os itens verticalmente */
-    align-items: center;    /* Centraliza todos eles horizontalmente */
-    gap: 15px;              /* Adiciona um espaçamento vertical entre os elementos */
-}
+#offer-details .cta-button { margin-top: 15px; } /* Ajusta o espaço acima do botão */
+#offer-details { display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%; }
 
 /* --- FAQ E RODAPÉ --- */
 .secao-pos-compra, .secao-final-chamada { background-color: #111e2e; }
@@ -342,12 +337,11 @@ main#conteudo-principal.is-visible {
         font-size: 4rem;
     }
 
-    /* Regra final para o botão de CTA, garantindo que ele não quebre */
     #offer-details .cta-button {
-        width: 100%;
+        width: 100%; /* Ocupa a largura total da caixa de oferta */
         padding: 18px 20px;
         font-size: 1.1rem;
-        white-space: normal; /* Permite a quebra de linha limpa se necessário */
+        white-space: normal; /* Permite que o texto quebre em duas linhas de forma limpa */
     }
     .secao-final-chamada .cta-button {
     display: block;
