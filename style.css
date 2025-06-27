@@ -6,8 +6,8 @@
     --text-color: #f0e8dd;
     --accent-color-1: #3570a1;
     --accent-color-2: #94b7af;
-    --font-primary: 'Roboto', sans-serif;
-    --font-headline: 'Playfair Display', serif;
+    --font-primary: 'Comfortaa', sans-serif;
+    --font-headline: 'Cinzel', serif;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -36,7 +36,7 @@ main#conteudo-principal.is-visible { max-height: 20000px; opacity: 1; }
 .main-headline.is-visible { opacity: 1; }
 .main-headline.is-visible span { display: inline-block; opacity: 0; transform: translateY(20px); animation: fadeInWord 0.6s ease-out forwards; }
 @keyframes fadeInWord { to { opacity: 1; transform: translateY(0); } }
-.main-subheadline { font-size: 1.2rem; max-width: 700px; opacity: 0.9; }
+.main-subheadline { font-size: 1.2rem; max-width: 700px; opacity: 0.9; text-align: center; }
 .sintomas-box { margin: 50px auto 0; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); padding: 30px; border-radius: 15px; border: 1px solid rgba(148, 183, 175, 0.3); max-width: 800px; }
 .sintomas-box h4 { margin: 20px 0; font-family: var(--font-headline); font-size: 1.3rem; }
 .sintomas-checklist { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; text-align: left; }
