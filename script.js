@@ -115,8 +115,40 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
         
         const fakePurchasers = [
-            { name: 'Patrícia Rosa' }, { name: 'Camila Vieira' }, { name: 'Sofia Rodrigues' }, { name: 'Gabriela Moura' }, { name: 'Laura Cristina' }, { name: 'Isabela Nunes' }
-        ];
+  { name: 'Juliana Ribeiro' }, { name: 'Camila Oliveira' }, { name: 'Beatriz Lima' },
+  { name: 'Fernanda Costa' }, { name: 'Amanda Souza' }, { name: 'Letícia Martins' },
+  { name: 'Mariana Ferreira' }, { name: 'Carla Barros' }, { name: 'Sofia Almeida' },
+  { name: 'Laura Pereira' }, { name: 'Ana Vasconcelos' }, { name: 'Clara Gomes' },
+  { name: 'Valentina Teixeira' }, { name: 'Helena Moreira' }, { name: 'Lorena Dias' },
+  { name: 'Manuela Queiroz' }, { name: 'Alice Furtado' }, { name: 'Isabela Nunes' },
+  { name: 'Yasmin Carvalho' }, { name: 'Gabriela Pires' }, { name: 'Luísa Rocha' },
+  { name: 'Rafaela Barbosa' }, { name: 'Mariana Vieira' }, { name: 'Lívia Santos' },
+  { name: 'Eduarda Melo' }, { name: 'Carolina Freitas' }, { name: 'Brenda Oliveira' },
+  { name: 'Nicole Alves' }, { name: 'Thaís Cardoso' }, { name: 'Ester Gomes' },
+  { name: 'Melissa Pinto' }, { name: 'Catarina Lopes' }, { name: 'Elisa Bastos' },
+  { name: 'Rebeca Vasconcelos' }, { name: 'Agatha Monteiro' }, { name: 'Sarah Fernandes' },
+  { name: 'Bruna Kramer' }, { name: 'Ingrid Silva' }, { name: 'Débora Ramos' },
+  { name: 'Vanessa Pires' }, { name: 'Marina Teles' }, { name: 'Aline Guedes' },
+  { name: 'Júlia Borges' }, { name: 'Evelyn Azevedo' }, { name: 'Letícia Campos' },
+  { name: 'Talita Moraes' }, { name: 'Raquel Nogueira' }, { name: 'Paula Santana' },
+  { name: 'Andressa Farias' }, { name: 'Tatiane Lins' }, { name: 'Alana Ribeiro' },
+  { name: 'Bianca Castro' }, { name: 'Giovanna Duarte' }, { name: 'Jéssica Mendes' },
+  { name: 'Karen Nascimento' }, { name: 'Larissa Moreira' }, { name: 'Marcela Nunes' },
+  { name: 'Nathália Rocha' }, { name: 'Olívia Martins' }, { name: 'Paola Costa' },
+  { name: 'Quézia Lima' }, { name: 'Sabrina Ferreira' }, { name: 'Tainá Rodrigues' },
+  { name: 'Úrsula Almeida' }, { name: 'Verônica Souza' }, { name: 'Wendy Pereira' },
+  { name: 'Ximena Alves' }, { name: 'Zilda Santos' }, { name: 'Adriana Barbosa' },
+  { name: 'Elaine Gomes' }, { name: 'Flávia Dias' }, { name: 'Gisele Ribeiro' },
+  { name: 'Heloísa Carvalho' }, { name: 'Íris Martins' }, { name: 'Jaqueline Lima' },
+  { name: 'Kátia Ferreira' }, { name: 'Laila Costa' }, { name: 'Mirella Santos' },
+  { name: 'Nívea Oliveira' }, { name: 'Ofélia Souza' }, { name: 'Pamela Rodrigues' },
+  { name: 'Raíssa Pereira' }, { name: 'Sílvia Almeida' }, { name: 'Tamires Alves' },
+  { name: 'Valéria Gomes' }, { name: 'Wanessa Dias' }, { name: 'Yara Ribeiro' },
+  { name: 'Zélia Carvalho' }, { name: 'Angélica Martins' }, { name: 'Dandara Lima' },
+  { name: 'Fabiana Ferreira' }, { name: 'Glória Costa' }, { name: 'Hilda Santos' },
+  { name: 'Iolanda Oliveira' }, { name: 'Janaína Souza' }, { name: 'Kelly Rodrigues' },
+  { name: 'Lourdes Pereira' }, { name: 'Marta Almeida' }, { name: 'Nair Alves' }
+];
 
         let remainingComments = fakeComments.slice(5);
         let shuffledCommentIndex = 0;
@@ -140,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
              const commentDiv = document.createElement('div');
              commentDiv.className = 'comment-item';
              const timeAgo = isNew ? 'há poucos segundos' : generateRandomTimeAgo();
-             commentDiv.innerHTML = `<div class="comment-avatar"><img src="/static/img/${comment.avatar}" alt="avatar"></div><div class="comment-body"><p><strong>${comment.name}</strong> ${comment.text}</p><div class="comment-actions">Curtir • Responder • ${timeAgo}</div></div>`;
+             commentDiv.innerHTML = `<div class="comment-avatar"><img src="img/${comment.avatar}" alt="avatar"></div><div class="comment-body"><p><strong>${comment.name}</strong> ${comment.text}</p><div class="comment-actions">Curtir • Responder • ${timeAgo}</div></div>`;
              if (isNew) {
                  commentsList.prepend(commentDiv);
                  commentDiv.classList.add('anim-on-scroll', 'is-visible');
