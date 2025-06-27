@@ -57,7 +57,19 @@ main#conteudo-principal.is-visible { max-height: 20000px; opacity: 1; }
 
 /* --- SEÇÕES DE CONTEÚDO --- */
 .secao-transicao p, .secao-armadura p { max-width: 700px; margin: 20px auto; text-align: center; }
-.manifesto { font-family: var(--font-headline); font-size: 1.5rem; font-style: italic; margin: 40px auto; border-left: 3px solid var(--accent-color-2); padding-left: 20px; max-width: 700px; text-align: left;}
+.manifesto {
+    font-family: var(--font-headline);
+    font-size: 1.5rem;
+    font-style: italic;
+    margin: 60px auto; /* Aumenta o espaço vertical para dar mais destaque */
+    max-width: 700px;
+    padding: 25px 0;   /* Adiciona um respiro vertical para as bordas */
+    text-align: center;  /* <<< ALTERADO AQUI */
+    
+    /* Remove a borda esquerda e adiciona bordas no topo e na base */
+    border-top: 1px solid rgba(148, 183, 175, 0.3);
+    border-bottom: 1px solid rgba(148, 183, 175, 0.3);
+}
 .como-funciona-title { font-family: var(--font-headline); font-size: 1.8rem; text-align: center; color: var(--accent-color-2); }
 .passos-trg-container { width: 90%; max-width: 1200px; margin: 40px auto 0 auto; }
 .passos-trg { display: grid; grid-template-columns: 1fr; gap: 30px; }
