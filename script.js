@@ -2,87 +2,51 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // NOVO objeto de planos com ancoragem e preço detalhado
-const planosInfo = {
-    plus: { 
-        nome: 'PLANO PLUS', 
-        desc: 'O Ponto de Partida Para a Sua Cura', 
-        valorOriginal: 'R$ 732,00', 
-        valorVista: 'R$ 584,00', 
-        parcelas: '12x de', 
-        valorParcela: 'R$ 60,40', 
-        vagasTotal: 13, 
-        vagasDisponiveis: 0, 
-        linkCompra: 'https://pay.kiwify.com.br/3asCtd5' 
-    },
-    premium: { 
-        nome: 'PLANO PREMIUM', 
-        desc: 'A Transformação Profunda e Acelerada', 
-        valorOriginal: 'R$ 1.000,00', 
-        valorVista: 'R$ 898,00', 
-        parcelas: '12x de', 
-        valorParcela: 'R$ 92,87', 
-        vagasTotal: 9, 
-        vagasDisponiveis: 0, 
-        linkCompra: 'https://pay.kiwify.com.br/F7AddT0' 
-    },
-    master: { 
-        nome: 'PLANO MASTER', 
-        desc: 'A Imersão Completa Para a Reconstrução', 
-        valorOriginal: 'R$ 1.500,00', 
-        valorVista: 'R$ 1.296,00', 
-        parcelas: '12x de', 
-        valorParcela: 'R$ 134,04', 
-        vagasTotal: 5, 
-        vagasDisponiveis: 0, 
-        linkCompra: 'https://pay.kiwify.com.br/ofky8ml' 
-    }
-};
+    // Objeto central que guarda o estado das vagas, acessível por múltiplas funções.
+    const planosInfo = {
+        plus: { nome: 'PLANO PLUS', desc: 'O Ponto de Partida Para a Sua Cura', investimento: '10 Sessões | 1x por semana', valorOriginal: 'R$ 732,00', valorVista: 'R$ 584,00', parcelas: '12x de', valorParcela: 'R$ 60,40', vagasTotal: 13, vagasDisponiveis: 0, linkCompra: 'https://pay.kiwify.com.br/3asCtd5' },
+        premium: { nome: 'PLANO PREMIUM', desc: 'A Transformação Profunda e Acelerada', investimento: '16 Sessões | 2x por semana', valorOriginal: 'R$ 1.000,00', valorVista: 'R$ 898,00', parcelas: '12x de', valorParcela: 'R$ 92,87', vagasTotal: 9, vagasDisponiveis: 0, linkCompra: 'https://pay.kiwify.com.br/F7AddT0' },
+        master: { nome: 'PLANO MASTER', desc: 'A Imersão Completa Para a Reconstrução', investimento: '24 Sessões | 2x por semana', valorOriginal: 'R$ 1.500,00', valorVista: 'R$ 1.296,00', parcelas: '12x de', valorParcela: 'R$ 134,04', vagasTotal: 5, vagasDisponiveis: 0, linkCompra: 'https://pay.kiwify.com.br/ofky8ml' }
+    };
 
-/**
- * Função reutilizável para atualizar a caixa de oferta na tela.
- */
-function updateOfferBoxUI(planoId) {
-    const offerDetails = document.getElementById('offer-details');
-    const info = planosInfo[planoId];
-    if (!info || !offerDetails) return;
-
-    const vagasPreenchidas = info.vagasTotal - info.vagasDisponiveis;
-    const percentualPreenchido = Math.max(0, (vagasPreenchidas / info.vagasTotal) * 100);
-
-    // Estrutura HTML final e otimizada para a oferta
-    offerDetails.innerHTML = `
-        <p class="plano-selecionado">${info.nome}</p>
-        
-        <div class="price-section-rose">
-            <p class="price-old">De <del>${info.valorOriginal}</del></p>
-            <p class="price-prefix">Faça sua jornada acontecer por apenas:</p>
-            <div class="price-main">
-                <span class="price-installments">${info.parcelas}</span>
-                <span class="price-value">${info.valorParcela}</span>
-            </div>
-            <p class="price-descriptor">ou ${info.valorVista} à vista</p>
-        </div>
-
-        <div class="plano-disponibilidade">
-            URGENTE: Restam apenas <strong>${info.vagasDisponiveis}</strong> de ${info.vagasTotal} vagas para este plano.
-            <div class="progress-bar">
-                <div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div>
-            </div>
-        </div>
-        
-        <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>
-    `;
-}
     /**
- * Função para inicializar as vagas com valores aleatórios.
- */
-function initRandomVagas() {
-    // Garante um número mínimo de 2 vagas para ser mais crível
-    planosInfo.plus.vagasDisponiveis = Math.floor(Math.random() * 4) + 5; // Gera de 5 a 8 vagas
-    planosInfo.premium.vagasDisponiveis = Math.floor(Math.random() * 3) + 3; // Gera de 3 a 5 vagas
-    planosInfo.master.vagasDisponiveis = Math.floor(Math.random() * 2) + 2; // Gera 2 ou 3 vagas
-}
+     * Função reutilizável para atualizar a caixa de oferta na tela.
+     */
+    function updateOfferBoxUI(planoId) {
+        const offerDetails = document.getElementById('offer-details');
+        const info = planosInfo[planoId];
+        if (!info || !offerDetails) return;
+
+        const vagasPreenchidas = info.vagasTotal - info.vagasDisponiveis;
+        const percentualPreenchido = Math.max(0, (vagasPreenchidas / info.vagasTotal) * 100);
+
+        offerDetails.innerHTML = `
+            <p class="plano-selecionado">${info.nome}</p>
+            <div class="price-section-rose">
+                <p class="price-old">De <del>${info.valorOriginal}</del></p>
+                <p class="price-prefix">Por apenas:</p>
+                <div class="price-main">
+                    <span class="price-installments">${info.parcelas}</span>
+                    <span class="price-value">${info.valorParcela}</span>
+                </div>
+                <p class="price-descriptor">ou ${info.valorVista} à vista</p>
+            </div>
+            <div class="plano-disponibilidade">
+                URGENTE: Restam apenas <strong>${info.vagasDisponiveis}</strong> de ${info.vagasTotal} vagas para este plano.
+                <div class="progress-bar"><div class="progress-bar-inner" style="width: ${percentualPreenchido}%"></div></div>
+            </div>
+            <a href="${info.linkCompra}" class="cta-button">GARANTIR MINHA VAGA NO ${info.nome.replace('PLANO ','')}</a>
+        `;
+    }
+
+    /**
+     * Função para inicializar as vagas com valores aleatórios.
+     */
+    function initRandomVagas() {
+        planosInfo.plus.vagasDisponiveis = Math.floor(Math.random() * 4) + 5; // Gera de 5 a 8 vagas
+        planosInfo.premium.vagasDisponiveis = Math.floor(Math.random() * 3) + 3; // Gera de 3 a 5 vagas
+        planosInfo.master.vagasDisponiveis = Math.floor(Math.random() * 2) + 2; // Gera 2 ou 3 vagas
+    }
     /**
      * Função de Animação da Headline Principal
      */
