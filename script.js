@@ -279,25 +279,54 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Função da Urgência Evergreen com Data Fixa
-     */
-    function initEvergreenDeadline() {
-        const deadlineElement = document.getElementById('deadline-date');
-        if (!deadlineElement) return;
-        let deadlineString = localStorage.getItem('jornadaDeadline');
-        if (!deadlineString) {
-            const targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() + 2);
-            deadlineString = targetDate.toISOString();
-            localStorage.setItem('jornadaDeadline', deadlineString);
-        }
-        const targetDate = new Date(deadlineString);
-        const diasDaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
-        const mesesDoAno = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-        const dataFormatada = `${diasDaSemana[targetDate.getDay()]}, ${targetDate.getDate()} de ${mesesDoAno[targetDate.getMonth()]}`;
-        deadlineElement.textContent = dataFormatada;
+ * Função da Urgência Evergreen com Data Fixa (VERSÃO FINAL)
+ * Cria um prazo único por visitante e, ao expirar, troca a oferta pela lista de espera.
+ */
+function initEvergreenDeadline() {
+    const deadlineElement = document.getElementById('deadline-date');
+    if (!deadlineElement) return;
+
+    // Elementos que vamos manipular
+    const planosContainer = document.querySelector('.planos-container');
+    const offerBox = document.getElementById('offer-box');
+    const ofertaExpiradaBox = document.getElementById('oferta-expirada-box');
+    const deadlineBox = document.querySelector('.deadline-box');
+
+    // Garante que todos os elementos necessários existem
+    if (!planosContainer || !offerBox || !ofertaExpiradaBox || !deadlineBox) return;
+
+    // Função para mostrar a oferta expirada e esconder a normal
+    function showExpiredOffer() {
+        planosContainer.style.display = 'none';
+        offerBox.style.display = 'none';
+        deadlineBox.style.display = 'none';
+        ofertaExpiradaBox.classList.remove('hidden');
     }
 
+    let deadlineString = localStorage.getItem('jornadaDeadline');
+    const now = new Date();
+
+    if (!deadlineString || new Date(deadlineString) < now) {
+        const newDeadline = new Date();
+        newDeadline.setDate(now.getDate() + 3); // Define o prazo para 3 dias a partir de agora
+        deadlineString = newDeadline.toISOString();
+        localStorage.setItem('jornadaDeadline', deadlineString);
+    }
+    
+    const targetDate = new Date(deadlineString);
+
+    // Verifica imediatamente se o prazo já expirou ao carregar a página
+    if (targetDate < now) {
+        showExpiredOffer();
+        return; // Para a execução se a oferta já expirou
+    }
+
+    // Se não expirou, formata e exibe a data
+    const diasDaSemana = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
+    const mesesDoAno = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    const dataFormatada = `${diasDaSemana[targetDate.getDay()]}, ${targetDate.getDate()} de ${mesesDoAno[targetDate.getMonth()]}`;
+    deadlineElement.textContent = dataFormatada;
+}
     /**
      * Função Geral para Animações de Entrada ao Rolar
      */
