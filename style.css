@@ -162,7 +162,42 @@ main#conteudo-principal.is-visible { max-height: 20000px; opacity: 1; }
 .footer { background-color: #0d141f; color: #aaa; padding: 50px 0; text-align: center; font-size: 0.9rem; border-top: 1px solid var(--accent-color-1); }
 .footer p { margin: 5px 0; }
 .footer-disclaimer { font-size: 0.8rem; max-width: 600px; margin: 20px auto 0 auto; opacity: 0.7; }
+/* --- ESTILOS DO ESTADO DE OFERTA EXPIRADA --- */
 
+/* Esconde o elemento por padrão */
+.hidden {
+    display: none;
+}
+
+#oferta-expirada-box {
+    margin-top: 50px;
+    padding: 40px;
+    border: 2px dashed var(--accent-color-1);
+    border-radius: 10px;
+    text-align: center;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#oferta-expirada-box h3 {
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.whatsapp-button {
+    background-color: #25D366; /* Cor do WhatsApp */
+    color: #fff;
+    font-weight: 700;
+    border: 2px solid #25D366;
+}
+
+.whatsapp-button:hover {
+    background-color: #128C7E;
+    border-color: #128C7E;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+}
 /* --- ESTILOS DA PÁGINA DE OBRIGADO (LAYOUT DE ROLAGEM) --- */
 
 .obrigado-body {
