@@ -1,4 +1,18 @@
 /* static/css/style.css (VERSÃO FINAL E DEFINITIVA) */
+/* --- CONFIGURAÇÕES GLOBAIS E FONTES --- */
+@font-face {
+    font-family: 'Bachelors Display';
+    /* Aponte para o local correto do seu arquivo de fonte */
+    src: url('fonts/Bachelors Display.ttf') format('ttf'); 
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Comfortaa';
+    /* Aponte para o local correto do seu arquivo de fonte */
+    src: url('fonts/Comfortaa-Regular.ttf') format('ttf'); 
+    font-weight: normal;
+}
 
 /* --- CONFIGURAÇÕES GLOBAIS E FONTES --- */
 :root {
@@ -7,7 +21,7 @@
     --accent-color-1: #3570a1;
     --accent-color-2: #94b7af;
     --font-primary: 'Comfortaa', sans-serif;
-    --font-headline: 'Cinzel', serif;
+    --font-headline: 'Bachelors Display', serif;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
